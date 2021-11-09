@@ -1,0 +1,5 @@
+JAVA_PATH /usr/local/java/jdk
+
+If you've upgraded Java manually by downloading a more recent copy of
+the JDK or JRE, you might need this.  If you change this, make sure
+you change PATH as well.

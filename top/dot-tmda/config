@@ -1,0 +1,48 @@
+# -*- python -*-
+
+# sample.config - Sample configuration file for TMDA.
+#
+# $Revision: 1.2+1 $ $Date: 2009/07/08 22:54:58 $
+# $UUID: 6a4b92c1-e9ea-37e1-bf00-1070d49bb0f7 $
+#
+# See http://tmda.net/config-vars.html for descriptions of all
+# the available options.
+#
+# NOTE: ~/.tmda/config must be chmod 400 or chmod 600 !
+
+#################################################################
+# Non-qmail/Courier required variables; required only for
+# non-qmail/Courier users
+#
+# Uncomment one line from each section.
+#
+# Please read http://tmda.net/config-vars.html for more information
+# on these variables.
+#################################################################
+
+# When qmail is receiving the message.
+## RECIPIENT_DELIMITER = "-"
+# When postfix is receiving the message.
+RECIPIENT_DELIMITER = "+"
+
+# My mail host
+HOSTNAME = "pobox.com"
+
+# Time-out message in 14 days
+DATED_TIMEOUT = "2w"
+
+# If needed
+#MAIL_TRANSPORT = "smtp"
+#SMTPHOST = "your.smtp-relay.com"
+
+######################################################################
+# No other variables are required, but you may be interested in
+# further customization.  See http://tmda.net/config-vars.html for
+# more information on the other available configuration variables.
+# Here are examples of some recommended configuration variables.
+######################################################################
+
+#CONFIRM_APPEND = os.path.expanduser("~/.tmda/lists/confirmed")
+#LOGFILE_DEBUG = os.path.expanduser("~/.tmda/logs/debug")
+#LOGFILE_INCOMING = os.path.expanduser("~/.tmda/logs/incoming")
+#LOGFILE_OUTGOING = os.path.expanduser("~/.tmda/logs/outgoing")

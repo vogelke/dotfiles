@@ -1,0 +1,41 @@
+# Set up terminal
+#
+# $Revision: 2.4 $ $Date: 2020-10-10 01:50:05-04 $
+# $Source: /doc/sitelog/hairball/basic-files/vogelke/tcsh/RCS/dot-login,v $
+# $Host: hairball.my.domain $
+# $UUID: 18757b63-fab8-4344-b7f0-3adaeaf94afe $
+#
+# at386 works ok, but vt100 is much better.
+setenv TERM xterm-256color
+
+# DoD login banner.
+if ( -e $HOME/.hushlogin ) then
+    if ( -e /etc/banner ) then
+        cat /etc/banner
+    endif
+endif
+
+# --------------------------------------------------------------------
+# This was the original setting.
+##setenv TERMINFO $HOME/terminal/at386.termcap
+
+# I installed a modern termcap/terminfo library matching the one
+# used on other servers.
+if ( -d /usr/local/share/terminfo ) then
+    setenv TERMINFO /usr/local/share/terminfo
+endif
+
+if ( -d $HOME/terminfo ) then
+    setenv TERMINFO $HOME/terminfo
+endif
+
+# --------------------------------------------------------------------
+## Use this when connecting from an XTERM session.
+# setenv TERM xterm-color
+test -f $HOME/.lessenv.csh && source $HOME/.lessenv.csh
+
+# Look for saved stty settings (stty -g).
+if ( -e $HOME/.stty ) then
+    echo restoring saved stty settings...
+    stty `cat $HOME/.stty`
+endif

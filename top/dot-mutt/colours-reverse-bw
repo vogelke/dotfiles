@@ -1,0 +1,15 @@
+# https://dev.mutt.org/trac/wiki/MuttFaq/Appearance
+#
+# $Revision: 1.1 $ $Date: 2016-11-21 15:57:25-05 $
+# $Source: /home/vogelke/.mutt/RCS/colours-reverse-bw,v $
+# $Host: furbag.my.domain $
+# $UUID: 0cb7907b-4b71-469d-b995-7d062c748cf1 $
+
+# For example, the following would fairly closely mimic the default value of
+# "reverse" on a standard black-on-white xterm
+# (or one could go ahead and use colors other than black and white).
+
+color status    white black 
+color indicator white black
+color search    white black 
+color markers   white black 

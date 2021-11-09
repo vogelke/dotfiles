@@ -1,0 +1,84 @@
+Mon, 2 Oct 2017
+
+Initialization
+
+    Taken from the manpage:
+
+    --------------------------------------------------------------------S
+    INITIALIZATION
+      During initialization, fvwm searches for a configuration file which
+      describes key and button bindings, and many other things.  The format
+      of these files is described later.  Fvwm first searches for
+      configuration files using the command
+
+          Read config
+
+      This looks for file config in $FVWM_USERDIR and $FVWM_DATADIR
+      directories, as described in Read.  If this fails more files are
+      queried for backward compatibility.  Here is the complete list of all
+      file locations queried in the default installation (only the first
+      found file is used):
+
+          $HOME/.fvwm/config
+          /usr/local/share/fvwm/config
+
+          $HOME/.fvwm/.fvwm2rc
+          $HOME/.fvwm2rc
+          /usr/local/share/fvwm/.fvwm2rc
+          /usr/local/share/fvwm/system.fvwm2rc
+          /etc/system.fvwm2rc
+
+      Please note, the last 5 locations are not guaranteed to be supported in
+      the future.
+    --------------------------------------------------------------------E
+
+    So do it the recommended way, and create $HOME/.fvwm/config file.
+    Use just basic stuff first (focus settings, etc) and get clever later.
+
+    I'll try Eric's basic setup, inherited from the last time I used this
+    back in 2001.  Nice borders on windows, xterm display looks better, but
+    I need the multiple desktop display at the bottom of the screen.
+
+Moving apps between desktops
+
+    Also need something to let me move an app from one desktop to another.
+    http://www.fvwmforums.org/phpBB3/viewtopic.php?t=2095
+
+    --------------------------------------------------------------------S
+    DestroyMenu MenuFvwmSendTo
+    AddToMenu MenuFvwmSendTo
+        + "Prev"          MoveAndGotoPagePrev
+        + "Next"          MoveAndGotoPageNext
+        +  "Desk &1"      MoveToPage 0 0
+        +  "Desk &2"      MoveToPage 1 0
+        +  "Desk &3"      MoveToPage 2 0
+        +  "Desk &4"      MoveToPage 3 0
+
+    DestroyFunc MoveAndGotoPagePrev
+    AddToFunc MoveAndGotoPagePrev
+        + I MoveToPage wrapx -1w 0
+        + I GotoPage wrapx -1w 0
+
+    DestroyFunc MoveAndGotoPageNext
+    AddToFunc MoveAndGotoPageNext
+        + I MoveToPage wrapx +1w 0
+        + I GotoPage wrapx +1w 0
+    --------------------------------------------------------------------E
+
+Switching between windows
+
+    Now using 1 row/4 columns for the desktop setup, so all the config
+    settings for switching between windows, etc. had to change:
+
+    --------------------------------------------------------------------S
+    < Key F2          A       N       GotoPage 0 1
+    < Key F3          A       N       GotoPage 0 2
+    < Key F4          A       N       GotoPage 0 3
+    ---
+    > Key F2          A       N       GotoPage 1 0
+    > Key F3          A       N       GotoPage 2 0
+    > Key F4          A       N       GotoPage 3 0
+    --------------------------------------------------------------------E
+
+    Unfortunately, I broke the hints for firefox and evince about where
+    to start.  Not sure if "Style" settings work when you restart FVWM.

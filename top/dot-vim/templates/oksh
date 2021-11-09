@@ -1,0 +1,14 @@
+#!/bin/ksh
+#<scriptname: do something
+
+export PATH=/usr/local/bin:/bin:/sbin:/usr/sbin:/usr/bin
+tag=${0##*/}
+umask 022
+
+logmsg () { echo "$(date '+%F %T') $tag: $@"; }
+die ()    { logmsg "FATAL: $@"; exit 1; }
+
+logmsg start
+die 'something wrong here'
+logmsg should not get here
+exit 0

@@ -1,0 +1,91 @@
+" Basic settings.
+
+set autowrite       " save modified file if you suspend your session.
+set autoindent      " copy indent from current line for new lines.
+set noremap         " don't let key mappings work recursively.
+set nobackup        " don't make automatic backups, I'll handle that.
+set redraw          " redraw screen when VIM starts.
+set wm=2            " wrap line when 2 chars from right border.
+set writeany        " allow writing a file without checking its mode.
+set shell=/bin/sh   " use this shell for external commands.
+set directory=/tmp  " where your edit recovery file goes.
+set nomodeline      " for security.
+
+" Status line with ASCII value of char under cursor.
+set ls=2
+set statusline=%F%h%m%r%=chr:0x%B\ \ %l,%c%V\ %P
+
+" Basic key mappings
+map   <Esc>Ox k
+map   <Esc>Or j
+map   <Esc>Ov l
+map   <Esc>Ot h
+map   ;   >>
+map   =   <<
+map   g   <C-Z>
+map   V   }jmbk{ma}:'a,.!fmt -1\|fmt<CR>'b
+map   q   z.
+
+" Print a ruler - just use "u" (undo) to get rid of it.
+map   E o<Esc>i....+....1....+....2....+....3....+....4....+....5....+....6....+....7....+<Esc>
+
+" ------------------------------------------------------------------
+" Date and time abbreviations
+
+" Insert a new line and type 'Date: ,d' without quotes to get a
+" timestamp at the current position.
+inoremap ,d <C-R>=strftime("%a, %d %b %Y %T %z")<CR>
+
+" How to pipe the current line through a program that expects a
+" string as an argument (there are MUCH smarter ways of doing this):
+map ,t :.!sh -c 'line=`cat`; date -d "$line"'<CR>
+
+if has("unix")
+    ab _day <c-r>=strftime("%a, %d %b %Y")<CR>
+    ab _date <c-r>=strftime("%a, %d %b %Y %X %z")<CR>
+    ab _time <c-r>=strftime("%H:%M:%S")<CR>
+
+    iab _day <c-r>=strftime("%a, %d %b %Y")<CR>
+    iab _date <c-r>=strftime("%a, %d %b %Y %X %z")<CR>
+    iab _time <c-r>=strftime("%H:%M:%S")<CR>
+endif
+
+" ------------------------------------------------------------------
+" To set N-char indentation used when you hit the tab key in vim
+" (what Emacs calls c-basic-offset):
+set shiftwidth=4
+
+" To cause the TAB file-character to be displayed as N characters
+" in vim (what Emacs calls tab-width):
+set tabstop=4
+
+" To cause TAB characters to not be used in the file for compression,
+" and for only spaces to be used (what emacs calls indent-tabs-mode):
+set expandtab
+
+" ------------------------------------------------------------------
+" http://www.mail-archive.com/vim@vim.org/msg10982.html
+"
+" This function checks if a line contains the string "Last Modified:".
+" If it does, it appends the current date at that position (or replaces
+" the previous date, if it exists).  It also updates an RCS "Id" string
+" with the number of edits performed since you last checked the file in.
+" We only check the first and last 5 lines instead of the whole document.
+
+autocmd BufWritePre * ks|call TimeStamp()|'s
+
+function! TimeStamp()
+ if &modified
+   let lines = line("$") < 5 ? line("$") : 5
+   let pattern1 = '\(Last [Mm]odified:\).*'
+   let replace1 = '\1' . strftime(" %a, %d %b %Y %T %z")
+   execute printf('1,%ds/\C\m%s/%s/e', lines, pattern1, replace1)
+   execute printf('$-%d+1,$s/\C\m%s/%s/e', lines, pattern1, replace1)
+   let pattern2 = '\( \f\+ \d\+\.\d\+\(\.\d\+\.\d\+\)*\)\(+\(\d\+\)\)\?'
+   let replace2 = '\=submatch(1) . "+" . (submatch(4) + 1)'
+   execute printf('1,%ds/\C\m%s/%s/e', lines, pattern2, replace2)
+   execute printf('$-%d+1,$s/\C\m%s/%s/e', lines, pattern2, replace2)
+ endif
+endfunction
+
+" EOF --------------------------------------------------------------

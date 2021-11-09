@@ -1,0 +1,44 @@
+# http://curl.haxx.se/docs/manual.html
+#
+# $Revision: 1.4+2 $ $Date: 2018-06-26 17:32:53-04 $
+# $Source: /home/vogelke/RCS/.curlrc,v $
+# $Host: furbag.my.domain $
+# $UUID: b6ce30e0-218c-51ce-9401-2234c199c4ca $
+#
+# Curl automatically tries to read the .curlrc file (or _curlrc file
+# on win32 systems) from the user's home dir on startup.
+#
+# The config file could be made up with normal command line switches,
+# but you can also specify the long options without the dashes to make
+# it more readable.  You can separate the options and the parameter
+# with spaces, or with = or :.  Comments can be used within the file.
+# If the first letter on a line is a '#'-symbol the rest of the line
+# is treated as a comment.
+#
+# If you want the parameter to contain spaces, you must enclose the
+# entire parameter within double quotes (").  Within those quotes,
+# you specify a quote as \".
+#
+# You must specify options and their arguments on the same line.
+# White spaces ARE significant at the end of lines, but all white
+# spaces leading up to the first characters of each line are ignored.
+#
+# Prevent curl from reading the default file by using -q as the first
+# command line parameter, like:
+#     curl -q www.thatsite.com
+
+# Force curl to display a local help page in case of usage error.
+## url = "http://your.site.com/curlhelp.txt"
+
+# User agent -- use double-quotes!  This one also works:
+# "Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0"
+user-agent = "Mozilla/5.0 (X11; U; SunOS i86pc; en-US; rv:45.5) Gecko/20100101 Firefox/45.5"
+
+# Proxy server.
+# proxy = http://proxy.server.com:8080/
+
+# Don't use proxy for these hosts.
+# noproxy = your.site.com
+
+# Where to find certs.
+capath = "/usr/local/ssl/certs"

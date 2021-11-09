@@ -1,0 +1,28 @@
+if pwd | grep "$HOME/hints" > /dev/null; then
+    /bin/cat <<- EndHelp
+@FILENAME@
+===============
+
+Basic info here.
+
+-   How to do xxx
+
+Description of xxx
+EndHelp
+
+else
+
+    /bin/cat <<- EndText
+Title: @FILENAME@
+Date:  $(date '+%F %T')
+
+xxx
+
+# -------------------------------------------------------------------------
+# \$Revision: 1.1+3 \$ \$Date: $(date '+%F %T%:::z') \$
+# \$Source: $PWD \$
+# \$Host: $(hostname).$DOMAIN \$
+# \$UUID: $(uuidgen) \$
+EndText
+
+fi

@@ -1,0 +1,24 @@
+# -*- muttrc -*-
+#
+# $Revision: 1.2 $ $Date: 2020-07-06 23:17:59-04 $
+# $Source: /home/vogelke/.mutt/RCS/fcc-hooks,v $
+# $Host: furbag.my.domain $
+# $UUID: 21e2e052-f1bc-40b8-8a1c-3e2609e1dc5f $
+#
+# Fcc hooks, everything else goes to =outbox
+
+fcc-hook ftp@demon\.net                                          =batchftp
+fcc-hook garble-.*@.*\.sourceforge\.net                          /dev/null
+fcc-hook lbc@.*linuxemporium\.co\.uk                             /dev/null
+fcc-hook librep-list@.*\.sourceforge\.net                        /dev/null
+fcc-hook mutt-users@(.*cs\.hmc\.edu|mutt\.org|gbnet\.net)        /dev/null
+fcc-hook peterboro@mailman\.lug\.org\.uk                         /dev/null
+fcc-hook stormcock@(steamradio\.com|mistlethrush\.co\.uk)        /dev/null
+fcc-hook (clocc|cclan)-list@lists\.sourceforge\.net              /dev/null
+fcc-hook debian-.*@lists\.debian\.org                            /dev/null
+fcc-hook spamprobe-users@lists\.sourceforge\.net                 /dev/null
+fcc-hook ecls-list@lists\.sourceforge\.net                       /dev/null
+fcc-hook uk-lispers@cathouse\.bofh\.se                           /dev/null
+fcc-hook dict-beta@dict\.org                                     /dev/null
+fcc-hook .*                                                      =outbox
+

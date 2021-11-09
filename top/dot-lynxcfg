@@ -1,0 +1,129 @@
+# lynx.cfg
+# Definition pairs are of the form VARIABLE:DEFINITION
+# NO spaces are allowed between the pair items.
+#
+# $Revision: 1.6+9 $ $Date: 2019-11-26 20:57:55-05 $
+# $Source: /home/vogelke/RCS/.lynxcfg,v $
+# $Host: furbag.my.domain $
+# $UUID: 198a0347-0b4c-4341-b004-1a690e0f5e86 $
+#
+# Use the default setup, then put in your own tweaks.
+
+INCLUDE:/usr/local/etc/lynx.cfg
+
+# Lynx version 2.2 and beyond supports the use of proxy servers
+# that can act as firewall gateways and caching servers.  They are
+# preferable to the older gateway servers.  Each protocol used by
+# Lynx can be mapped separately using PROTOCOL_proxy environment
+# variables (see Lynx Users Guide).  If you have not set them
+# externally, you can set them at run time via this configuration
+# file.  They will not override external settings.  The no_proxy
+# variable can be used to inhibit proxying to selected regions
+# of the Web (see below).  Note that on VMS these proxy variables
+# are set as process logicals rather than symbols, to preserve
+# lowercasing, and will outlive the Lynx image.
+
+#http_proxy:http://your.proxy.com:8080/
+
+# The no_proxy variable can be a comma-separated list of strings
+# defining no-proxy zones in the DNS domain name space.  If a tail
+# substring of the domain-path for a host matches one of these
+# strings, transactions with that node will not be proxied.
+
+# Save persistent cookies, and accept the ones from Google.
+
+cookie_file:~/.lynx_cookies
+cookie_accept_domains:www.google.com
+cookie_accept_domains:smile.amazon.com
+cookie_accept_domains:www.amazon.com
+persistent_cookies:true
+
+# 'q' means quit.
+
+quit_default_yes:true
+KEYMAP:q:ABORT
+
+# The Integer value is interpreted as follows:
+#   0 - normal                      - normal text
+#   1 - bold                        - hyperlinks, see also BOLD_* options above
+#   2 - reverse                     - statusline
+#   3 - bold + reverse              (not used)
+#   4 - underline                   - text emphasis (EM, I, B tags etc.)
+#   5 - bold + underline            - hyperlinks within text emphasis
+#   6 - reverse + underline         - currently selected hyperlink
+#   7 - reverse + underline + bold  - WHEREIS search hits
+#
+# Each Foreground and Background value must be one of:
+#   black         red            green         brown
+#   blue          magenta        cyan          lightgray
+#   gray          brightred      brightgreen   yellow
+#   brightblue    brightmagenta  brightcyan    white
+#
+# ** NOTE: Color schemes only work when LYNX_LSS="/dev/null" **
+
+# Not bad.  DARK in console mode.
+#COLOR:0:lightgray:blue
+#COLOR:1:yellow:blue
+#COLOR:2:black:brightcyan
+#COLOR:3:green:white
+#COLOR:4:white:blue
+#COLOR:5:cyan:blue
+#COLOR:6:black:cyan
+#COLOR:7:white:brightred
+
+# https://stackoverflow.org/wiki/Lynx_Config with mods is nice.
+# VERY bright in command-line (console) mode.
+COLOR:0:black:white
+COLOR:1:red:white
+COLOR:2:yellow:blue
+COLOR:3:green:black
+COLOR:4:green:black
+COLOR:5:green:black
+COLOR:6:yellow:red
+COLOR:7:magenta:cyan
+
+# Completely plain.
+#COLOR:0:black:white
+#COLOR:1:black:white
+#COLOR:2:black:white
+#COLOR:4:black:white
+#COLOR:5:black:white
+#COLOR:6:black:black
+#COLOR:7:black:white
+
+DEFAULT_COLORS:off
+COLOR_STYLE:
+
+# Unfortunately, setting a different useragent doesn't work from
+# within the config file - do this from the command line.
+## useragent:"Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0"
+
+# If AUTO_SESSION is TRUE lynx will save/restore useful information about
+# your browsing history when closing/starting current lynx session if
+# no command-line session switches override this setting.
+# This setting is useful only if SESSION_FILE is defined here or in the user's
+# .lynxrc file.
+auto_session:true
+
+# SESSION_FILE defines the file name where lynx will store user sessions.
+# This setting is used only when AUTO_SESSION is true.
+# Note: the default setting will store/resume each session in a different
+# folder under same file name (if that is allowed by operating system)
+# when lynx is invoked from different directories.
+# (The current working directory may be changed inside lynx)
+#
+# If you want to use the same session file wherever you invoke Lynx,
+# enter the full path below, eg '/home/<username>/.lynx_session'.
+session_file:/home/vogelke/lynx_session
+
+# SESSION_LIMIT defines maximum number of:  searched strings, goto URLs,
+# visited links and history entries which will be saved in session file.  The
+# minimum allowed is 1, the maximum is 10000.
+#
+# For instance, if SESSION_LIMIT is 250, a per-session limit of 250 entries of
+# searched strings, goto URLs, visited links and history entries will be saved
+# in the session file.
+#
+# There is no fixed limit on the number of entries which can be restored;
+# It is limited only by available memory.
+session_limit:1000

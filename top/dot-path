@@ -1,0 +1,4 @@
+PATH $HOME/bin:$HOME/go/bin:/usr/local/bin:/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/sbin
+
+If you change the java path here, make sure the .javapath file has
+the equivalent changes.

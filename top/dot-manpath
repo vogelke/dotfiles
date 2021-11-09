@@ -1,0 +1,9 @@
+MANPATH /usr/local/man:/usr/local/perl/man:/usr/local/lib/perl5/site_perl/man:/usr/share/man
+
+Try "man --path" if you can't come up with a decent setting.
+To test:
+
+for dir in $(echo $MANPATH | tr ':' '\040')
+do
+    test -d "$dir" && echo $dir
+done

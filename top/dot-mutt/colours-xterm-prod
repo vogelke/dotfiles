@@ -1,0 +1,27 @@
+# Works very well under xterm.
+#
+# $Revision: 1.2+5 $ $Date: 2016-11-21 15:21:13-05 $
+# $Source: /home/vogelke/.mutt/RCS/colours-xterm-prod,v $
+# $Host: furbag.my.domain $
+# $UUID: 26945280-0457-11e3-852d-00242183ec74 $
+
+color  normal     black     white
+#color  attachment black     yellow
+#color  hdrdefault black     cyan
+#color  indicator  black     cyan
+#color  markers    black     red
+color  quoted     black     brightgreen
+#color  signature  cyan      black
+color  status     black     green
+color  tilde      blue      black
+color  tree       black     cyan
+#
+#color  index      black     cyan  ~D
+#color  index      black     cyan  ~T
+color  header     black     brightcyan  ^
+
+# Email addresses
+#color  body  black     red   [\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+
+
+# URLs
+#color  body  black     yellow (https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+

@@ -1,0 +1,9 @@
+# Bash logout commands.
+#
+# $Revision: 1.6 $ $Date: 2020-10-10 01:06:20-04 $
+# $Source: /doc/sitelog/hairball/basic-files/vogelke/bash/RCS/dot-bash_logout,v $
+# $Host: hairball.my.domain $
+# $UUID: a2b9f98c-a9b9-31d0-87da-e6becf59d568 $
+ 
+test -f $HOME/.current && rm $HOME/.current
+echo "current=$current"	> $HOME/.current

@@ -1,0 +1,27 @@
+# ZSH startup.
+#
+# $Revision: 2.6+1 $ $Date: 2020-10-10 01:52:40-04 $
+# $Source: /doc/sitelog/hairball/basic-files/vogelke/zsh/RCS/dot-zshrc,v $
+# $Host: hairball.my.domain $
+# $UUID: da56ec7f-14be-39b5-8583-d31b5afb80eb $
+#
+source $HOME/.zsh/init.zsh
+source $HOME/.zsh/colors.zsh
+source $HOME/.zsh/setopt.zsh
+source $HOME/.zsh/exports.zsh
+source $HOME/.zsh/prompt.zsh
+source $HOME/.zsh/completion.zsh
+source $HOME/.zsh/aliases.zsh
+source $HOME/.zsh/bindkeys.zsh
+source $HOME/.zsh/functions.zsh
+source $HOME/.zsh/history.zsh
+source $HOME/.zsh/hooks.zsh
+
+case "$SCREEN" in
+    "") ;;  # not running screen
+    *)  export TERM=screen-256color ;;
+esac
+
+# Load NVM
+export NVM_DIR="/usr/local/nvm"
+test -s "$NVM_DIR/nvm.sh" && \. "$NVM_DIR/nvm.sh"

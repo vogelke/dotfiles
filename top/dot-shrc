@@ -1,0 +1,42 @@
+# .shrc - bourne shell startup file 
+#
+# $Revision: 1.2+3 $ $Date: 2021-11-05 01:12:43-04 $
+# $Source: /home/vogelke/RCS/.shrc,v $
+# $Host: furbag.my.domain $
+# $UUID: f7407a7b-1040-4d57-b470-8d2572f24f33 $
+#
+# This file will be used if the shell is invoked for interactive use and
+# the environment variable ENV is set to this file.
+
+# file permissions: rwxr-xr-x
+umask 022
+
+# prompt -- internal newline doesn't work, naturally.
+export PS1='
+me% '
+
+predirs="$HOME/bin /usr/local/bin /usr/local/sbin"
+postdirs="/usr/lib/golang/bin $HOME/go/bin"
+cur='/bin /usr/bin /sbin'
+npath=
+
+for d in $predirs $cur $postdirs ; do
+    if test -d "$d"
+    then
+        case "$npath" in
+            "") npath="$d" ;;
+            *)  npath="$npath:$d" ;;
+        esac
+    fi
+done
+
+export PATH=$npath
+
+# If running screen, print a reminder about saving hardcopy.
+
+if test -n "$STY"; then
+    # we are inside GNU screen
+    screenpid=${STY%%.*}
+    screenname=${STY#*.}
+    echo 'Use Ca-Ch to save hardcopy before exit!'
+fi

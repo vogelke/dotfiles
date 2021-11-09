@@ -1,0 +1,29 @@
+#
+# $Revision: 1.5 $ $Date: 2010-06-28 17:55:01-04 $
+# $Source: /home/vogelke/RCS/.lesskey,v $
+# $Host: furbag.my.domain $
+# $UUID: 2db01ce7-8355-3b48-ba26-9a54ff82441a $
+#
+# .lesskey: input file to lesskey.
+# usage: run lesskey to set up special keys for "less".
+# Blank lines and lines which start with a pound sign (#) are ignored.
+#
+x      quit
+X      quit
+\e[C   next-file
+\e[D   prev-file
+\eOC   next-file
+\eOD   prev-file
+#
+# By default, \e[ is left-scroll. However, the inclusion of \e[C above
+# seems to have disabled \e[ (sort of understandable). So I add \e< as
+# a synonym for left-scroll and \e> as a synonym for right-scroll.
+\e<    left-scroll
+\e>    right-scroll
+#
+# N = go to next file
+# backspace, delete go back one screen.
+#
+N      next-file
+\b     back-screen
+\kx    back-screen

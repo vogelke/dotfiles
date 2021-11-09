@@ -1,0 +1,192 @@
+# Bash initialization.
+#
+# $Revision: 1.16 $ $Date: 2020-10-10 01:06:20-04 $
+# $Source: /doc/sitelog/hairball/basic-files/vogelke/bash/RCS/dot-bashrc,v $
+# $Host: hairball.my.domain $
+# $UUID: a1e6f501-565c-570c-8852-13c33d5dc3c4 $
+#
+# Default file protection and shell/environment variables.
+ 
+umask 22
+history=2000
+savehist=2000
+noclobber=yes
+notify=yes
+ignoreeof=2
+
+# CSH junkies
+alias unsetenv=unset
+setenv () {
+    export $1="$2"
+}
+
+test -x $HOME/bin/buildenv    && $HOME/bin/buildenv
+test -f $HOME/.envrc.sh       && source $HOME/.envrc.sh
+test -f $HOME/.bash_dircolors && source $HOME/.bash_dircolors
+test -f $HOME/.current        && source $HOME/.current
+test -f $HOME/.path           && setenv $(head -1 ~/.path)
+
+# Disable some commands that are also programs on our system.
+
+enable -n help typeset
+
+# Set auto_resume if you want to resume on "emacs", as well as on
+# "%emacs".
+
+auto_resume=
+
+# Make it so that failed 'exec' commands don't flush this shell.
+
+no_exit_on_failed_exec=
+
+# Set some frequently-accessed directories.
+
+b=/doc/html/htdocs/blog/posts
+h=/doc/html/htdocs
+l=/usr/local/lib
+
+# Set your aliases.
+
+if test -f $HOME/.bashalias; then
+    source $HOME/.bashalias
+else
+    echo "$HOME/.bashalias not found, check your aliases."
+fi
+
+# Sets up your prompt to include your current working directory.
+# Also sets any aliases needed to alter the prompt when your current
+# working directory changes.
+ 
+tty=$(tty)
+
+case "$?" in
+    0)  TTY="$(echo $tty | cut -c6-)"
+        PS1="\n(\d \t) [\w]\n\u at \h.$TTY ($SHLVL-\!)\$ "
+        PS2="> "
+        ;;
+    *)  ;;        # no terminal
+esac
+
+# https://jichu4n.com/posts/debug-trap-and-prompt_command-in-bash/
+# Combining the DEBUG trap and PROMPT_COMMAND
+# Chuan Ji
+# June 8, 2014
+# Keep a log of commands run.
+
+# This will run before any command is executed.
+function PreCommand() {
+  if [ -z "$AT_PROMPT" ]; then
+    return
+  fi
+  unset AT_PROMPT
+
+  # Do stuff.
+  # echo "PreCommand"
+}
+trap "PreCommand" DEBUG
+
+# This will run after the execution of the previous full command line.
+# We don't want PostCommand to execute when first starting a bash
+# session (i.e., at the first prompt).
+FIRST_PROMPT=1
+function PostCommand() {
+  local rc=$?
+  AT_PROMPT=1
+
+  if [ -n "$FIRST_PROMPT" ]; then
+    unset FIRST_PROMPT
+    $HOME/libexec/bashlog $$: START
+    return
+  fi
+
+  # Do stuff.
+  local _x
+  _x=$(fc -ln 0 | tr -d '\011')
+  local _d="$(/bin/pwd)"
+  $HOME/libexec/bashlog $$: $rc: $_d:$_x
+}
+PROMPT_COMMAND="PostCommand"
+
+# -------------------------------------------------------------------
+# Shell functions and associated aliases.  Most of these functions
+# take the place of aliases that required arguments.
+
+up () {
+    cd ../$*
+}
+
+upp () {
+    cd ../../$*
+}
+
+# "repeat" command; unlike zsh, cannot pass command in as an argument
+# or you get errors like this:
+#      repeat 2 perl -we'print "Hello\n"'
+#      Use of uninitialized value $_ in print at -e line 1.
+repeat () {
+    read -erp "$PS2" func
+    local integer i=0
+    while ((i++ < ${1:-1}))
+    do
+        eval "$func"
+    done
+}
+
+# if you don't have GNU utilities.
+## seq () { 
+##     local lower upper output;
+##     lower=$1 upper=$2;
+##     while [ $lower -le $upper ];
+##     do
+##         output="$output $lower";
+##         lower=$[ $lower + 1 ];
+##     done;
+##     echo $output
+## }
+
+# track directories used, and flip to common ones quickly.
+cd () {
+    builtin cd "$@"
+    /bin/pwd >> ~/.bashdir.new
+}
+
+## g () {
+##     cat $HOME/.bashdir
+##     local prompt="dir: "
+##     local ans=$(grabchars -d0 -L -c '[0-9a-zA-Z]' -q"$prompt")
+##     set X $(grep "^$ans" $HOME/.bashdir)
+##     case "$#" in
+##         (3) builtin cd $3 && pwd ;;
+##         (*) echo no such entry ;;
+##     esac
+## }
+
+# toggle history files used -- this is run once to
+# set it to the default.
+_hstate='saved'
+
+thist () {
+    local _hdefault="$HOME/.bash_history"
+    local _hsaved="$HOME/.bash_saved"
+
+    case "$_hstate" in
+        default)
+            _hstate='saved'
+            history -c; history -r $_hsaved; HISTIGNORE=":*"
+            ;;
+
+        *)
+            _hstate='default'
+            history -c; history -r $_hdefault; HISTIGNORE=""
+            ;;
+    esac
+    echo "History: switching to $_hstate"
+}
+
+thist
+
+# Keep the last command including any quotes.
+hkeep () {
+    local _hsaved="$HOME/.bash_saved"
+    history -p '!!' >> $_hsaved
+}

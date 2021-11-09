@@ -1,0 +1,37 @@
+cat <<- EndTemplate
+<!DOCTYPE html>
+<!--
+  \$Revision: 1.1+2 \$ \$Date: $(date '+%F %T%:::z') \$
+  \$Source: $PWD \$
+  \$Host: $(hostname).$DOMAIN \$
+  \$UUID: $(uuidgen) \$
+-->
+<html>
+<head>
+  <title>@FILENAME@</title>
+  <link rel="stylesheet" type="text/css" href="style.css" />
+  <style type="text/css">
+  /* <![CDATA[ */
+    * {
+      margin:           0;
+      padding:          0;
+    }
+
+    body {
+      background:       white;
+      color:            black;
+      margin-left:      10%;
+      margin-right:     10%;
+    }
+  /* ]]> */
+  </style>
+</head>
+
+<!-- Put some examples in here if you like -->
+<body>
+  <h1>H1 header</h1>
+  <h2>H2 header</h2>
+  <h3>H3 header</h3>
+</body>
+</html>
+EndTemplate

@@ -1,0 +1,240 @@
+!--------------------------------------------------------------------------
+! URxvt
+! http://wiki.afterstep.org/index.php?title=Rxvt-Unicode_Configuration_Tutorial
+! transparency - true or false (default)
+URxvt*transparent: true
+
+! tint with any color; i.e., blue, red, tomato4, olivedrab2, etc.
+! some nice listings are at:
+!     http://www.nisrv.com/drupal/?q=node/11
+!     http://www.htmlgoodies.com/tutorials/colors/article.php/3478921
+URxvt*tintColor: Blue
+
+! set TERM properly.
+URxvt*loginShell:  false
+URxvt*termName:    rxvt-unicode
+
+! shading - 0 to 99 darkens, 101 to 200 lightens.
+!   Do not use with tintColor; just use a darker or lighter color instead.
+!URxvt*shading: 40
+
+! scrollback buffer lines - 65535 is max on most machines (64 is default)
+URxvt*saveLines: 12000
+
+! colour of the border around the text area and between the
+! scrollbar and the text.
+URxvt*borderColor: White
+
+! font color (default is black)
+!URxvt*foreground: White
+
+! background color (prior to tinting) (default is white)
+!URxvt*background: Blue
+
+! Xft (X FreeType) with Bitstream, DejaVu, Liberation, or Terminus fonts:
+!  Fedora/debian packages: libXft/libxft2
+!  An anti-aliased font setup with Xft looks fantastic; it can be a bit choppy
+!  on older systems. You can always turn off anti-aliasing (antialias=false) if
+!  your terminal is sluggish. Use only ONE of the Xft pairs below:
+!
+! Xft: Bitstream fonts
+!  Fedora/debian packages: bitstream-vera-sans-mono-fonts/ttf-bitstream-vera
+URxvt*font: xft:Bitstream Vera Sans Mono:pixelsize=18:antialias=true:hinting=true
+URxvt*boldFont: xft:Bitstream Vera Sans Mono:bold:pixelsize=18:antialias=true:hinting=true
+!
+! Xft: DejaVu fonts
+!  Fedora/debian packages: dejavu-sans-mono-fonts/ttf-dejavu
+!URxvt*font: xft:DejaVu Sans Mono:pixelsize=12:antialias=true:hinting=true
+!URxvt*boldFont: xft:DejaVu Sans Mono:bold:pixelsize=12:antialias=true:hinting=true
+!
+! Xft: Liberation fonts
+!  Fedora/debian packages: liberation-mono-fonts/ttf-liberation
+!URxvt*font: xft:Liberation Mono:pixelsize=13:antialias=true:hinting=true
+!URxvt*boldFont: xft:Liberation Mono:bold:pixelsize=13:antialias=true:hinting=true
+!
+! Xft: Terminus fonts
+!  Fedora/debian packages: terminus-fonts/xfonts-terminus
+!URxvt*font: xft:terminus:pixelsize=15
+!URxvt*boldFont: xft:terminus:bold:pixelsize=15
+
+! Traditional fonts - a more traditional font setup in lieu of xft
+!URxvt*font:-*-courier-medium-r-normal-*-14-*-*-*-*-*-iso8859-1
+!URxvt*boldFont:-*-courier-bold-r-normal-*-14-*-*-*-*-*-iso8859-1
+
+! Replace blue folder colors with a lighter shade for clarity.
+URxvt*color4:   RoyalBlue
+URxvt*color12:  RoyalBlue
+
+! Other colors.
+URxvt*color0:   black
+URxvt*color1:   red3
+URxvt*color2:   green3
+URxvt*color3:   yellow3
+URxvt*color5:   magenta3
+URxvt*color6:   cyan3
+URxvt*color7:   gray90
+URxvt*color8:   gray30
+URxvt*color9:   red
+URxvt*color10:  green
+URxvt*color11:  yellow
+URxvt*color13:  magenta
+URxvt*color14:  cyan
+URxvt*color15:  white
+URxvt*colorUL:  blue
+URxvt*colorBD:  white
+
+!! If you want to see previous output (e.g., compiler messages), set the
+!! following options in ~/.Xresources:
+! do not scroll with output
+URxvt*scrollTtyOutput: false
+! scroll in relation to buffer (with mouse scroll or Shift+Page Up)
+URxvt*scrollWithBuffer: true
+! scroll back to the bottom on keypress
+URxvt*scrollTtyKeypress: true
+! scrollbar - true (default) or false
+URxvt*scrollBar: true
+! scrollbar position - left=false (default) or right=true
+URxvt*scrollBar_right: false
+! scrollbar style - rxvt (default), plain, next, or xterm
+! "next" gives a very useful scrollbar!
+URxvt*scrollstyle: next
+
+! Tried some suggestions from the FAQ.  These failed, just printing
+! the strings shown with no escape characters:
+!      URxvt.keysym.Prior:     ^[[5~
+!      URxvt.keysym.Next:      ^[[6~
+!      URxvt.keysym.Home:      ^[[7~
+!      URxvt.keysym.End:       ^[[8~
+! However, that is a good sign -- if I can get the right magic in that
+! string, I should be good to go.  Using "\033[5~" did not work at all,
+! it simply disabled PgUp/Down completely, shift or no shift.
+!
+! Tried using a real control character, i.e. Ctrl-V followed by escape,
+! got "Illegal control character 0x1b, skipped the character".
+!
+! Tried with URxvt. and URxvt*, no differences.
+! "string(\033)[5~" just printed string.
+!      URxvt*keysym.Prior:    \E[5~
+!      URxvt*keysym.Next:     \E[6~
+!      URxvt*keysym.Home:     \E[7~
+!      URxvt*keysym.End:      \E[8~
+!
+! This does not work, either --         URxvt*keysym.khome: \E[7~
+! Something is eating the escape, or the backslash?
+!
+! This looks like it is reading my ZSH command-line history
+! rxvt*VT100.Translations: #override\n\
+!     <KeyPress>Prior : scroll-back(1,page)\n\
+!     <KeyPress>Next : scroll-forw(1,page)
+! FIXED BY CHANGING SOURCE AND REBUILDING.  SEE LOG.
+
+! Disable screen flash -- does not seem to work.
+URxvt.urgentOnBell:  false
+URxvt.visualBell:    false
+
+! Specify the command pipe for vt100 printer (lpr by default).
+! Use Print to initiate a screen dump to the printer and
+! Ctrl-Print or Shift-Print to include the scrollback as well.
+! The string will be interpreted as if typed into the shell as-is.
+URxvt.print-pipe:    cat > $(echo urxvt.dump.$(date +%d.%m.%Y_%H.%M.%S))
+
+! Try to drop newline when cutting via double-click.
+URxvt.cutchars:       "`()'*<>[]{|}\""
+
+! output from urxvt --help:
+! URxvt*answerbackString:               string
+! URxvt*background.border:              boolean
+! URxvt*background.expr:                string
+! URxvt*background.interval:            seconds
+! URxvt*backgroundPixmap:               file[;geom]
+! URxvt*backspacekey:                   string
+! URxvt*bell-command:                   string
+! URxvt*blurRadius:                     HxV
+! URxvt*boldItalicFont:                 fontname
+! URxvt*borderColor:                    color
+! URxvt*borderLess:                     boolean
+! URxvt*buffered:                       boolean
+! URxvt*chdir:                          string
+! URxvt*cursorBlink:                    boolean
+! URxvt*cursorColor2:                   color
+! URxvt*cursorColor:                    color
+! URxvt*cursorUnderline:                boolean
+! URxvt*cutchars:                       string
+! URxvt*deletekey:                      string
+! URxvt*depth:                          number
+! URxvt*externalBorder:                 number
+! URxvt*fadeColor:                      color
+! URxvt*fading:                         number
+! URxvt*geometry:                       geometry
+! URxvt*highlightColor:                 color
+! URxvt*highlightTextColor:             color
+! URxvt*hold:                           boolean
+! URxvt*iconFile:                       file
+! URxvt*iconName:                       string
+! URxvt*imFont:                         fontname
+! URxvt*imLocale:                       string
+! URxvt*inheritPixmap:                  boolean
+! URxvt*inputMethod:                    name
+! URxvt*insecure:                       boolean
+! URxvt*intensityStyles:                boolean
+! URxvt*internalBorder:                 number
+! URxvt*iso14755:                       boolean
+! URxvt*iso14755_52:                    boolean
+! URxvt*italicFont:                     fontname
+! URxvt*jumpScroll:                     boolean
+! URxvt*keysym.sym:                     keysym
+! URxvt*letterSpace:                    number
+! URxvt*lineSpace:                      number
+! URxvt*loginShell:                     boolean
+! URxvt*mapAlert:                       boolean
+! URxvt*matcher.button:                 string
+! URxvt*matcher.launcher.*:             string
+! URxvt*matcher.launcher:               string
+! URxvt*matcher.pattern.*:              string
+! URxvt*matcher.rend.*:                 string
+! URxvt*meta8:                          boolean
+! URxvt*modifier:                       modifier
+! URxvt*mouseWheelScrollPage:           boolean
+! URxvt*override-redirect:              boolean
+! URxvt*pastableTabs:                   boolean
+! URxvt*path:                           search path
+! URxvt*perl-eval:                      perl-eval
+! URxvt*perl-ext-common:                string
+! URxvt*perl-ext:                       string
+! URxvt*perl-lib:                       string
+! URxvt*pointerBlank:                   boolean
+! URxvt*pointerBlankDelay:              number
+! URxvt*pointerColor2:                  color
+! URxvt*pointerColor:                   color
+! URxvt*preeditType:                    style
+! URxvt*print-pipe:                     string
+! URxvt*remote-clipboard.fetch:         string
+! URxvt*remote-clipboard.store:         string
+! URxvt*reverseVideo:                   boolean
+! URxvt*scrollBar_align:                mode
+! URxvt*scrollBar_floating:             boolean
+! URxvt*scrollColor:                    color
+! URxvt*searchable-scrollback:          string
+! URxvt*secondaryScreen:                boolean
+! URxvt*secondaryScroll:                boolean
+! URxvt*selection-autotransform.*:      string
+! URxvt*selection-pastebin.cmd:         string
+! URxvt*selection-pastebin.url:         string
+! URxvt*selection.pattern-0:            string
+! URxvt*skipBuiltinGlyphs:              boolean
+! URxvt*skipScroll:                     boolean
+! URxvt*tab-bg:                         colour
+! URxvt*tab-fg:                         colour
+! URxvt*tabbar-bg:                      colour
+! URxvt*tabbar-fg:                      colour
+! URxvt*termName:                       string
+! URxvt*thickness:                      number
+! URxvt*title:                          string
+! URxvt*transient-for:                  windowid
+! URxvt*tripleclickwords:               boolean
+! URxvt*troughColor:                    color
+! URxvt*underlineColor:                 color
+! URxvt*url-launcher:                   string
+! URxvt*utmpInhibit:                    boolean
+! URxvt*visual:                         number
+! URxvt*xrm:                            string

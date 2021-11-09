@@ -1,0 +1,18 @@
+!
+! $Revision: 1.1 $ $Date: 2020-10-21 22:16:34-04 $
+! $Source: /home/vogelke/RCS/.xmodmap.swapcaps,v $
+! $Host: furbag.my.domain $
+! $UUID: a03423c6-ca0a-55bc-94e7-ed1bc82322f1 $
+!
+! Wed, 21 Oct 2020 22:15:52 -0400
+! Swap Caps_Lock and Control_L - doesn't seem to work unless I run
+! it twice, and I have to do that after running the regular .xmodmap
+! file which should swap those anyways.  One of those things I'll
+! never understand, like where does your lap go when you stand up.
+!
+remove Lock = Caps_Lock
+remove Control = Control_L
+keysym Control_L = Caps_Lock
+keysym Caps_Lock = Control_L
+add Lock = Caps_Lock
+add Control = Control_L

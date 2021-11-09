@@ -1,0 +1,123 @@
+!--------------------------------------------------------------------------
+! XAlarm:
+!
+! Fonts -- too small:
+!! XAlarm.alarm.message.font:        -adobe-courier-bold-r-normal--*
+!! XAlarm.When?.confirm.value*font:  -adobe-courier-bold-r-normal--*
+!! XAlarm*font:                      -adobe-courier-bold-r-normal--*
+
+XAlarm*Command.ShapeStyle: rectangle
+XAlarm*Command.background: Black
+XAlarm*Command.cursor:     hand2
+XAlarm*Command.foreground: White
+XAlarm*Label.cursor:       question_arrow
+XAlarm*Label.justify:      left
+XAlarm*Text.cursor:        pencil
+XAlarm*allowShellResize:   True
+XAlarm*background:         White
+XAlarm*bottom:             ChainTop
+XAlarm*font:               -*-times-bold-r-*-*-14-*-*-*-p-*-iso8859-1
+XAlarm*foreground:         Black
+XAlarm*left:               ChainLeft
+XAlarm*quit.label:         Quit
+XAlarm*reset.label:        Reset
+XAlarm*resizable:          True
+XAlarm*right:              ChainLeft
+XAlarm*top:                ChainTop
+
+XAlarm.Alarm!.alarm.background:	Black
+XAlarm.Alarm!.alarm.buttons.snooze.fromHoriz:	quit
+XAlarm.Alarm!.alarm.buttons.snooze.label:	Snooze
+XAlarm.Alarm!.alarm.buttons.snooze1.fromHoriz:	snooze
+XAlarm.Alarm!.alarm.buttons.snooze1.label:	+1 min
+XAlarm.Alarm!.alarm.buttons.snooze15.fromHoriz:	snooze5
+XAlarm.Alarm!.alarm.buttons.snooze15.label:	+15 mins
+XAlarm.Alarm!.alarm.buttons.snooze5.fromHoriz:	snooze1
+XAlarm.Alarm!.alarm.buttons.snooze5.label:	+5 mins
+XAlarm.Alarm!.alarm.buttons.snoozetime.fromHoriz:	snooze15
+XAlarm.Alarm!.alarm.message.bottom:	ChainBottom
+XAlarm.Alarm!.alarm.message.cursor:	gumby
+XAlarm.Alarm!.alarm.message.font:	-*-times-bold-i-*-*-24-*-*-*-p-*-iso8859-1
+XAlarm.Alarm!.alarm.message.fromVert:	buttons
+XAlarm.Alarm!.alarm.message.internalHeight:	5
+XAlarm.Alarm!.alarm.message.internalWidth:	10
+XAlarm.Alarm!.alarm.message.label:	Alarm Call!!!
+XAlarm.Warning!.warning.background:	Black
+XAlarm.Warning!.warning.dismiss.label:	Dismiss
+XAlarm.Warning!.warning.message.cursor:	clock
+XAlarm.Warning!.warning.message.fromHoriz:	dismiss
+XAlarm.Warning!.warning.quit.fromHoriz:	reset
+XAlarm.Warning!.warning.reset.fromHoriz:	message
+XAlarm.When?*Command.bottom:	ChainBottom
+XAlarm.When?*Command.top:	ChainBottom
+XAlarm.When?*cancel.bottom:	ChainBottom
+XAlarm.When?*cancel.top:	ChainBottom
+XAlarm.When?*editdate.label:	Date
+XAlarm.When?*edittime.label:	Time
+XAlarm.When?*editwarnings.label:	Warnings
+XAlarm.When?*label:	
+XAlarm.When?*ok.bottom:	ChainBottom
+XAlarm.When?*ok.top:	ChainBottom
+XAlarm.When?*quit.bottom:	ChainBottom
+XAlarm.When?*quit.label:	Quit
+XAlarm.When?*quit.top:	ChainBottom
+XAlarm.When?*toggle.bottom:	ChainBottom
+XAlarm.When?*toggle.top:	ChainBottom
+XAlarm.When?*value:	
+XAlarm.When?*value*font:	9x15bold
+XAlarm.When?*value.bottom:	ChainBottom
+XAlarm.When?*value.right:	ChainRight
+XAlarm.When?.confirm.background:	Black
+XAlarm.When?.confirm.cancel.label:	Edit time
+XAlarm.When?.confirm.ok.label:	Confirm time
+XAlarm.When?.confirm.value.translations:	#override <Key>Return: Confirmed()
+XAlarm.When?.confirm.value.width:	250
+XAlarm.When?.warnings.background:	Black
+XAlarm.When?.warnings.ok.label:	Enter warnings
+XAlarm.When?.warnings.toggle.label:	Edit time
+XAlarm.When?.warnings.value.translations:	#override <Key>Return: EnteredWarnings()
+XAlarm.When?.when.Dialog.background:	Black
+XAlarm.When?.when.background:	Black
+XAlarm.When?.when.confirm.cancel.label:	Re-edit
+XAlarm.When?.when.confirm.ok.label:	Confirm time
+XAlarm.When?.when.confirm.save.label:	Save
+XAlarm.When?.when.confirm.value*font:	-*-times-bold-i-*-*-14-*-*-*-p-*-iso8859-1
+XAlarm.When?.when.confirm.value.translations:	#override <Key>Return: Confirmed()
+XAlarm.When?.when.date.ok.label:	Enter date
+XAlarm.When?.when.date.value.translations:	#override <Key>Return: EnteredDate()
+XAlarm.When?.when.defaultDistance:	0
+XAlarm.When?.when.ok.label:	Enter time
+XAlarm.When?.when.time.ok.label:	Enter time
+XAlarm.When?.when.time.value.translations:	#override <Key>Return: EnteredTime()
+XAlarm.When?.when.toggle.label:	Edit warnings
+XAlarm.When?.when.value.translations:	#override <Key>Return: EnteredTime()
+XAlarm.When?.when.warnings.ok.label:	Enter warnings
+XAlarm.When?.when.warnings.value.translations:	#override <Key>Return: EnteredWarnings()
+XAlarm.When?.width:	300
+
+XAlarm.alarm*quit.label:	Quit
+XAlarm.alarm.background:	Black
+XAlarm.alarm.buttonbox.snooze.fromHoriz:        quit
+XAlarm.alarm.buttonbox.snooze.label:            Snooze
+XAlarm.alarm.buttonbox.snooze1.fromHoriz:       snooze
+XAlarm.alarm.buttonbox.snooze1.label:           +1 min
+XAlarm.alarm.buttonbox.snooze15.fromHoriz:      snooze5
+XAlarm.alarm.buttonbox.snooze15.label:          +15 mins
+XAlarm.alarm.buttonbox.snooze5.fromHoriz:       snooze1
+XAlarm.alarm.buttonbox.snooze5.label:           +5 mins
+XAlarm.alarm.buttonbox.snoozetime.fromHoriz:    snooze15
+XAlarm.alarm.buttonbox.snoozetime.label:        Zero time
+XAlarm.alarm.message.bottom:                    ChainBottom
+XAlarm.alarm.message.fromVert:                  buttonbox
+XAlarm.alarm.message.internalHeight:            5
+XAlarm.alarm.message.internalWidth:             10
+XAlarm.alarm.message.label:	Alarm Call !!!
+XAlarm.alarmaudio:      bell
+XAlarm.bell:            True
+XAlarm.confirm:         True
+XAlarm.pester:          0
+XAlarm.snooze:          0
+XAlarm.volume:          50
+XAlarm.warningaudio:    bell
+XAlarm.warnings:        5,15
+XAlarm.warningwords:    0

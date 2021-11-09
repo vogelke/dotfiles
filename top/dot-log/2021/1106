@@ -1,0 +1,12 @@
+00:27:37 3092 0: /src/security/cis-security: (cd cis-security)
+00:27:41 3092 0: /src/security/cis-security: (mk benchmarks)
+00:27:41 3092 0: /src/security/cis-security: (dir)
+00:27:46 3092 0: /src/security/cis-security: (mv *Bench* benchmarks)
+00:27:47 3092 0: /src/security/cis-security: (dir)
+00:27:59 3092 0: /src/security/cis-security: (mk doc)
+00:28:01 3092 0: /src/security/cis-security: (mv Draft-SP800-123.pdf doc)
+00:28:01 3092 0: /src/security/cis-security: (dir)
+...
+23:50:17 83753 0: /home/vogelke/notebook/2021/1106: (today)
+23:50:47 83753 0: /home/vogelke/notebook/2021/1106: (md)
+23:59:56 83753 0: /home/vogelke/notebook/2021/1106: (p va-ehr-morale)

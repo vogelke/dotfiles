@@ -1,0 +1,67 @@
+# -*- muttrc -*-
+#
+# $Revision: 1.8 $ $Date: 2013-08-13 16:31:46-04 $
+# $Source: /home/vogelke/.mutt/RCS/colours-production,v $
+# $Host: furbag.my.domain $
+# $UUID: 1385c444-0457-11e3-914e-00242183ec74 $
+#
+# Colour settings for mutt.
+
+# Default colour definitions
+color normal     black      brightwhite # normal text
+color indicator  yellow         default # actual message
+color tree       brightwhite    default # thread arrows
+color status     yellow         default # status line
+color error      brightwhite    default # errors
+#color message    magenta        default # info messages
+color signature  magenta        default # signature
+color attachment brightyellow   red     # MIME attachments
+color search     brightyellow   red     # search matches
+color tilde      black      brightwhite # ~ at bottom of msg
+color markers    blue       brightwhite # + at beginning of wrapped lines
+color hdrdefault cyan           default # default header lines
+color bold       blue           default # bold patterns in body
+color underline  brightwhite    default # underlined patterns in body
+
+color quoted     brightblue     white   # quoted text
+color quoted1    brightgreen    white
+color quoted2    brightgreen    white
+color quoted3    brightgreen    white
+color quoted4    brightgreen    white
+color quoted5    brightgreen    white
+color quoted6    brightgreen    white
+color quoted7    brightgreen    white
+color quoted8    brightgreen    white
+color quoted9    brightgreen    white
+
+# Colour definitions when on a mono screen
+mono bold      bold
+mono underline underline
+mono indicator reverse
+
+# Colours for items in the reader
+color header brightwhite cyan "^"
+color header red         cyan "^X-Spam"
+
+# Colours for items in the index
+color index black brightwhite ~N
+color index red         white ~F
+color index black       white ~T
+color index brightwhite black ~D
+mono  index bold              ~N
+mono  index bold              ~F
+mono  index bold              ~T
+mono  index bold              ~D
+
+# Highlights inside the body of a message.
+# URLs
+color body brightblue  white "(http|https|ftp)://[^ \">\t\r\n]*"
+color body brightblue  white "mailto:[-a-z_0-9.]+@[-a-z_0-9.]+"
+color body brightblue  white "news:[^ \">\t\r\n]*"
+mono  body bold              "(http|https|ftp)://[^ \">\t\r\n]*"
+mono  body bold              "mailto:[-a-z_0-9.]+@[-a-z_0-9.]+"
+mono  body bold              "news:[^ \">\t\r\n]*"
+
+# email addresses
+color body brightblue  white "[-a-z_0-9.%$]+@[-a-z_0-9.]+\\.[-a-z][-a-z]+"
+mono  body bold              "[-a-z_0-9.%$]+@[-a-z_0-9.]+\\.[-a-z][-a-z]+"

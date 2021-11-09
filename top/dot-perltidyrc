@@ -1,0 +1,1329 @@
+# $Id: .perltidyrc,v 1.3 2004-02-24 14:32:01-05 vogelke Exp $
+# $Source: /home/vogelke/RCS/.perltidyrc,v $
+#
+# I/O OPTIONS
+
+-se
+#     If perltidy detects an error when processing file somefile.pl,
+#     its default behavior is to write error messages to file
+#     somefile.pl.ERR. Use -se to cause all error messages to be sent
+#     to the standard error output stream instead. This directive may
+#     be negated with -nse. Thus, you may place -se in a .perltidyrc
+#     and override it when desired with -nse on the command line.
+
+-w
+#     Setting -w causes perltidy to include any non-critical warning
+#     messages be reported as errors. These include messages about
+#     possible pod problems, possibly bad starting indentation level,
+#     and cautions about indirect object usage. The default, -nw or
+#     --nowarning-output, is not to include these warnings.
+# 
+# FORMATTING OPTIONS
+
+-l=76
+#     The default maximum line length is n=80 characters. Perltidy will
+#     try to find line break points to keep lines below this length.
+#     However, long quotes and side comments may cause lines to exceed
+#     this length. Setting -l=0 is equivalent to setting -l=(a large
+#     number).
+# 
+# -i=n, --indent-columns=n
+#     Use n columns per indentation level (default n=4).
+# 
+# tabs
+#     Using tab characters will almost certainly lead to future
+#     portability and maintenance problems, so the default and
+#     recommendation is not to use them. For those who prefer tabs,
+#     however, there are two different options.
+# 
+#     Except for possibly introducing tab indentation characters, as
+#     outlined below, perltidy does not introduce any tab characters
+#     into your file, and it removes any tabs from the code (unless
+#     requested not to do so with -fws). If you have any tabs in your
+#     comments, quotes, or here-documents, they will remain.
+# 
+#     -et=n, --entab-leading-whitespace
+#         This flag causes each n initial space characters to be
+#         replaced by one tab character. Note that the integer n is
+#         completely independent of the integer specified for
+#         indentation parameter, -i=n.
+# 
+#     -t, --tabs
+#         This flag causes one leading tab character to be inserted for
+#         each level of indentation. Certain other features are
+#         incompatible with this option, and if these options are also
+#         given, then a warning message will be issued and this flag
+#         will be unset. One example is the -lp option.
+# 
+# -syn, --check-syntax
+#     The purpose of this flag is to alert you to any situation in
+#     which the input file has good syntax but the output file has bad
+#     syntax, which implies an error by perltidy.
+# 
+#     This flag causes perltidy to run perl -c -T to check syntax of
+#     input and output. (To change the flags passed to perl, see the
+#     next item, -pscf). The results are written to the .LOG file,
+#     which will be saved if an error is detected in the output script.
+#     The output script is not checked if the input script has a syntax
+#     error.
+# 
+#     If Perl reports errors in the input file, they will not be
+#     reported in the error output unless the -warning-output flag is
+#     given.
+# 
+#     To skip syntax checking, use -nsyn or --nocheck-syntax. Syntax
+#     checking is also deactivated by the --quiet flag, discussed
+#     above.
+# 
+#     The default is to do a syntax check on most operating systems. An
+#     exception is Windows 9x/Me systems, which do not handle this
+#     well. Another exception is when the input or output streams are
+#     not connected to identifiable filenames. In the past, copies of
+#     these streams were saved in temporary files, but this has caused
+#     too many portability problems.
+# 
+#     Please note: Even if this type of syntax checking is deactivated,
+#     perltidy will still do extensive syntax checking on its own.
+# 
+# -pscf=s, -perl-syntax-check-flags=s
+#     When perl is invoked to check syntax, the normal flags are -c -T.
+#     In addition, if the -x flag is given to perltidy, then perl will
+#     also be passed a -x flag. It should not normally be necessary to
+#     change these flags, but it can be done with the -pscf=s flag. For
+#     example, if the taint flag, -T, is not wanted, the flag could be
+#     set to be just -pscf=-c.
+# 
+#     Perltidy will pass your string to perl with the exception that it
+#     will add a -c and -x if appropriate. The .LOG file will show
+#     exactly what flags were passed to perl.
+# 
+# -io, --indent-only
+#     This flag is used to deactivate all formatting and line break
+#     changes. When it is in effect, the only change to the script will
+#     be indentation. And any flags controlling whitespace and newlines
+#     will be ignored. You might want to use this if you are perfectly
+#     happy with your whitespace and line breaks, and merely want
+#     perltidy to handle the indentation. (This also speeds up perltidy
+#     by well over a factor of two, so it might be useful when perltidy
+#     is merely being used to help find a brace error in a large
+#     script).
+# 
+#     Setting this flag is equivalent to setting --freeze-newlines and
+#     --freeze-whitespace.
+# 
+# Code Indentation Control
+# 
+# -ci=n, --continuation-indentation=n
+#     Continuation indentation is extra indentation spaces applied when
+#     a long line is broken. The default is n=2, illustrated here:
+#      my $level =   # -ci=2
+#        ( $max_index_to_go >= 0 ) ? $levels_to_go[0] : $last_output_level;
+# 
+#     The same example, with n=0, is a little harder to read:
+# 
+#      my $level =   # -ci=0
+#      ( $max_index_to_go >= 0 ) ? $levels_to_go[0] : $last_output_level;
+# 
+#     The value given to -ci is also used by some commands when a small
+#     space is required. Examples are commands for outdenting labels,
+#     -ola, and control keywords, -ock.
+# 
+#     When default values are not used, it is suggested that the value
+#     n given with -ci=n be no more than about one-half of the number
+#     of spaces assigned to a full indentation level on the -i=n
+#     command.
+# 
+# -sil=n --starting-indentation-level=n
+#     By default, perltidy examines the input file and tries to
+#     determine the starting indentation level. While it is often zero,
+#     it may not be zero for a code snippet being sent from an editing
+#     session. If the default method does not work correctly, or you
+#     want to change the starting level, use -sil=n, to force the
+#     starting level to be n.
+# 
+# List indentation using -lp, --line-up-parentheses
+#     By default, perltidy indents lists with 4 spaces, or whatever
+#     value is specified with -i=n. Here is a small list formatted in
+#     this way:
+#         # perltidy (default)
+#         @month_of_year = (
+#             'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+#             'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+#         );
+# 
+#     Use the -lp flag to add extra indentation to cause the data to
+#     begin past the opening parentheses of a sub call or list, or
+#     opening square bracket of an anonymous array, or opening curly
+#     brace of an anonymous hash. With this option, the above list
+#     would become:
+# 
+#         # perltidy -lp
+#         @month_of_year = (
+#                            'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+#                            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+#         );
+# 
+#     If the available line length (see -l=n ) does not permit this
+#     much space, perltidy will use less.
+# 
+#     This option has no effect on code BLOCKS, such as if/then/else
+#     blocks, which always use whatever is specified with -i=n. Also,
+#     the existence of line breaks and/or block comments between the
+#     opening and closing parens may cause perltidy to temporarily
+#     revert to its default method.
+# 
+#     Note: The -lp option may not be used together with the -t tabs
+#     option. It may, however, be used with the -et=n tab method.
+# 
+#     In addition, any parameter which significantly restricts the
+#     ability of perltidy to choose newlines will conflict with -lp and
+#     will cause -lp to be deactivated. These include -io, -fnl, -nanl,
+#     and -ndnl. The reason is that the -lp indentation style can
+#     require the careful coordination of an arbitrary number of break
+#     points in hierarchical lists, and these flags may prevent that.
+
+-icp
+#     The -icp option leaves a list-termination line of the form );,
+#     };, or ]; indented with the same indentation as the previous
+#     line. The previous example with -icp would give,
+#         # perltidy -icp:
+#         @month_of_year = (
+#             'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+#             'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+#             );
+# 
+# -icb, --indent-closing-brace
+#     The -icb option leaves a brace which terminates a code block
+#     indented with the same indentation as the previous line. For
+#     example,
+#             if ($task) {
+#                 yyy();
+#                 }    # -icb
+#             else {
+#                 zzz();
+#                 }
+# 
+#     The default is not to do this, indicated by -nicb.
+# 
+# -olq, --outdent-long-quotes
+#     When -olq is set, lines which is a quoted string longer than the
+#     value maximum-line-length will have their indentation removed to
+#     make them more readable. This is the default. To prevent such
+#     out-denting, use -nolq or --nooutdent-long-lines.
+# 
+# -oll, --outdent-long-lines
+#     This command is equivalent to --outdent-long-quotes and
+#     --outdent-long-comments, and it is included for compatibility
+#     with previous versions of perltidy. The negation of this also
+#     works, -noll or --nooutdent-long-lines, and is equivalent to
+#     setting -nolq and -nolc.
+# 
+# Outdenting Labels: -ola, --outdent-labels
+#     This command will cause labels to be outdented by 2 spaces (or
+#     whatever -ci has been set to), if possible. This is the default.
+#     For example:
+#             my $i;
+#           LOOP: while ( $i = <FOTOS> ) {
+#                 chomp($i);
+#                 next unless $i;
+#                 fixit($i);
+#             }
+# 
+#     Use -nola to not outdent labels.
+# 
+# Outdenting Keywords
+# 
+#     -okw, --outdent-keywords
+#         The command -okw will will cause certain leading control
+#         keywords to be outdented by 2 spaces (or whatever -ci has
+#         been set to), if possible. By default, these keywords are
+#         redo, next, last, goto, and return. The intention is to make
+#         these control keywords easier to see. To change this list of
+#         keywords being outdented, see the next section.
+# 
+#         For example, using perltidy -ock on the previous example
+#         gives:
+# 
+#                 my $i;
+#               LOOP: while ( $i = <FOTOS> ) {
+#                     chomp($i);
+#                   next unless $i;
+#                     fixit($i);
+#                 }
+# 
+#         The default is not to do this.
+# 
+#     Specifying Outdented Keywords: -okwl=string,
+#         --outdent-keyword-list=string
+#         This command can be used to change the keywords which are
+#         outdented with the -okw command. The parameter string is a
+#         required list of perl keywords, which should be placed in
+#         quotes if there are more than one. By itself, it does not
+#         cause any outdenting to occur, so the -okw command is still
+#         required.
+# 
+#         For example, the commands -okwl="next last redo goto" -okw
+#         will cause those four keywords to be outdented. It is
+#         probably simplest to place any -okwl command in a .perltidyrc
+#         file.
+# 
+# Whitespace Control
+# 
+# Whitespace refers to the blank space between variables, operators,
+# and other code tokens.
+# 
+# -fws, --freeze-whitespace
+#     This flag causes your original whitespace to remain unchanged,
+#     and causes the rest of the whitespace commands in this section,
+#     the Code Indentation section, and the Comment Control section to
+#     be ignored.
+# 
+# Tightness of curly braces, parentheses, and square brackets.
+#     Here the term ``tightness'' will mean the closeness with which
+#     pairs of enclosing tokens, such as parentheses, contain the
+#     quantities within. A numerical value of 0, 1, or 2 defines the
+#     tightness, with 0 being least tight and 2 being most tight.
+#     Spaces within containers are always symmetric, so if there is a
+#     space after a ( then there will be a space before the
+#     corresponding ).
+
+-pt=2
+#     The -pt=n or --paren-tightness=n parameter controls the space
+#     within parens. The example below shows the effect of the three
+#     possible values, 0, 1, and 2:
+# 
+#      if ( ( my $len_tab = length( $tabstr ) ) > 0 ) {  # -pt=0
+#      if ( ( my $len_tab = length($tabstr) ) > 0 ) {    # -pt=1 (default)
+#      if ((my $len_tab = length($tabstr)) > 0) {        # -pt=2
+# 
+#     When n is 0, there is always a space to the right of a '(' and to
+#     the left of a ')'. For n=2 there is never a space. For n=1, the
+#     default, there is a space unless the quantity within the parens
+#     is a single token, such as an identifier or quoted string.
+
+-sbt=2
+#     Likewise, the parameter -sbt=n or --square-bracket-tightness=n
+#     controls the space within square brackets, as illustrated below.
+# 
+#      $width = $col[ $j + $k ] - $col[ $j ];  # -sbt=0
+#      $width = $col[ $j + $k ] - $col[$j];    # -sbt=1 (default)
+#      $width = $col[$j + $k] - $col[$j];      # -sbt=2
+
+-bt=2
+#     Curly braces which do not contain code blocks are controlled by
+#     the parameter -bt=n or --brace-tightness=n.
+# 
+#      $obj->{ $parsed_sql->{ 'table' }[0] };    # -bt=0
+#      $obj->{ $parsed_sql->{'table'}[0] };      # -bt=1 (default)
+#      $obj->{$parsed_sql->{'table'}[0]};        # -bt=2
+# 
+#     And finally, curly braces which contain blocks of code are
+#     controlled by the parameter -bbt=n or --block-brace-tightness=n
+#     as illustrated in the example below.
+# 
+#      %bf = map { $_ => -M $_ } grep { /\.deb$/ } dirents '.'; # -bbt=0 (default)
+#      %bf = map { $_ => -M $_ } grep {/\.deb$/} dirents '.';   # -bbt=1
+#      %bf = map {$_ => -M $_} grep {/\.deb$/} dirents '.';     # -bbt=2
+# 
+# -sts, --space-terminal-semicolon
+#     Some programmers prefer a space before all terminal semicolons.
+#     The default is for no such space, and is indicated with -nsts or
+#     --nospace-terminal-semicolon.
+#             $i = 1 ;     #  -sts
+#             $i = 1;      #  -nsts   (default)
+# 
+# -sfs, --space-for-semicolon
+#     Semicolons within for loops may sometimes be hard to see,
+#     particularly when commas are also present. This option places
+#     spaces on both sides of these special semicolons, and is the
+#     default. Use -nsfs or --nospace-for-semicolon to deactivate it.
+#      for ( @a = @$ap, $u = shift @a ; @a ; $u = $v ) {  # -sfs (default)
+#      for ( @a = @$ap, $u = shift @a; @a; $u = $v ) {    # -nsfs
+# 
+# -asc, --add-semicolons
+#     Setting -asc allows perltidy to add any missing optional
+#     semicolon at the end of a line which is followed by a closing
+#     curly brace on the next line. This is the default, and may be
+#     deactivated with -nasc or --noadd-semicolons.
+# 
+# -dsm, --delete-semicolons
+#     Setting -dsm allows perltidy to delete extra semicolons which are
+#     simply empty statements. This is the default, and may be
+#     deactivated with -ndsm or --nodelete-semicolons. (Such semicolons
+#     are not deleted, however, if they would promote a side comment to
+#     a block comment).
+# 
+# -aws, --add-whitespace
+#     Setting this option allows perltidy to add certain whitespace
+#     improve code readability. This is the default. If you do not want
+#     any whitespace added, but are willing to have some whitespace
+#     deleted, use -naws. (Use -fws to leave whitespace completely
+#     unchanged).
+# 
+# -dws, --delete-old-whitespace
+#     Setting this option allows perltidy to remove some old whitespace
+#     between characters, if necessary. This is the default. If you do
+#     not want any old whitespace removed, use -ndws or
+#     --nodelete-old-whitespace.
+# 
+# Detailed whitespace controls around tokens
+#     For those who want more detailed control over the whitespace
+#     around tokens, there are four parameters which can directly
+#     modify the default whitespace rules built into perltidy for any
+#     token. They are:
+# 
+#     -wls=s or --want-left-space=s,
+# 
+#     -nwls=s or --nowant-left-space=s,
+# 
+#     -wrs=s or --want-right-space=s,
+# 
+#     -nwrs=s or --nowant-right-space=s.
+# 
+#     These parameters are each followed by a quoted string, s,
+#     containing a list of token types. No more than one of each of
+#     these parameters should be specified, because repeating a
+#     command-line parameter always overwrites the previous one before
+#     perltidy ever sees it.
+# 
+#     To illustrate how these are used, suppose it is desired that
+#     there be no space on either side of the token types = + - / *.
+#     The following two parameters would specify this desire:
+# 
+#       -nwls="= + - / *"    -nwrs="= + - / *"
+# 
+#     (Note that the token types are in quotes, and that they are
+#     separated by spaces). With these modified whitespace rules, the
+#     following line of math:
+# 
+#       $root = -$b + sqrt( $b * $b - 4. * $a * $c ) / ( 2. * $a );
+# 
+#     becomes this:
+# 
+#       $root=-$b+sqrt( $b*$b-4.*$a*$c )/( 2.*$a );
+# 
+#     These parameters should be considered to be hints to perltidy
+#     rather than fixed rules, because perltidy must try to resolve
+#     conflicts that arise between them and all of the other rules that
+#     it uses. One conflict that can arise is if, between two tokens,
+#     the left token wants a space and the right one doesn't. In this
+#     case, the token not wanting a space takes priority.
+# 
+#     It is necessary to have a list of all token types in order to
+#     create this type of input. Such a list can be obtained by the
+#     command -dump-token-types.
+# 
+# Space between keyword and opening paren
+#     When an opening paren follows a keyword, no space is introduced
+#     after the keyword, unless it is (by default) one of these:
+#        my local our and or eq ne if else elsif until unless
+#        while for foreach return switch case given when
+# 
+#     These defaults can be modified with two commands:
+# 
+#     -sak=s or --space-after-keyword=s adds keywords.
+# 
+#     -nsak=s or --nospace-after-keyword=s removes keywords.
+# 
+#     where s is a list of keywords (in quotes if necessary). For
+#     example,
+# 
+#       my ( $a, $b, $c ) = @_;    # default
+#       my( $a, $b, $c ) = @_;     # -nsak="my local our"
+# 
+# Trimming whitespace around qw quotes
+#     -tqw or --trim-qw provide the default behavior of trimming spaces
+#     around multi-line qw quotes and indenting them appropriately.
+# 
+#     -ntqw or --notrim-qw cause leading and trailing whitespace around
+#     multi-line qw quotes to be left unchanged. This option will not
+#     normally be necessary, but was added for testing purposes,
+#     because in some versions of perl, trimming qw quotes changes the
+#     syntax tree.
+# 
+# Comment Controls
+# 
+# Perltidy has a number of ways to control the appearance of both block
+# comments and side comments. The term block comment here refers to a
+# full-line comment, whereas side comment will refer to a comment which
+# appears on a line to the right of some code.
+# 
+# -ibc, --indent-block-comments
+#     Block comments normally look best when they are indented to the
+#     same level as the code which follows them. This is the default
+#     behavior, but you may use -nibc to keep block comments
+#     left-justified. Here is an example:
+#                  # this comment is indented      (-ibc, default)
+#                  if ($task) { yyy(); }
+# 
+#     The alternative is -nibc:
+# 
+#      # this comment is not indented              (-nibc)
+#                  if ($task) { yyy(); }
+# 
+#     See also the next item, -isbc, as well as -sbc, for other ways to
+#     have some indented and some outdented block comments.
+# 
+# -isbc, --indent-spaced-block-comments
+#     If there is no leading space on the line, then the comment will
+#     not be indented, and otherwise it may be.
+# 
+#     If both -ibc and -isbc are set, then -isbc takes priority.
+# 
+# -olc, --outdent-long-comments
+#     When -olc is set, lines which are full-line (block) comments
+#     longer than the value maximum-line-length will have their
+#     indentation removed. The default is not to do this.
+# 
+# -msc=n, --minimum-space-to-comment=n
+#     Side comments look best when lined up several spaces to the right
+#     of code. Perltidy will try to keep comments at least n spaces to
+#     the right. The default is n=4 spaces.
+# 
+# -hsc, --hanging-side-comments
+#     By default, perltidy tries to identify and align ``hanging side
+#     comments'', which are something like this:
+#             my $IGNORE = 0;    # This is a side comment
+#                                # This is a hanging side comment
+#                                # And so is this
+# 
+#     A comment is considered to be a hanging side comment if (1) it
+#     immediately follows a line with a side comment, or another
+#     hanging side comment, and (2) there is some leading whitespace on
+#     the line. To deactivate this feature, use -nhsc or
+#     --nohanging-side-comments. If block comments are preceded by a
+#     blank line, or have no leading whitespace, they will not be
+#     mistaken as hanging side comments.
+# 
+# Closing Side Comments
+#     A closing side comment is a special comment which perltidy can
+#     automatically create and place after the closing brace of a code
+#     block. They can be useful for code maintenance and debugging. The
+#     command -csc (or -closing-side-comments) adds or updates closing
+#     side comments. For example, here is a small code snippet
+#             sub message {
+#                 if ( !defined( $_[0] ) ) {
+#                     print("Hello, World\n");
+#                 }
+#                 else {
+#                     print( $_[0], "\n" );
+#                 }
+#             }
+# 
+#     And here is the result of processing with perltidy -csc:
+# 
+#             sub message {
+#                 if ( !defined( $_[0] ) ) {
+#                     print("Hello, World\n");
+#                 }
+#                 else {
+#                     print( $_[0], "\n" );
+#                 }
+#             } ## end sub message
+# 
+#     A closing side comment was added for sub message in this case,
+#     but not for the if and else blocks, because they were below the 6
+#     line cutoff limit for adding closing side comments. This limit
+#     may be changed with the -csci command, described below.
+# 
+#     The command -dcsc (or --delete-closing-side-comments) reverses
+#     this process and removes these comments.
+# 
+#     Several commands are available to modify the behavior of these
+#     two basic commands, -csc and -dcsc:
+# 
+#     -csci=n, or -closing-side-comment-interval=n
+#         where n is the minimum number of lines that a block must have
+#         in order for a closing side comment to be added. The default
+#         value is n=6. To illustrate:
+#                 # perltidy -csci=2 -csc
+#                 sub message {
+#                     if ( !defined( $_[0] ) ) {
+#                         print("Hello, World\n");
+#                     } ## end if ( !defined( $_[0] ))
+#                     else {
+#                         print( $_[0], "\n" );
+#                     } ## end else [ if ( !defined( $_[0] ))
+#                 } ## end sub message
+# 
+#         Now the if and else blocks are commented. However, now this
+#         has become very cluttered.
+# 
+#     -cscp=string, or -closing-side-comment-prefix=string
+#         where string is the prefix used before the name of the block
+#         type. The default prefix, shown above, is ## end. This string
+#         will be added to closing side comments, and it will also be
+#         used to recognize them in order to update, delete, and format
+#         them. Any comment identified as a closing side comment will
+#         be placed just a single space to the right of its closing
+#         brace.
+# 
+#     -cscl=string, or -closing-side-comment-list-string
+#         where string is a list of block types to be tagged with
+#         closing side comments. By default, all code block types
+#         preceded by a keyword or label (such as if, sub, and so on)
+#         will be tagged. The -cscl command changes the default list to
+#         be any selected block types; see Specifying Block Types. For
+#         example, the following command requests that only sub's,
+#         labels, BEGIN, and END blocks be affected by any -csc or
+#         -dcsc operation:
+#            -cscl="sub : BEGIN END"
+# 
+#     -csct=n, or -closing-side-comment-maximum-text=n
+#         The text appended to certain block types, such as an if
+#         block, is whatever lies between the keyword introducing the
+#         block, such as if, and the opening brace. Since this might be
+#         too much text for a side comment, there needs to be a limit,
+#         and that is the purpose of this parameter. The default value
+#         is n=20, meaning that no additional tokens will be appended
+#         to this text after its length reaches 20 characters. Omitted
+#         text is indicated with .... (Tokens, including sub names, are
+#         never truncated, however, so actual lengths may exceed this).
+#         To illustrate, in the above example, the appended text of the
+#         first block is ( !defined( $_[0] ).... The existing limit of
+#         n=20 caused this text to be truncated, as indicated by the
+#         ....
+# 
+#     -csce=n, or -closing-side-comment-else-flag=n
+#         The default, n=0, places the text of the opening if statement
+#         after any terminal else.
+# 
+#         If n=2 is used, then each elsif is also given the text of the
+#         opening if statement. Also, an else will include the text of
+#         a preceding elsif statement. Note that this may result some
+#         long closing side comments.
+# 
+#         If n=1 is used, the results will be the same as n=2 whenever
+#         the resulting line length is less than the maximum allowed.
+# 
+#     -cscw, or -closing-side-comment-warnings
+#         This parameter is intended to help make the initial
+#         transition to the use of closing side comments. It causes two
+#         things to happen if a closing side comment replaces an
+#         existing, different closing side comment: first, an error
+#         message will be issued, and second, the original side comment
+#         will be placed alone on a new specially marked comment line
+#         for later attention.
+# 
+#         The intent is to avoid clobbering existing hand-written side
+#         comments which happen to match the pattern of closing side
+#         comments. This flag should only be needed on the first run
+#         with -csc.
+# 
+#     Important Notes on Closing Side Comments:
+# 
+#       + Closing side comments are only placed on lines terminated
+#         with a closing brace. Certain closing styles, such as the use
+#         of cuddled elses (-ce), preclude the generation of some
+#         closing side comments.
+# 
+#       + Please note that adding or deleting of closing side comments
+#         takes place only through the commands -csc or -dcsc. The
+#         other commands, if used, merely modify the behavior of these
+#         two commands.
+# 
+#       + It is recommended that the -cscw flag be used along with -csc
+#         on the first use of perltidy on a given file. This will
+#         prevent loss of any existing side comment data which happens
+#         to have the csc prefix.
+# 
+#       + Once you use -csc, you should continue to use it so that any
+#         closing side comments remain correct as code changes.
+#         Otherwise, these comments will become incorrect as the code
+#         is updated.
+# 
+#       + If you edit the closing side comments generated by perltidy,
+#         you must also change the prefix to be different from the
+#         closing side comment prefix. Otherwise, your edits will be
+#         lost when you rerun perltidy with -csc. For example, you
+#         could simply change ## end to be ## End, since the test is
+#         case sensitive. You may also want to use the -ssc flag to
+#         keep these modified closing side comments spaced the same as
+#         actual closing side comments.
+# 
+#       + Temporarily generating closing side comments is a useful
+#         technique for exploring and/or debugging a perl script,
+#         especially one written by someone else. You can always remove
+#         them with -dcsc.
+# 
+# Static Block Comments
+#     Static block comments are block comments with a special leading
+#     pattern, ## by default, which will be treated slightly
+#     differently from other block comments. They effectively behave as
+#     if they had glue along their left and top edges, because they
+#     stick to the left edge and previous line when there is no blank
+#     spaces in those places. This option is particularly useful for
+#     controlling how commented code is displayed.
+# 
+#     -sbc, --static-block-comments
+#         When -sbc is used, a block comment with a special leading
+#         pattern, ## by default, will be treated specially.
+# 
+#         Comments so identified are treated as follows:
+# 
+#           o If there is no leading space on the line, then the
+#             comment will not be indented, and otherwise it may be,
+# 
+#           o no new blank line will be inserted before such a comment,
+#             and
+# 
+#           o such a comment will never become a hanging side comment.
+# 
+#         For example, assuming @month_of_year is left-adjusted:
+# 
+#         @month_of_year = (    # -sbc (default)
+#          'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct',
+#          ##  'Dec', 'Nov'
+#          'Nov', 'Dec');
+# 
+#         Without this convention, the above code would become
+# 
+#         @month_of_year = (   # -nsbc
+#          'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct',
+# 
+#          ##  'Dec', 'Nov'
+#          'Nov', 'Dec'
+#         );
+# 
+#         which is not as clear. The default is to use -sbc. This may
+#         be deactivated with -nsbc.
+# 
+#     -sbcp=string, --static-block-comment-prefix=string
+#         This parameter defines the prefix used to identify static
+#         block comments when the -sbc parameter is set. The default
+#         prefix is ##, corresponding to -sbcp=##. The first character
+#         must be a # symbol, since this must only match comments. As a
+#         simple example, to identify all comments as static block
+#         comments, one would use -sbcp=#.
+# 
+#         Please note that -sbcp merely defines the pattern used to
+#         identify static block comments; it will not be used unless
+#         the switch -sbc is set. Also, please be aware that this
+#         string is used in a perl regular expression which identifies
+#         these comments, so it must enable a valid regular expression
+#         to be formed.
+# 
+#     -osbc, --outdent-static-block-comments
+#         The command -osbc will will cause static block comments to be
+#         outdented by 2 spaces (or whatever -ci=n has been set to), if
+#         possible.
+# 
+# Static Side Comments
+#     Static side comments are side comments with a special leading
+#     pattern. This option can be useful for controlling how commented
+#     code is displayed when it is a side comment.
+# 
+#     -ssc, --static-side-comments
+#         When -ssc is used, a side comment with a static leading
+#         pattern, which is ## by default, will be be spaced only a
+#         single space from previous character, and it will not be
+#         vertically aligned with other side comments.
+# 
+#         The default is -nssc.
+# 
+#     -sscp=string, --static-side-comment-prefix=string
+#         This parameter defines the prefix used to identify static
+#         side comments when the -ssc parameter is set. The default
+#         prefix is ##, corresponding to -sscp=##.
+# 
+#         Please note that -sscp merely defines the pattern used to
+#         identify static side comments; it will not be used unless the
+#         switch -ssc is set. Also, note that this string is used in a
+#         perl regular expression which identifies these comments, so
+#         it must enable a valid regular expression to be formed.
+# 
+# Line Break Control
+# 
+# -fnl, --freeze-newlines
+#     If you do not want any changes to the line breaks in your script,
+#     set -fnl, and they will remain fixed, and the rest of the
+#     commands in this section and sections Controlling List Formatting
+#     , Retaining or Ignoring Existing Line Breaks, and Blank Line
+#     Control will be ignored. You may want to use -noll with this.
+# 
+# -ce, --cuddled-else
+#     Enable the ``cuddled else'' style, in which else and elsif are
+#     follow immediately after the curly brace closing the previous
+#     block. The default is not to use cuddled elses, and is indicated
+#     with the flag -nce or --nocuddled-else. Here is a comparison of
+#     the alternatives:
+#       if ($task) {
+#           yyy();
+#       } else {    # -ce
+#           zzz();
+#       }
+#       if ($task) {
+#             yyy();
+#       }
+#       else {    # -nce  (default)
+#             zzz();
+#       }
+# 
+# -bl, --opening-brace-on-new-line
+#     Use the flag -bl to place the opening brace on a new line:
+#       if ( $input_file eq '-' )    # -bl
+#       {
+#           important_function();
+#       }
+# 
+#     This flag applies to all structural blocks, including sub's
+#     (unless the -sbl flag is set -- see next item).
+# 
+#     The default style, -nbl, places an opening brace on the same line
+#     as the keyword introducing it. For example,
+# 
+#       if ( $input_file eq '-' ) {   # -nbl (default)
+# 
+# -sbl, --opening-sub-brace-on-new-line
+#     The flag -sbl can be used to override the value of -bl for
+#     opening sub braces. For example,
+#      perltidy -sbl
+# 
+#     produces this result:
+# 
+#      sub message
+#      {
+#         if (!defined($_[0])) {
+#             print("Hello, World\n");
+#         }
+#         else {
+#             print($_[0], "\n");
+#         }
+#      }
+# 
+#     This flag is negated with -nsbl. If -sbl is not specified, the
+#     value of -bl is used.
+# 
+# -bli, --brace-left-and-indent
+#     The flag -bli is the same as -bl but in addition it causes one
+#     unit of continuation indentation ( see -ci ) to be placed before
+#     an opening and closing block braces.
+# 
+#     For example,
+# 
+#             if ( $input_file eq '-' )    # -bli
+#               {
+#                 important_function();
+#               }
+# 
+#     By default, this extra indentation occurs for blocks of type: if,
+#     elsif, else, unless, for, foreach, sub, while, until, and also
+#     with a preceding label. The next item shows how to change this.
+# 
+# -blil=s, --brace-left-and-indent-list=s
+#     Use this parameter to change the types of block braces for which
+#     the -bli flag applies; see Specifying Block Types. For example,
+#     -blil='if elsif else' would apply it to only if/elsif/else
+#     blocks.
+# 
+# -bar, --opening-brace-always-on-right
+#     The default style, -nbl places the opening brace on a new line if
+#     it does not fit on the same line as the opening keyword, like
+#     this:
+#             if ( $bigwasteofspace1 && $bigwasteofspace2
+#               || $bigwasteofspace3 && $bigwasteofspace4 )
+#             {
+#                 big_waste_of_time();
+#             }
+# 
+#     To force the opening brace to always be on the right, use the
+#     -bar flag. In this case, the above example becomes
+# 
+#             if ( $bigwasteofspace1 && $bigwasteofspace2
+#               || $bigwasteofspace3 && $bigwasteofspace4 ) {
+#                 big_waste_of_time();
+#             }
+# 
+#     A conflict occurs if both -bl and -bar are specified.
+# 
+# Vertical tightness of non-block curly braces, parentheses, and square
+#     brackets.
+#     These parameters control what shall be called vertical tightness.
+#     Here are the main points:
+#       + Opening tokens (except for block braces) are controlled by
+#         -vt=n, or --vertical-tightness=n, where
+#          -vt=0 always break a line after opening token (default).
+#          -vt=1 do not break unless this would produce more than one
+#                  step in indentation in a line.
+#          -vt=2 never break a line after opening token
+# 
+#       + You must also use the -lp flag when you use the -vt flag; the
+#         reason is explained below.
+# 
+#       + Closing tokens (except for block braces) are controlled by
+#         -vtc=n, or --vertical-tightness-closing=n, where
+#          -vtc=0 always break a line before a closing token (default),
+#          -vtc=1 do not break before a closing token which is followed
+#                 by a semicolon or another closing token, and is not in
+#                 a list environment.
+#          -vtc=2 never break before a closing token.
+# 
+#         The rules for -vtc=1 are designed to maintain a reasonable
+#         balance between tightness and readability in complex lists.
+# 
+#       + Different controls may be applied to to different token
+#         types, and it is also possible to control block braces; see
+#         below.
+# 
+#       + Finally, please note that these vertical tightness flags are
+#         merely hints to the formatter, and it cannot always follow
+#         them. Things which make it difficult or impossible include
+#         comments, blank lines, blocks of code within a list, and
+#         possibly the lack of the -lp parameter. Also, these flags may
+#         be ignored for very small lists (2 or 3 lines in length).
+# 
+#     Here are some examples:
+# 
+#         # perltidy -lp -vt=0 -vtc=0
+#         %romanNumerals = (
+#                            one   => 'I',
+#                            two   => 'II',
+#                            three => 'III',
+#                            four  => 'IV',
+#         );
+#         # perltidy -lp -vt=1 -vtc=0
+#         %romanNumerals = ( one   => 'I',
+#                            two   => 'II',
+#                            three => 'III',
+#                            four  => 'IV',
+#         );
+#         # perltidy -lp -vt=1 -vtc=1
+#         %romanNumerals = ( one   => 'I',
+#                            two   => 'II',
+#                            three => 'III',
+#                            four  => 'IV', );
+# 
+#     The difference between -vt=1 and -vt=2 is shown here:
+# 
+#         # perltidy -lp -vt=1
+#         $init->add(
+#                     mysprintf( "(void)find_threadsv(%s);",
+#                                cstring( $threadsv_names[ $op->targ ] )
+#                     )
+#         );
+#         # perltidy -lp -vt=2
+#         $init->add( mysprintf( "(void)find_threadsv(%s);",
+#                                cstring( $threadsv_names[ $op->targ ] )
+#                     )
+#         );
+# 
+#     With -vt=1, the line ending in add( does not combine with the
+#     next line because the next line is not balanced. This can help
+#     with readability, but -vt=2 can be used to ignore this rule.
+# 
+#     The tightest, and least readable, code is produced with both -vt=
+#     2 and -vtc=2:
+# 
+#         # perltidy -lp -vt=2 -vtc=2
+#         $init->add( mysprintf( "(void)find_threadsv(%s);",
+#                                cstring( $threadsv_names[ $op->targ ] ) ) );
+# 
+#     Notice how the code in all of these examples collapses vertically
+#     as -vt increases, but the indentation remains unchanged. This is
+#     because perltidy implements the -vt parameter by first formatting
+#     as if -vt=0, and then simply overwriting one output line on top
+#     of the next, if possible, to achieve the desired vertical
+#     tightness. The -lp indentation style has been designed to allow
+#     this vertical collapse to occur, which is why it is required for
+#     the -vt parameter.
+# 
+#     The -vt=n and -vtc=n parameters apply to each type of container
+#     token. If desired, vertical tightness controls can be applied
+#     independently to each of the closing container token types.
+# 
+#     The parameters for controlling parentheses are -pvt=n or
+#     --paren-vertical-tightness=n, and -pcvt=n or
+#     --paren-vertical-tightness-closing=n.
+# 
+#     Likewise, the parameters for square brackets are -sbvt=n or
+#     --square-bracket-vertical-tightness=n, and -sbcvt=n or
+#     --square-bracket-vertical-tightness-closing=n.
+# 
+#     Finally, the parameters for controlling non-code block braces are
+#     -bvt=n or --brace-vertical-tightness=n, and -bcvt=n or
+#     --brace-vertical-tightness-closing=n.
+# 
+#     In fact, the parameter -vt=n is actually just an abbreviation for
+#     -pvt=n -bvt=n sbvt=n, and likewise -vtc=n is an abbreviation for
+#     -pvtc=n -bvtc=n sbvtc=n.
+# 
+# -bbvt=n or --block-brace-vertical-tightness=n
+#     The -bbvt=n flag is just like the -vt=n flag but applies to
+#     opening code block braces.
+#      -bbvt=0 break after opening block brace (default).
+#      -bbvt=1 do not break unless this would produce more than one
+#              step in indentation in a line.
+#      -bbvt=2 do not break after opening block brace.
+# 
+#     It is necessary to also use either -bl or -bli for this to work,
+#     because, as with other vertical tightness controls, it is
+#     implemented by simply overwriting a line ending with an opening
+#     block brace with the subsequent line. For example:
+# 
+#         # perltidy -bli -bbvt=0
+#         if ( open( FILE, "< $File" ) )
+#           {
+#             while ( $File = <FILE> )
+#               {
+#                 $In .= $File;
+#                 $count++;
+#               }
+#             close(FILE);
+#           }
+#         # perltidy -bli -bbvt=1
+#         if ( open( FILE, "< $File" ) )
+#           { while ( $File = <FILE> )
+#               { $In .= $File;
+#                 $count++;
+#               }
+#             close(FILE);
+#           }
+# 
+#     By default this applies to blocks associated with keywords if,
+#     elsif, else, unless, for, foreach, sub, while, until, and also
+#     with a preceding label. This can be changed with the parameter
+#     -bbvtl=string, or --block-brace-vertical-tightness-list=string,
+#     where string is a space-separated list of block types. For more
+#     information on the possible values of this string, see Specifying
+#     Block Types
+# 
+#     For example, if we want to just apply this style to if, elsif,
+#     and else blocks, we could use perltidy -bli -bbvt -bbvtl='if
+#     elsif else'.
+# 
+#     There is no vertical tightness control for closing block braces;
+#     with the exception of one-line blocks, they will normally remain
+#     on a separate line.
+# 
+# -dnl, --delete-old-newlines
+#     By default, perltidy first deletes all old line break locations,
+#     and then it looks for good break points to match the desired line
+#     length. Use -ndnl or --nodelete-old-newlines to force perltidy to
+#     retain all old line break points.
+# 
+# -anl, --add-newlines
+#     By default, perltidy will add line breaks when necessary to
+#     create continuations of long lines and to improve the script
+#     appearance. Use -nanl or -noadd-newlines to prevent any new line
+#     breaks.
+# 
+#     This flag does not prevent perltidy from eliminating existing
+#     line breaks; see -freeze-newlines to completely prevent changes
+#     to line break points.
+# 
+# Controlling whether perltidy breaks before or after operators
+#     Two command line parameters provide some control over whether a
+#     line break should be before or after specific token types.
+# 
+#     -wba=s or --want-break-after=s, and
+# 
+#     -wbb=s or --want-break-before=s.
+# 
+#     These parameters are each followed by a quoted string, s,
+#     containing a list of token types (separated only by spaces). No
+#     more than one of each of these parameters should be specified,
+#     because repeating a command-line parameter always overwrites the
+#     previous one before perltidy ever sees it.
+# 
+#     By default, perltidy breaks after these token types: % + - * / x
+#     != == >= <= =~ !~ < > | & >= < = **= += *= &= <<= &&= -= /= |= >>
+#     = ||= .= %= ^= x=
+# 
+#     And perltidy breaks before these token types by default: . << >>
+#     -> && ||
+# 
+#     To illustrate, to cause a break after a concatenation operator,
+#     '.', rather than before it, the command line would be
+# 
+#       -wba="."
+# 
+#     As another example, the following command would cause a break
+#     before math operators '+', '-', '/', and '*':
+# 
+#       -wbb="+ - / *"
+# 
+#     These commands should work well for most of the token types that
+#     perltidy uses (use --dump-token-types for a list). However, for a
+#     few token types there may be conflicts with hardwired logic which
+#     cause unexpected results. One example is curly braces, which
+#     should be controlled with the parameter bl provided for that
+#     purpose.
+# 
+# Controlling List Formatting
+# 
+# Perltidy attempts to place comma-separated arrays of values in tables
+# which look good. Its default algorithms usually work well, and they
+# have been improving with each release, but several parameters are
+# available to control list formatting.
+# 
+# -boc, --break-at-old-comma-breakpoints
+#     This flag tells perltidy to try to break at all old commas. This
+#     is not the default. Normally, perltidy makes a best guess at list
+#     formatting, and seldom uses old comma breakpoints. Usually this
+#     works well, but consider:
+#         my @list = (1,
+#                     1, 1,
+#                     1, 2, 1,
+#                     1, 3, 3, 1,
+#                     1, 4, 6, 4, 1,);
+# 
+#     The default formatting will flatten this down to one line:
+# 
+#         # perltidy (default)
+#         my @list = ( 1, 1, 1, 1, 2, 1, 1, 3, 3, 1, 1, 4, 6, 4, 1, );
+# 
+#     which hides the structure. Using -boc, plus additional flags to
+#     retain the original style, yields
+# 
+#         # perltidy -boc -lp -pt=2 -vt=1 -vtc=1
+#         my @list = (1,
+#                     1, 1,
+#                     1, 2, 1,
+#                     1, 3, 3, 1,
+#                     1, 4, 6, 4, 1,);
+# 
+#     A disadvantage of this flag is that all tables in the file must
+#     already be nicely formatted.
+
+-mft=8
+#     If the computed number of fields for any table exceeds n, then it
+#     will be reduced to n. The default value for n is a large number,
+#     40. While this value should probably be left unchanged as a
+#     general rule, it might be used on a small section of code to
+#     force a list to have a particular number of fields per line, and
+#     then either the -boc flag could be used to retain this
+#     formatting, or a single comment could be introduced somewhere to
+#     freeze the formatting in future applications of perltidy.
+#         # perltidy -mft=2
+#         @month_of_year = (
+#             'Jan', 'Feb',
+#             'Mar', 'Apr',
+#             'May', 'Jun',
+#             'Jul', 'Aug',
+#             'Sep', 'Oct',
+#             'Nov', 'Dec'
+#         );
+# 
+# -cab=n, --comma-arrow-breakpoints=n
+#     A comma which follows a comma arrow, '=>', requires special
+#     consideration. In a long list, it is common to break at all such
+#     commas. This parameter can be used to control how perltidy breaks
+#     at these commas. (However, it will have no effect if old comma
+#     breaks are being forced because -boc is used). The possible
+#     values of n are:
+#      n=0 break at all commas after =>
+#      n=1 stable: break at all commas after => unless this would break
+#          an existing one-line container (default)
+#      n=2 break at all commas after =>, but try to form the maximum
+#          maximum one-line container lengths
+#      n=3 do not treat commas after => specially at all
+# 
+#     For example, given the following single line, perltidy by default
+#     will not add any line breaks because it would break the existing
+#     one-line container:
+# 
+#         bless { B => $B, Root => $Root } => $package;
+# 
+#     Using -cab=0 will force a break after each comma-arrow item:
+# 
+#         # perltidy -cab=0:
+#         bless {
+#             B    => $B,
+#             Root => $Root
+#         } => $package;
+# 
+#     If perltidy is subsequently run with this container broken, then
+#     by default it will break after each '=>' because the container is
+#     now broken. To reform a one-line container, the parameter -cab=2
+#     would be needed.
+# 
+#     The flag -cab=3 can be used to prevent these commas from being
+#     treated specially. In this case, an item such as ``01'' => 31 is
+#     treated as a single item in a table. The number of fields in this
+#     table will be determined by the same rules that are used for any
+#     other table. Here is an example.
+# 
+# 
+#         # perltidy -cab=3
+#         my %last_day = (
+#             "01" => 31, "02" => 29, "03" => 31, "04" => 30,
+#             "05" => 31, "06" => 30, "07" => 31, "08" => 31,
+#             "09" => 30, "10" => 31, "11" => 30, "12" => 31
+#         );
+# 
+# Retaining or Ignoring Existing Line Breaks
+# 
+# Several additional parameters are available for controlling the
+# extent to which line breaks in the input script influence the output
+# script. In most cases, the default parameter values are set so that,
+# if a choice is possible, the output style follows the input style.
+# For example, if a short logical container is broken in the input
+# script, then the default behavior is for it to remain broken in the
+# output script.
+# 
+# Most of the parameters in this section would only be required for a
+# one-time conversion of a script from short container lengths to
+# longer container lengths. The opposite effect, of converting long
+# container lengths to shorter lengths, can be obtained by temporarily
+# using a short maximum line length.
+# 
+# -bol, --break-at-old-logical-breakpoints
+#     By default, if a logical expression is broken at a &&, ||, and,
+#     or or, then the container will remain broken. Also, breaks at
+#     internal keywords if and unless will normally be retained. To
+#     prevent this, and thus form longer lines, use -nbol.
+# 
+# -bok, --break-at-old-keyword-breakpoints
+#     By default, perltidy will retain a breakpoint before keywords
+#     which may return lists, such as sort and <map>. This allows
+#     chains of these operators to be displayed one per line. Use -nbok
+#     to prevent retaining these breakpoints.
+# 
+# -bot, --break-at-old-trinary-breakpoints
+#     By default, if a conditional (trinary) operator is broken at a :,
+#     then it will remain broken. To prevent this, and thereby form
+#     longer lines, use -nbot.
+# 
+# -iob, --ignore-old-breakpoints
+#     Use this flag to tell perltidy to ignore existing line breaks to
+#     the maximum extent possible. This will tend to produce the
+#     longest possible containers, regardless of type, which do not
+#     exceed the line length limit.
+# 
+# Blank Line Control
+# 
+# Blank lines can improve the readability of a script if they are
+# carefully placed. Perltidy has several commands for controlling the
+# insertion, retention, and removal of blank lines.
+# 
+# -bbc, --blanks-before-comments
+#     A blank line will be introduced before a full-line comment. This
+#     is the default. Use -nbbc or --noblanks-before-comments to
+#     prevent such blank lines from being introduced.
+# 
+# -bbs, --blanks-before-subs
+#     A blank line will be introduced before a sub definition, unless
+#     it is a one-liner or preceded by a comment. A blank line will
+#     also be introduced before a package statement and a BEGIN and END
+#     block. This is the default. The intention is to help display the
+#     structure of a program by setting off certain key sections of
+#     code. This is negated with -nbbs or --noblanks-before-subs.
+# 
+# -bbb, --blanks-before-blocks
+#     A blank line will be introduced before blocks of coding delimited
+#     by for, foreach, while, until, and if, unless, in the following
+#     circumstances:
+#       + The block is not preceded by a comment.
+# 
+#       + The block is not a one-line block.
+# 
+#       + The number of consecutive non-blank lines at the current
+#         indentation depth is at least -lbl (see next section).
+# 
+#     This is the default. The intention of this option is to introduce
+#     some space within dense coding. This is negated with -nbbb or
+#     --noblanks-before-blocks.
+# 
+# -lbl=n --long-block-line-count=n
+#     This controls how often perltidy is allowed to add blank lines
+#     before certain block types (see previous section). The default is
+#     8. Entering a value of 0 is equivalent to entering a very large
+#     number.
+# 
+# -mbl=n --maximum-consecutive-blank-lines=n
+#     This parameter specifies the maximum number of consecutive blank
+#     lines in the output script. The default is n=1. If the input file
+#     has more than n consecutive blank lines, the number will be
+#     reduced to n. (This obviously does not apply to pod sections,
+#     here-documents, and quotes).
+# 
+# -sob, --swallow-optional-blank-lines
+#     All blank lines not required by the above flags, -bbb, -bbs, and
+#     -bbc, will be deleted. (But essential blank lines above pod
+#     documents will be retained). This is NOT the default.
+# 
+# -nsob, --noswallow-optional-blank-lines
+#     Retain blank lines, including those which do not corresponding to
+#     flags -bbb, -bbs, and -bbc. This is the default. The number of
+#     blanks retained is subject to the limit imposed by
+#     --maximum-consecutive-blank-lines, however.
+# 
+# Styles
+# 
+# A style refers to a convenient collection of existing parameters.
+# 
+# -gnu, --gnu-style
+#     -gnu gives an approximation to the GNU Coding Standards (which do
+#     not apply to perl) as they are sometimes implemented. At present,
+#     this style overrides the default style with the following
+#     parameters:
+#         -lp -bl -noll -pt=2 -bt=2 -sbt=2 -icp
+# 
+# Using a .perltidyrc command file
+#     If you use perltidy frequently, you probably won't be happy until
+#     you create a .perltidyrc file to avoid typing commonly-used
+#     parameters. Perltidy will first look in your current directory
+#     for a command file named .perltidyrc. If it does not find one, it
+#     will continue looking for one in other standard locations.
+# 
+#     These other locations are system-dependent, and may be displayed
+#     with the command perltidy -dpro. Under Unix systems, it will look
+#     for a .perltidyrc file in the home directory, and then for a
+#     system-wide file /usr/local/etc/perltidyrc, and then it will look
+#     for /etc/perltidyrc. Note that these last two system-wide files
+#     do not have a leading dot. Further system-dependent information
+#     will be found in the INSTALL file distributed with perltidy.
+# 
+#     This file is free format, and simply a list of parameters, just
+#     as they would be entered on a command line. Any number of lines
+#     may be used, with any number of parameters per line, although it
+#     may be easiest to read with one parameter per line. Blank lines
+#     are ignored, and text after a '#' is ignored to the end of a
+#     line.
+# 
+#     The parameters in the .perltidyrc file are installed first, so
+#     any parameters given on the command line will have priority over
+#     them.
+# 
+#     To avoid confusion, perltidy ignores any command in the
+#     .perltidyrc file which would cause some kind of dump and an exit.
+#     These are:
+# 
+#      -h -v -ddf -dln -dop -dsn -dtt -dwls -dwrs -ss
+# 
+#     There are several options may be helpful in debugging a
+#     .perltidyrc file:
+# 
+#       + A very helpful command is --dump-profile or -dpro. It writes
+#         a list of all configuration filenames tested to standard
+#         output, and if a file is found, it dumps the content to
+#         standard output before exiting. So, to find out where
+#         perltidy looks for its configuration files, and which one if
+#         any it selects, just enter
+#           perltidy -dpro
+# 
+#       + It may be simplest to develop and test configuration files
+#         with alternative names, and invoke them with -pro=filename on
+#         the command line. Then rename the desired file to .perltidyrc
+#         when finished.
+# 
+#       + The parameters in the .perltidyrc file can be switched off
+#         with the -npro option.
+# 
+#       + The commands -dump-options, -dump-defaults, -dump-long-names,
+#         and -dump-short-names, all described below, may all be
+#         helpful.
+# 
+# SWITCHES WHICH MAY BE NEGATED
+# 
+# The following list shows all short parameter names which allow a
+# prefix 'n' to produce the negated form:
+# 
+#     D anl asc aws b bbb bbc bbs bli boc bok bol bot syn ce csc
+#     dac dbc dcsc dnl dws dp dpro dsm dsc ddf dln dop dsn dtt dwls dwrs
+#     f fll frm hsc html ibc icb icp iob isbc lp log lal x lsl pod bl
+#     sbl okw ola oll pvl q opt sbc sfs ssc sts se st sob
+#     t tac tbc toc tp tsc tqw w
+# 
+# Equivalently, the prefix 'no' or 'no-' on the corresponding long
+# names may be used.

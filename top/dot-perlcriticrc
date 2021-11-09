@@ -1,0 +1,16 @@
+# https://metacpan.org/pod/Perl::Critic
+#
+# $Revision: 1.1 $ $Date: 2018-02-07 16:48:13-05 $
+# $Source: /home/vogelke/RCS/.perlcriticrc,v $
+# $Host: furbag.my.domain $
+# $UUID: 67306a49-ae34-42fc-b866-34e199011f0a $
+#
+# default severity: medium
+severity = 3
+
+# Always load these
+[TestingAndDebugging::RequireUseStrict]
+severity = 5
+
+[TestingAndDebugging::RequireUseWarnings]
+severity = 5

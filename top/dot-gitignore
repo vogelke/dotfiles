@@ -1,0 +1,8 @@
+*.[oa]
+build/
+TODO
+LOG
+gclean
+gsmudge
+.version,v
+*~

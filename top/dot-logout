@@ -1,0 +1,10 @@
+#
+# $Revision: 2.2 $ $Date: 2018-10-31 20:32:57-04 $
+# $Source: /doc/sitelog/zhtv-82326/basic-files/vogelke/tcsh/RCS/dot-logout,v $
+# $Host: furbag.my.domain $
+# $UUID: 7feebb3c-9626-433f-a936-1394eed39748 $
+#
+# tcsh logout commands.
+ 
+unset noclobber
+echo "set current=$current" > $HOME/.current

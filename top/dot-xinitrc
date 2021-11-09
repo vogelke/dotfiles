@@ -1,0 +1,79 @@
+#!/bin/ksh
+#
+# $Revision: 1.3+23 $ $Date: 2017-10-22 21:47:15-04 $
+# $Source: /home/vogelke/RCS/.xinitrc-fvwm2-kv,v $
+# $Host: furbag.my.domain $
+# $UUID: 751fc71f-d49f-4eaf-9f8d-db971ec6e4e6 $
+#
+#<.xinitrc: configure X session started with xinit/startx.
+
+# Don't mess with these unless they're not set at all.
+PATH=${PATH:-/usr/local/bin:/bin:/usr/bin}
+SHELL=${SHELL:-/usr/local/bin/zsh}
+export PATH SHELL
+
+#---------------------------------------------------------
+# Basics
+test -f $HOME/.Xdefaults && xrdb -merge $HOME/.Xdefaults &
+
+# Fix DPI -- change .Xdefaults to match.
+xrandr --dpi 110
+xrandr --dpi 110
+
+#---------------------------------------------------------
+# Keyswaps, keyboard repeat rate, and mouse speed.
+defmap="$HOME/.xmodmap"
+caps="$defmap.swapcaps"
+test -f $defmap && xmodmap $defmap
+test -f $caps   && xmodmap $caps   && xmodmap $caps
+
+xset r rate 200 50 &
+xset m 3 5 &
+
+#---------------------------------------------------------
+# For more information about options, see "xt" program
+XTERM=/usr/local/bin/xterm
+termopts="-j -b 10 -sb -si -sk -cr blue -sl 4000 -bd black -bg #ffffff"
+utf="-u8"
+
+# Get the font from the environment if possible. Default to 21 pixels,
+# bold unless already set -- this lets us try new things like FONT='Hack'.
+# Another excellent font: xft:Cascadia:pixelsize=22:bold
+
+case "$FONT" in
+    "") FONT='xft:Bitstream Vera Sans Mono:pixelsize=21:bold' ;;
+    *)  ;;
+esac
+
+case "$FONT" in
+    *:*) ;;
+    *)   FONT="xft:$FONT:pixelsize=21:bold" ;;
+esac
+
+# Mon, 05 Jun 2017 23:45:42 -0400 under Metacity:
+#   I can only get lines to go to 43, then I have to resize by hand.
+#   Excellent display.
+#
+# Mon, 02 Oct 2017 21:48:41 -0400 under FVWM:
+#   Good display, need a little bigger font for window titles.
+export COLUMNS=80
+export LINES=39
+
+case "$FONT" in
+    *FiraMono*) LINES=41 ;;
+    *:*)        ;;
+    *)          FONT="xft:$FONT:pixelsize=21:bold" ;;
+esac
+
+left="-geometry ${COLUMNS}x${LINES}+0+0"
+right="-geometry ${COLUMNS}x${LINES}-0+0"
+
+$XTERM $left  $termopts -fa "$FONT" -title "$HOST" &
+$XTERM $right $termopts -fa "$FONT" -title "Remote" &
+
+#---------------------------------------------------------
+# Window manager.  Need something for fluxbox.
+
+# Background color and let-er-rip.
+fbsetroot -solid cyan &
+exec startfluxbox

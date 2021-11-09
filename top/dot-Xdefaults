@@ -1,0 +1,182 @@
+! @(#)Xdefaults 35.1 94/09/01   OpenWindows Default X Resources
+!
+! $Revision: 1.20 $ $Date: 2020-09-11 03:57:25-04 $
+! $Source: /home/vogelke/RCS/.Xdefaults,v $
+! $Host: furbag.my.domain $
+! $UUID: d96b735c-1cb3-455e-aa5a-ad499f3a3d84 $
+!
+!--------------------------------------------------------------------------
+! OBSOLETE?
+! Xmessage*font:          -adobe-courier-bold-r-normal--*
+! Xmessage*nearMouse:     True
+! AcroRead.geometry:      1040x830-0+0
+
+!--------------------------------------------------------------------------
+! Xft: X Freetype.
+! The more important font DPI setting can be configured by either changing
+! the default Xft.dpi: 96 setting in /etc/X11/Xresources OR by creating
+! a $HOME/.Xresources file with Xft.dpi: VALUE, for example:
+Xft.dpi:                    110
+
+! Use in combination with xrandr (must run twice for some reason):
+!    xrandr --dpi 110; xrandr --dpi 110
+
+!--------------------------------------------------------------------------
+! Xterm:
+! Got some of this from clark.net distribution and FAQ list.
+
+XTerm*internalBorder:       10
+XTerm*highlightSelection:   true
+XTerm*VT100*colorBDMode:    on
+XTerm*VT100*colorBD:        blue
+XTerm*VT100*colorULMode:    on
+XTerm*VT100*colorUL:        magenta
+XTerm.VT100.eightBitInput:  true
+XTerm.VT100.eightBitOutput: true
+XTerm*scrollBar:            true
+XTerm.VT100.titeInhibit:    true
+XTerm.VT100*colorMode:      on
+XTerm.VT100*dynamicColors:  on
+
+! scrollback buffer lines - 65535 is max on most machines (64 is default)
+XTerm*saveLines:            20000
+
+! http://invisible-island.net/xterm/xterm.faq.html
+! XTerm may show boxes instead of characters if the font that you have
+! selected does not contain those characters.  Normally you can fix most
+! of that using the UTF-8 feature, with uxterm.  However, your X resource
+! settings may be the source of the problem.
+!
+! XTerm uses the utf8Fonts subresources to provide runtime-switchable
+! fonts between IS0-8859-1 (Latin-1) and ISO-10646 (Unicode).  Modifying
+! the Unicode font to "fixed" will make most of the characters unavailable
+! (i.e., shown as boxes).  Use this to NOT modify the utf8Fonts value:
+
+*VT100.font:                fixed
+
+! http://terrencemiao.com/Webmail/msg00726.html
+! how to set up xterm to control your mouse double-click selection
+! Terrence Miao
+! Thu, 8 Jan 2004 03:17:50 -0500
+!
+! The string "33:48,37:48,45-47:48,64:48" indicates that the exclamation
+! mark, percent sign, dash, period, slash, and ampersand characters
+! should be treated the same way as characters and numbers:
+!   XTerm*charClass: 33:48,37:48,45-47:48,64:48
+!
+! ASCII table:
+!  Oct   Dec   Hex   Char          Oct   Dec   Hex   Char
+!  ----------------------          ----------------------
+!  040   32    20    SPACE         073   59    3B    ;
+!  041   33    21    !             074   60    3C    <
+!  042   34    22    double-quote  075   61    3D    =
+!  043   35    23    #             076   62    3E    >
+!  044   36    24    $             077   63    3F    ?
+!  045   37    25    %             100   64    40    @
+!  046   38    26    &
+!  047   39    27    single-quote  133   91    5B    [
+!  050   40    28    (             134   92    5C    \   '\\'
+!  051   41    29    )             135   93    5D    ]
+!  052   42    2A    *             136   94    5E    ^
+!  053   43    2B    +             137   95    5F    _
+!  054   44    2C    ,             140   96    60    `
+!  055   45    2D    -
+!  056   46    2E    .             173   123   7B    {
+!  057   47    2F    /             174   124   7C    |
+!                                  175   125   7D    }
+!  072   58    3A    :             176   126   7E    ~
+!
+! To select all but space character (includes square brackets):
+!   XTerm.VT100*charClass: 33-47:48,58-64:48,91-96:48,123-126:48
+
+! To select all but space, backslash and square brackets:
+XTerm.VT100*charClass: 33-47:48,58-64:48,94-96:48,123-126:48
+
+! Some OS versions get this wrong.
+XTerm.VT100*termName:                   xterm-color
+
+! Xterm should do jump scrolling.  Normally, text is scrolled one line
+! at a time; this option allows xterm to move multiple lines at a time so
+! that it does not fall as far behind.  Its use is strongly recommended
+! since it makes xterm much faster.
+XTerm*jumpScroll:                       true
+
+! An xterm should be a login shell that honors .profile and generally
+! initializes the shell environment the way you expect.  I have no idea
+! why the default is to not do this.
+XTerm*loginShell:                       true
+
+! Xterm may scroll asynchronously, meaning that the screen does not have
+! to be kept completely up to date while scrolling.  This allows xterm to
+! run faster.
+XTerm*multiScroll:                      true
+
+! Uncomment this to use color for underline attribute
+XTerm.VT100*colorULMode:                on
+XTerm.VT100*underLine:                  off
+
+! Uncomment this to use color for the bold attribute
+XTerm.VT100*colorBDMode:                on
+
+XTerm.VT100*color0:                     black
+XTerm.VT100*color1:                     red3
+XTerm.VT100*color2:                     green3
+XTerm.VT100*color3:                     yellow3
+XTerm.VT100*color4:                     blue3
+XTerm.VT100*color5:                     magenta3
+XTerm.VT100*color6:                     cyan3
+XTerm.VT100*color7:                     gray90
+XTerm.VT100*color8:                     gray30
+XTerm.VT100*color9:                     red
+XTerm.VT100*color10:                    green
+XTerm.VT100*color11:                    yellow
+XTerm.VT100*color12:                    blue
+XTerm.VT100*color13:                    magenta
+XTerm.VT100*color14:                    cyan
+XTerm.VT100*color15:                    white
+XTerm.VT100*colorUL:                    blue
+XTerm.VT100*colorBD:                    white
+
+XTerm.VT100*cursorColor:                blue
+
+! stop chinese character mode?
+! XTerm.VT100*eightBitOutput:             false
+
+! properly set erase keys; did not work.  --KEV
+!Xterm*ptyInitialErase:                 true
+
+! Use this to change mappings; from rxvt distribution  --KEV
+XTerm*VT100.Translations:   #override \
+    <Key>Prior:             scroll-back(1,page) \n\
+    <Key>Next:              scroll-forw(1,page) \n\
+    <Key>Home:              scroll-back(100,page) \n\
+    <Key>End:               scroll-forw(100,page) \n\
+    <Key>BackSpace:         string(\010) \n\
+    Meta<Key>Prior:         scroll-back(1) \n\
+    Meta<Key>Next:          scroll-forw(1) \n\
+    Shift<Key>Prior:        scroll-back(3) \n\
+    Shift<Key>Next:         scroll-forw(3) \n
+
+! You can also change the pointer shape, but apparently only to shapes
+! specified in the X cursor font, not to other icons loaded as part of
+! a cursor theme.
+! XTerm*pointerShape: double_arrow works, but is confusing when you try
+! to lengthen a given window vertically.
+
+XTerm*pointerShape:           plus
+
+! http://shallowsky.com/linux/x-cursor-themes.html
+! Using and modifying X cursor themes for big and contrasty mouse cursors
+! Tue, 8 Jul 2014 12:27:05 -0400
+!
+! But I did manage to make the I-beam cursor stand out quite a
+! bit more, with these X resources:
+! [Thu, 08 Feb 2018 23:56:18 -0500 Does not work for me -- KV]
+  
+XTerm*pointerColor:           blue
+XTerm*pointerColorBackground: red
+
+!--------------------------------------------------------------------------
+! Misc, may not need these any more.
+! dt.obsolete:    true
+! EOF

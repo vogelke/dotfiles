@@ -1,0 +1,45 @@
+# Set variables for X-terminal/Gnome terminal.
+#
+# $Revision: 1.7+9 $ $Date: 2016-01-25 14:57:43-05 $
+# $Source: /home/vogelke/RCS/.termrc.xterm,v $
+# $Host: furbag.my.domain $
+# $UUID: f8d15996-16c4-4c89-a122-42f44f6cbb0d $
+
+# Control keys: Xterm/Rxvt needs ^? as erase, or VI and less don't work.
+# SSH also needs ^?
+stty -tabs kill  susp  intr  eof 
+
+case "$WINDOWID" in
+    "") stty erase  ;;
+    *)  stty erase  ;;
+esac
+
+# Personal terminal setup for testing; TERM must be set last,
+# or the shell gets REALLY confused.  The local/share terminfo is
+# a default in case you don't override with your home directory.
+test -d /usr/local/share/terminfo &&
+    export TERMINFO=/usr/local/share/terminfo
+test -d $HOME/terminfo && export TERMINFO=$HOME/terminfo
+export TERM=xterm-256color
+
+# Set up environment so that less isn't completely broken.
+export LESS_TERMCAP_mb=$'\E[01;31m'
+export LESS_TERMCAP_md=$'\E[01;31m'
+export LESS_TERMCAP_me=$'\E[0m'
+export LESS_TERMCAP_se=$'\E[0m'
+export LESS_TERMCAP_so=$'\E[01;47;34m'
+export LESS_TERMCAP_ue=$'\E[0m'
+export LESS_TERMCAP_us=$'\E[01;32m'
+
+# Sorting works faster when setting LANG=C.
+export LANG=C
+#export LC_ALL=POSIX
+export LC_ALL=C
+
+# http://zmwangx.github.io/blog/2015-09-21-zsh-51-and-bracketed-paste.html
+# Kill bracketed paste so I don't get stupid control characters.
+
+case "$ZSH_VERSION" in
+    5*) unset zle_bracketed_paste ;;
+    *)  ;;
+esac

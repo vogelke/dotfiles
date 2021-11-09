@@ -1,0 +1,21 @@
+# $Revision: 1.1+5 $ $Date: 2020-06-25 02:48:36-04 $
+# $Source: /home/vogelke/RCS/.rpmmacros,v $
+# $Host: furbag.my.domain $
+# $UUID: de78a1da-bc86-4aea-ad91-3b6020f9d436 $
+
+%_topdir %(echo $HOME)/rpmbuild
+
+#--------------------------------------------------------------------------
+# Thu, 25 Jun 2020 02:29:40 -0400
+# Correct problems with htop -- found in latest RPM macros.in file:
+# See /src/config-mgmt/rpm sources for details.
+
+# The "make" analogue, hiding the _smp_mflags magic from specs
+%make_build %{__make} %{_make_output_sync} %{?_smp_mflags} %{_make_verbose}
+
+# The RPM macro for the linker flags does not exist on EPEL
+%__global_ldflags -Wl,-z,relro
+
+# Either run as "ldconfig" or set to /bin/true if it runs more than once.
+# This is supposed to be set properly if a package installs a library.
+%ldconfig_scriptlets /bin/true

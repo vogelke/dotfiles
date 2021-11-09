@@ -1,0 +1,42 @@
+# ZSH login.
+#
+# $Revision: 1.25 $ $Date: 2020-10-10 01:57:28-04 $
+# $Source: /doc/sitelog/hairball/basic-files/vogelke/zsh/RCS/dot-zlogin,v $
+# $Host: hairball.my.domain $
+# $UUID: 7cea33f1-6970-3c0a-bd3c-e0892699e52f $
+
+stty erase    # safe default
+export TERMINFO=/usr/local/share/terminfo
+
+# I can login at the console, from X-windows, or via SSH.
+case "$(tty)" in
+    /dev/console|/dev/tty*)
+        export TERM=vt100
+        ;;
+
+    *) ;; 
+esac
+
+case "$WINDOWID" in
+    "") ;;
+
+    *)  export TERM=xterm-256color
+        test -f $HOME/.termrc.xterm  && . $HOME/.termrc.xterm
+        test -x $HOME/bin/mouse-left &&   $HOME/bin/mouse-left
+        ;;
+esac
+
+case "$SCREEN" in
+    "") ;;
+    *)  export TERM=screen ;;
+esac
+
+# SSH
+case "$SSH_CONNECTION" in
+    "") ;;
+    *)  stty erase  ;;
+esac
+
+# Default MOTD and environment.
+test -f /etc/issue       && cat /etc/issue
+test -f /etc/environment && . /etc/environment

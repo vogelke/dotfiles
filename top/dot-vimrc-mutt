@@ -1,0 +1,9 @@
+" $Revision: 1.1+7 $ $Date: 2019/06/26 20:12:46 $
+" $Source: /home/vogelke/MKRCS,v $
+" $Host: furbag.my.domain $
+" $UUID: ea482797-4cef-4cc6-ad97-6c72001e0661 $
+"
+" Use when editing raw mail messages
+" Main .vimrc checks for MDMUTT environment variable and sources this.
+
+map   F   :.,$!html2txt<CR>

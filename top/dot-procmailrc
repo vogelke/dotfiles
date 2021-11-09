@@ -1,0 +1,141 @@
+#
+# $Revision: 1.66+1 $ $Date: 2020-09-09 00:03:30-04 $
+# $Source: /home/vogelke/RCS/.procmailrc,v $
+# $Host: furbag.my.domain $
+# $UUID: 0ccd675f-040c-3eec-82a8-5ec3cf50dd5a $
+#
+# NAME:
+#    $HOME/.procmailrc
+#
+# DESCRIPTION:
+#    "procmail" handles local mail delivery, and you can use this file
+#    to tell it to
+#         - store your mail in a given folder,
+#         - forward or discard mail depending on the contents, or
+#         - run your mail through a program automatically.
+#
+# TESTING CHANGES:
+#    If you want to mess with your setup, the safest way is:
+#
+#    1.  copy an existing mail message to /tmp/msg,
+#    2.  copy $HOME/.procmailrc to $HOME/.procmailrc.new,
+#    3.  only make your changes to $HOME/.procmailrc.new, and
+#    4.  run "procmail -m $HOME/.procmailrc.new < /tmp/msg" to test.
+#
+# AUTHOR:
+#    Karl Vogel <vogelke+unix@pobox.com>
+
+# Search path.
+PATH=/usr/local/bin:/bin:/usr/bin:$HOME/bin
+
+# Default mail folder (Maildir).
+DEFAULT=$HOME/Maildir/
+
+# Current directory while procmail is executing.
+# All pathnames are relative to this directory.
+MAILDIR=$HOME/mail
+
+# File containing error messages or diagnostics.  If this
+# file does not exist, then said messages will be bounced
+# back to the message sender.
+LOGFILE=$MAILDIR/MAILLOG
+
+# If yes, keep an abstract of the From and Subject lines of
+# each delivered message, the folder it was delivered to,
+# and the size of the message.  If no, skip this abstract.
+LOGABSTRACT=yes
+
+# If on, describe actions of procmail in detail.  If you turn
+# this on, comment LOGABSTRACT out.
+#VERBOSE=on
+
+# Number of seconds before procmail zaps a lockfile by force.
+LOCKTIMEOUT=5
+
+# Default shell and umask value.
+SHELL=/bin/sh
+UMASK=022
+
+# Year plus week number, using Monday as first day of week (00..53)
+WEEK="`/bin/date +%Yw%W`"
+
+# Newline for log messages.
+NL="
+"
+
+# Rules section.
+#--------------------------------------------------------------------
+# RULE: Save a copy of incoming headers (not sent by me) in a file
+#          $HOME/mail/HEADERS.YYYYwNN
+#       where YYYY = year
+#       NN = the week number starting on Monday.
+
+:0 chw: $HOME/hdr.lck
+* !^Reply-To:.*vogel
+| /bin/cat - >> $HOME/mail/HEADERS.$WEEK;
+
+#--------------------------------------------------------------------
+# RULE: Alerts -- display them and drop the message.
+
+:0 : xnote.lck
+* ^Delivered-To: (admin|vogelke)-(alert|urgent)
+| xnote
+
+#--------------------------------------------------------------------
+# RULE: Blog entries -- display them and drop the message.
+
+:0 : newpost.lck
+* ^Delivered-To: vogelke-blog
+| newpost
+
+#--------------------------------------------------------------------
+# RULE: Keep a copy.  This is for backwards compatibility -- keeping
+#       the header also keeps a copy.  To save in mailbox format:
+#             | formail -ds >> $HOME/mail/sentmail
+
+:0 :
+* ^Delivered-To: vogelke-bcc
+$HOME/Sentmail/
+
+#--------------------------------------------------------------------
+# RULE: Keep my sent-mail headers and a copy of all messages.
+
+:0
+* ^Delivered-To: vogelke-header
+{
+    :0 chw
+    | /bin/cat - >> $HOME/mail/SENT.$WEEK;
+
+    :0
+    $HOME/Sentmail/
+}
+
+#--------------------------------------------------------------------
+# RULE: Check if the Message-ID: header has been seen.
+#       Discard the message if so, otherwise continue.
+#
+#       Tue, 08 Sep 2020 23:18:34 -0400: This may have dropped a message
+#       without any Message-ID; not sure how that works, so from now on
+#       I'll add a custom Message-ID to the header if one's not there,
+#       and set LOG to show me that it's been done.
+#
+#      -a headerfield
+#         Append a custom headerfield onto the header; but only if a similar
+#         field does not exist yet.  If you specify either one of the field
+#         names Message-ID: or Resent-Message-ID: with no field contents,
+#         then formail will generate a unique message-ID for you.
+
+:0
+* !^Message-ID:
+{
+    LOG="Adding Message-ID here:$NL"
+    :0 fw
+    | formail -a "Message-ID:"
+}
+
+:0 Wh: msgid.lck
+| formail -D 655360 msgid.cache
+
+:0 :
+$DEFAULT
+

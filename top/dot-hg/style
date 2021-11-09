@@ -1,0 +1,21 @@
+changeset_common = '{label(ifcontains(rev, revset('parents()'),
+      "log.activechangeset",
+      "log.changeset"),
+      "commit {rev}:{node}")}\
+      {label("log.phase_{phase}",
+    ifeq(phase, "public",
+      "",
+      " {ifeq(phase,"draft","D","S")}"))}\
+      {label("log.branch", ifeq(branch, "default", "", " {branch}"))}\
+      {label("log.tag", if(tags, " {tags}"))}\
+      {bookmarks % "{ifeq(bookmark, currentbookmark,
+    label('log.activebookmark', " {bookmark}"),
+    label('log.bookmark', " {bookmark}"))}"}
+    {ifeq(parents,"","","{ifeq(p2rev,-1,"Parent: ","Merge: ")}{parents}\n")}\
+    Author: {author}
+    Date:   {date(date,"%c %z")}\n
+    {indent(desc,"    ")}\n'
+
+changeset_files = '{ifeq(files, "", "", "\n {join(files,\"\n \")}\n")}'
+changeset_verbose = '{changeset_common}{changeset_files}\n'
+changeset = '{changeset_common}\n'

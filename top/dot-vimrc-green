@@ -1,0 +1,284 @@
+" $Revision: 1.49+3 $ $Date: 2019-01-21 19:02:27-05 $
+" $Source: /home/vogelke/RCS/.vimrc,v $
+" $Host: furbag.my.domain $
+" $UUID: a4f4bf9d-514d-37c7-a0e1-04b41434e869 $
+"
+" Basic settings.
+
+set autoindent       " copy indent from current line for new lines.
+set autowrite        " save modified file if you suspend your session.
+set directory=/tmp   " where your edit recovery file goes.
+set nobackup         " don't make automatic backups, I'll handle that.
+set nomodeline       " for security.
+set noremap          " don't let key mappings work recursively.
+set redraw           " redraw screen when VIM starts.
+set shell=/bin/sh    " use this shell for external commands.
+set ttyfast          " are we using a fast terminal?
+set ttyscroll=0      " redraw instead of scrolling.
+set visualbell t_vb= " keep vim quiet.
+set wm=2             " wrap line when 2 chars from right border.
+set writeany         " allow writing a file without checking its mode.
+
+" https://utcc.utoronto.ca/~cks/space/blog/unix/AlternateScreenPlague
+" Stupid screen clears when I exit; it's terminfo's fault, not VIM.
+set t_ti= t_te=
+
+" ------------------------------------------------------------------
+set hlsearch         " highlight search patterns.
+" This unsets the "last search pattern" register by hitting return
+nnoremap <CR> :noh<CR><CR>
+
+" ------------------------------------------------------------------
+" To use my own syntax highlighting:
+"" set term=color_xterm     " Fails miserably
+"" syntax on
+"" so ~/.vim/syntax/syntax.vim    " Does not recognize colors
+
+" ------------------------------------------------------------------
+" http://vimdoc.sourceforge.net/htmldoc/usr_05.html
+" 1. Filetype detection.
+"    Whenever you start editing a file, Vim will try to figure out what
+"    kind of file this is.  When you edit "main.c", Vim will see the ".c"
+"    extension and recognize this as a "c" filetype.  When you edit a
+"    file that starts with "#!/bin/sh", Vim will recognize it as a "sh"
+"    filetype.  The filetype detection is used for syntax highlighting
+"    and the other two items below.
+" 
+" 2. Using filetype plugin files
+"    Many different filetypes are edited with different options.
+"    For example, when you edit a "c" file, it's very useful to set the
+"    'cindent' option to automatically indent the lines.  These commonly
+"    useful option settings are included with Vim in filetype plugins.
+"    You can also add your own.
+" 
+" 3. Using indent files
+"    When editing programs, the indent of a line can often be computed
+"    automatically.  Vim comes with these indent rules for a number
+"    of filetypes.
+
+syntax enable
+filetype plugin indent on
+
+" ------------------------------------------------------------------
+"  Different color schemes.
+"  Solarized:
+"  * With t_Co=256, light is horrible, dark is not quite tolerable.
+"    Without it, light is bearable and dark is fine.
+"    When plugins are enabled, dark is very easy on the eyes and the
+"    status line really stands out.
+"
+"  * Don't use this setting: use TERM=xterm-color or xterm-256color
+"       set t_Co=16
+"
+set background=dark
+color murphy
+
+" ------------------------------------------------------------------
+" Testing filetypes:
+if exists("g:myftype")
+  if g:myftype == "remarklog"
+    setf remarklog
+    let b:current_syntax = "remarklog"
+  endif
+else
+  let g:myftype = "txt" 
+endif
+
+" ------------------------------------------------------------------
+" I edit mail replies as normal files.
+
+syn match   Reply "^>  *.*"
+hi def link Reply Identifier
+
+" ------------------------------------------------------------------
+" Fix 'g' key pausing when I save and suspend.
+se nolpl
+let x = &rtp
+se rtp-=$VIMRUNTIME
+ru! plugin/**/*.vim
+let &rtp = x
+unl x
+
+" ------------------------------------------------------------------
+" If you want to mark the cursor's position:
+"" set cursorline
+"" set cursorcolumn
+"" highlight CursorLine guibg=lightblue ctermbg=lightgray
+
+" Save local marks (a-z) by default. The '100 tells Vim to save marks and
+" other information for up to 100 files.  f1 means save global marks (A-Z)
+" when it exits. If you don't want this, set it to f0 instead.
+set viminfo='100,f1
+
+" Status line with ASCII value of char under cursor (like "ga")
+set ls=2
+set statusline=%F%h%m%r%=chr:%b\ x%B\ \ %l,%c%V\ %P
+
+" -------------------------------------------------------------------
+" If editing an email message.
+
+au BufRead /tmp/mutt-* source ~/.vim/mutt-aliases.vim
+
+" -------------------------------------------------------------------
+" These don't work well with "solarized".
+" " Colors for statusline -- Original below:
+" " highlight StatusLine guifg=Black guibg=#6699cc \
+" "     gui=bold ctermfg=Black ctermbg=White cterm=bold
+
+" " set mode message ( --INSERT-- ) to green
+" highlight ModeMsg cterm=bold ctermfg=2 ctermbg=black
+" highlight StatusLine ctermfg=Black ctermbg=White
+
+" " set inactive statusline to black on grey
+" highlight StatusLineNC ctermfg=8 ctermbg=9
+
+" -------------------------------------------------------------------
+" most frequently run commands
+map ,d :.!arpadate<CR>40x
+map ,t :.!timestamp<CR>
+
+" replacement function
+fun! Replace()
+    let s:word = input("Replace " . expand('<cword>') . " with:")
+    :exe 'bufdo! %s/' . expand('<cword>') . '/' . s:word . '/ge'
+    :unlet! s:word
+endfun
+map ,r :call Replace()<CR>
+
+" basic key mappings
+map   <Esc>Ox k
+map   <Esc>Or j
+map   <Esc>Ov l
+map   <Esc>Ot h
+map   ;   >>
+map   =   <<
+map   g   <C-Z>
+map   v   jmbk:'a,.!fmt -1\|fmt<CR>'b
+map   V   }jmbk{ma}:'a,.!fmt -1\|fmt<CR>'b
+map   Q   }kmb{jma}k:'a,.g,^,s,,> ,<CR>'bj
+map   q   z.
+map   #   :ascii<CR>
+
+" print a ruler
+map   E o<Esc>i....+....1....+....2....+....3....+....4....+....5....+....6....+....7....+<Esc>
+
+" ------------------------------------------------------------------
+" Text abbreviations
+" Create a From line in mail folders, so you can read with any mailer
+iab FROM_ From vogelke =strftime ("%a %b %d %T %Y") 
+
+" ------------------------------------------------------------------
+" Date and time abbreviations
+"
+" Insert a new line and type 'Date: ,d' without quotes to get a
+" timestamp at the current position.
+inoremap ,d <C-R>=strftime("%a, %d %b %Y %T %z")<CR>
+
+" Can also use:
+"   ab _date <CR><ESC>:.!date +\%D<CR>kJA
+"   ab _time <CR><ESC>:.!date +\%X<CR>kJA
+if has("unix")
+    iab _day <c-r>=strftime("%a, %d %b %Y")<CR>
+    iab _date <c-r>=strftime("%a, %d %b %Y %X %z")<CR>
+    iab _time <c-r>=strftime("%H:%M:%S")<CR>
+endif
+
+" ------------------------------------------------------------------
+"  File manager: have list show up on left.
+
+" let g:explVertical=1
+" let g:explWinSize=20
+
+" ------------------------------------------------------------------
+" To set N-char indentation used when you hit the tab key in vim
+" (what Emacs calls c-basic-offset):
+set shiftwidth=4
+
+" To cause the TAB file-character to be displayed as N characters
+" in vim (what Emacs calls tab-width):
+set tabstop=4
+
+" To cause TAB characters to not be used in the file for compression,
+" and for only spaces to be used (what Emacs calls indent-tabs-mode):
+set expandtab
+
+" ------------------------------------------------------------------
+" Cycle between files.
+nnoremap <C-N> :next<CR>
+nnoremap <C-P> :prev<CR>
+
+" ------------------------------------------------------------------
+" Enable spell-checking:
+"   zg adds word to good list, zw adds to bad, zug removes word from
+"   good list, z= gets list of possibilities, ]s moves to next word.
+
+"set spell
+set spelllang=en_us
+set spellfile=~/.vim/spellfile.add
+
+hi clear      SpellBad
+hi clear      SpellCap
+hi clear      SpellLocal
+hi clear      SpellRare
+hi SpellBad   term=underline cterm=underline ctermfg=Red
+hi SpellCap   term=underline cterm=underline ctermfg=Blue
+hi SpellLocal term=underline cterm=underline ctermfg=Blue
+hi SpellRare  term=underline cterm=underline ctermfg=Green
+
+" ------------------------------------------------------------------
+"  Special-purpose settings for certain projects or directories.
+
+if filereadable(".vimrc_project")
+    so .vimrc_project
+elseif filereadable("../.vimrc_project")
+    so ../.vimrc_project
+elseif filereadable("../../.vimrc_project")
+    so ../../.vimrc_project
+endif
+
+" ------------------------------------------------------------------
+" http://www.mail-archive.com/vim@vim.org/msg10982.html
+"
+" This function checks if a line contains the string "Last Modified:".
+" If it does, it appends the current date at that position (or replaces
+" the previous date, if it exists).  It also updates an RCS "Id" string
+" with the number of edits performed since you last checked the file in.
+" We only check the first and last 5 lines instead of the whole document.
+
+autocmd BufWritePre * ks|call TimeStamp()|'s
+
+function! TimeStamp()
+ if &modified
+   let lines = line("$") < 5 ? line("$") : 5
+   let pattern1 = '\(Last [Mm]odified:\).*'
+   let replace1 = '\1' . strftime(" %a, %d %b %Y %T %z")
+   execute printf('1,%ds/\C\m%s/%s/e', lines, pattern1, replace1)
+   execute printf('$-%d+1,$s/\C\m%s/%s/e', lines, pattern1, replace1)
+
+   let pattern2 = '\(Revision: \d\+\.\d\+\(\.\d\+\.\d\+\)*\)\(+\(\d\+\)\)\?'
+   let replace2 = '\=submatch(1) . "+" . (submatch(4) + 1)'
+   execute printf('1,%ds/\C\m%s/%s/e', lines, pattern2, replace2)
+   execute printf('$-%d+1,$s/\C\m%s/%s/e', lines, pattern2, replace2)
+
+   let pattern3 = '\(,v \d\+\.\d\+\(\.\d\+\.\d\+\)*\)\(+\(\d\+\)\)\?'
+   let replace3 = '\=submatch(1) . "+" . (submatch(4) + 1)'
+   execute printf('1,%ds/\C\m%s/%s/e', lines, pattern3, replace3)
+   execute printf('$-%d+1,$s/\C\m%s/%s/e', lines, pattern3, replace3)
+ endif
+endfunction
+
+" ------------------------------------------------------------------
+" Dynamic templates.
+
+if has("autocmd")
+  augroup dynamic
+
+  function! NewFile()
+    silent! 0r!~/.vim/newvim ~/.vim/dynamic/%:e
+    silent! g,@FILENAME@,s,,\=expand("%:t:r"),
+  endfunction
+
+  autocmd BufNewFile * call NewFile()
+  augroup END
+endif
+" EOF --------------------------------------------------------------

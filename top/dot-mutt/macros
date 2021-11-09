@@ -1,0 +1,19 @@
+# -*- muttrc -*-
+#
+# $Revision: 1.5 $ $Date: 2020-07-06 23:12:17-04 $
+# $Source: /home/vogelke/.mutt/RCS/macros,v $
+# $Host: furbag.my.domain $
+# $UUID: 60085720-05db-11e3-9d0a-00242183ec74 $
+#
+# macros for mutt.
+
+# Save current message in Spam folder
+macro index  S '<pipe-message>formail -ds >> $MAIL<enter>d'
+macro pager  S '<pipe-message>formail -ds >> $MAIL<enter>d'
+
+# Search the message header and body for strings.
+macro index  \eb '/~B '
+macro pager  \eb '/~B '
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# EOF

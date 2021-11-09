@@ -1,0 +1,17 @@
+# $Revision: 1.1+4 $ $Date: 2020/10/25 02:00:59 $
+# $Source: /home/vogelke/MKRCS,v $
+# $Host: furbag.my.domain $
+# $UUID: ed1c5df9-1665-11eb-9911-3cecef6d987a $
+#
+# XPDF setup.
+#
+# initialZoom percentage | page | width
+#     Sets the initial zoom factor.  A number specifies a zoom
+#     percentage, where 100 means 72 dpi.  You may also specify 'page',
+#     to fit the page to the window size, or 'width', to fit the page
+#     width to the window width.
+##initialZoom width
+initialZoom 200
+
+# Sidebar on or off?
+initialSidebarState no

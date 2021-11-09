@@ -1,0 +1,68 @@
+#
+# $Revision: 1.5+1 $ $Date: 2017-07-02 21:05:33-04 $
+# $Source: /home/vogelke/RCS/.lessenv,v $
+# $Host: furbag.my.domain $
+# $UUID: 5213a902-265c-588c-a93f-c51eeedc8b35 $
+#
+# Fix messed-up less display when running X-windows.
+
+# Use -f to skip binary file warning, -R to handle odd escape sequences.
+# export LESS "-fr"
+#
+# Stupid screen clears when I exit; it's terminfo's fault,
+# not the program being run.  Add -X.
+export LESS='-XCden -j.3 -z-2'
+
+# TERMINFO setting for non-X terminal is useless in X-windows (duh).
+# This should be done at login.
+# export TERMINFO='/usr/local/share/terminfo'
+
+## README: .termrc.gnome-terminal has better less settings.
+
+# http://cinderwick.ca/files/linux/configs/myDeskSnapshots/
+#    200912-molokai/bash_exports
+# man pager colors
+export LESS_TERMCAP_mb=$'\E[01;31m'         # begin blinking
+#export LESS_TERMCAP_md=$'\E[01;38;5;74m'    # begin bold
+export LESS_TERMCAP_md=$'\E[00;31m'         # begin bold -> red
+export LESS_TERMCAP_me=$'\E[0m'             # end mode
+export LESS_TERMCAP_se=$'\E[0m'             # end standout-mode
+export LESS_TERMCAP_so=$'\E[01;47;34m'      # begin standout-mode - info box
+export LESS_TERMCAP_ue=$'\E[0m'             # end underline
+#export LESS_TERMCAP_us=$'\E[04;38;5;146m'   # begin underline
+export LESS_TERMCAP_us=$'\E[01;32m'         # paths,keywords -> green,
+                                            # no underlines
+
+#export LESS_TERMCAP_so=$'\E[01;44;33m'      # begin standout-mode - info box
+#export LESS_TERMCAP_us=$'\E[01;32m'         # begin underline
+
+# man pager color -- escapes for urxvt/xterm
+# see termcap manpage for definitions
+#export GROFF_NO_SGR=1                       # output ANSI color escape
+                                             # sequences in raw form
+#export LESS_TERMCAP_mb=$'\E[01;31m'         # blinking
+#export LESS_TERMCAP_md=$'\E[01;38;5;32m'    # bold headings -> green
+#export LESS_TERMCAP_so=$'\E[01;35m'    # standout statusbar/search -> magenta
+#export LESS_TERMCAP_me=$'\E[0m'        # end modes like so, us, mb, md and mr
+#export LESS_TERMCAP_se=$'\E[0m'        # end standout-mode
+#export LESS_TERMCAP_ue=$'\E[0m'        # end underline
+
+# man pager colors -- compatible with urxvt-256
+export GROFF_NO_SGR=1                       # output ANSI color escape
+                                            # sequences in raw form
+#export LESS_TERMCAP_mb=$'\E[01;31m'         # blinking
+#export LESS_TERMCAP_md=$'\E[01;31m'        # bold headings -> red
+#export LESS_TERMCAP_md=$'\E[00;31m'         # bold headings -> red
+#export LESS_TERMCAP_md=$'\E[01;32m'         # bold headings -> green
+#export LESS_TERMCAP_md=$'\E[01;38;5;32m'    # bold headings -> green
+#export LESS_TERMCAP_md=$'\E[01;35m'         # bold headings -> magenta
+#export LESS_TERMCAP_md=$'\E[01;34m'         # bold headings -> blue
+#export LESS_TERMCAP_md=$'\E[01;38;5;74m'    # bold headings -> dark blue?
+#export LESS_TERMCAP_md=$'\E[01;36m'         # bold headings -> cyan
+#export LESS_TERMCAP_us=$'\E[04;38;5;146m'   # underline paths,keywords -> white, underlined
+#export LESS_TERMCAP_us=$'\E[01;32m'         # underline paths,keywords -> green, no underlines
+#export LESS_TERMCAP_us=$'\E[01;33m'         # underline paths,keywords -> yellow, no underlines
+#export LESS_TERMCAP_so=$'\E[03;12m'         # standout statusbar/search -> black on white
+#export LESS_TERMCAP_so=$'\E[02;31m'         # standout statusbar/search -> red
+#export LESS_TERMCAP_so=$'\E[01;35m'         # standout statusbar/search -> magenta
+#export LESS_TERMCAP_so=$'\E[03;41;30m'      # standout statusbar/search -> red on black

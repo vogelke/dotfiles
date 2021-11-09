@@ -1,0 +1,32 @@
+# .ttreerc file created automatically by ttree version 2.9
+# This file originally written to /home/vogelke/.ttreerc
+#
+# $Revision: 2.2+3 $ $Date: 2020-12-14 00:13:33-05 $
+# $Source: /home/vogelke/RCS/.ttreerc,v $
+# $Host: furbag.my.domain $
+# $UUID: 87d7f797-7b50-34fa-b8ab-0d8e2dda8a9f $
+#
+# For more information on the contents of this configuration file, see
+#     perldoc ttree
+#     ttree -h
+#
+# The most flexible way to use ttree is to create a separate directory 
+# for configuration files and simply use the .ttreerc to tell ttree where
+# it is.  
+#     cfg = /path/to/ttree/config/directory
+
+cfg = /home/vogelke/.config/ttree
+
+# Remember that .ttreerc is always processed before any configuration
+# file specified with the "-f" option.  Certain options like "lib" can be
+# used any number of times and accumulate their values.
+#
+# Files in the lib directory are added to the INCLUDE_PATH for the
+# template processor so that it can locate these files via an INCLUDE,
+# PROCESS or WRAPPER directive.  Thus, the lib directory is an excellent
+# place to keep template elements such as header, footers, etc., that
+# aren't complete documents in their own right.
+
+lib  = ~/lib/tt2
+
+# EOF ------------------------------------------------------------------

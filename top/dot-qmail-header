@@ -1,0 +1,1 @@
+| /bin/sed -e '/^$/q' >> $HOME/mail/SENT.`/bin/date +%Yw%W`

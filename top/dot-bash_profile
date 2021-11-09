@@ -1,0 +1,13 @@
+# .bash_profile
+
+# General environment
+case "$BASH_ETCENV" in
+    "") f=/etc/environment; test -f $f && . $f && export BASH_ETCENV=1 ;;
+    *)  ;;
+esac
+
+# User-specific environment, aliases and functions
+case "$BASHRC" in
+    "") f="$HOME/.bashrc"; test -f $f && . $f && export BASHRC=1 ;;
+    *)  ;;
+esac

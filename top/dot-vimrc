@@ -1,0 +1,440 @@
+" $Revision: 1.65+29 $ $Date: 2019-12-10 22:12:32-05 $
+" $Source: /home/vogelke/RCS/.vimrc,v $
+" $Host: furbag.my.domain $
+" $UUID: a4f4bf9d-514d-37c7-a0e1-04b41434e869 $
+"
+" Basic settings.
+
+set autoindent       " copy indent from current line for new lines.
+set autowrite        " save modified file if you suspend your session.
+set directory=/tmp   " where your edit recovery file goes.
+set nobackup         " don't make automatic backups, I'll handle that.
+set nocp             " no compatible
+set nomodeline       " for security.
+set noremap          " don't let key mappings work recursively.
+set redraw           " redraw screen when VIM starts.
+set shell=/bin/sh    " use this shell for external commands.
+set ttyfast          " are we using a fast terminal?
+set ttyscroll=0      " redraw instead of scrolling.
+set visualbell t_vb= " keep vim quiet.
+set wm=2             " wrap line when 2 chars from right border.
+set writeany         " allow writing a file without checking its mode.
+
+" ------------------------------------------------------------------
+" https://utcc.utoronto.ca/~cks/space/blog/unix/AlternateScreenPlague
+" Stupid screen clears when I exit; it's terminfo's fault, not VIM.
+set t_ti= t_te=
+
+" ------------------------------------------------------------------
+" Searching
+set hlsearch         " highlight search results.
+set showmatch        " show matching bracket when under cursor
+set ignorecase       " ignore case when searching
+set smartcase        " case-sensitive if pattern includes uppercase
+set incsearch        " highlight dynamically while typing
+
+" This unsets the "last search pattern" register by hitting return
+nnoremap <CR> :noh<CR><CR>
+
+" ------------------------------------------------------------------
+" https://vimways.org/2018/the-power-of-diff/
+"
+" So with Patch 8.1.360 the xdiff code from git has been finally merged
+" into Vim and allows for a much smoother and more efficient diff experience
+" in Vim.  In addition, the internal diff algorithm has been made the default,
+" but one can still switch to the old external algorithm, using:
+"
+" :set diffopt-=internal
+"
+" Also, Vim can now read and understand the unified diff format (which seems
+" to be the standard format nowadays), so even when the bundled diff library
+" does not work well enough, one does not need to translate the output back
+" into a ed like diff format anymore.
+
+set diffopt+=algorithm:patience
+set diffopt+=indent-heuristic
+
+" ------------------------------------------------------------------
+" http://vimdoc.sourceforge.net/htmldoc/usr_05.html
+" 1. Filetype detection.
+"    Whenever you start editing a file, Vim will try to figure out what
+"    kind of file this is.  When you edit "main.c", Vim will see the ".c"
+"    extension and recognize this as a "c" filetype.  When you edit a
+"    file that starts with "#!/bin/sh", Vim will recognize it as a "sh"
+"    filetype.  The filetype detection is used for syntax highlighting
+"    and the other two items below.
+"
+" 2. Using filetype plugin files
+"    Many different filetypes are edited with different options.
+"    For example, when you edit a "c" file, it's very useful to set the
+"    'cindent' option to automatically indent the lines.  These commonly
+"    useful option settings are included with Vim in filetype plugins.
+"    You can also add your own.
+"
+" 3. Using indent files
+"    When editing programs, the indent of a line can often be computed
+"    automatically.  Vim comes with these indent rules for a number
+"    of filetypes.
+
+syntax enable
+filetype plugin indent on
+filetype plugin on
+
+" ------------------------------------------------------------------
+"  Different color schemes.
+"  Solarized:
+"  * With t_Co=256, light is horrible, dark is not quite tolerable.
+"    Without it, light is bearable and dark is fine.
+"    When plugins are enabled, dark is very easy on the eyes and the
+"    status line really stands out.
+"
+"  * Don't use this setting: use TERM=xterm-color or xterm-256color
+"       set t_Co=16
+"
+" THIS WAS PRODUCTION until Thu, 11 Apr 2019 -- now using "shirotelin".
+"" set background=dark
+"" color murphy
+""
+"" " http://vi.stackexchange.com/questions/6123/
+"" " How to set a mapping for "colorscheme" to toggle between schemes.
+"" "
+"" " Initially set it to "dark" or "light" according to your default,
+"" " then call it once to set everything up right.
+"" let s:mybg = "dark"
+"" function! ToggleColor()
+""     if (s:mybg ==? "light")
+""        set background=dark
+""        let s:mybg = "dark"
+""        color murphy
+""     else
+""        set background=light
+""        let s:mybg = "light"
+""        color wikipedia
+""     endif
+"" endfunction
+""
+"" call ToggleColor()
+"" nnoremap <C-T> :call ToggleColor()<cr>
+
+" ------------------------------------------------------------------
+" Nice no-frills style
+":let g:nofrils_heavycomments=1
+"color nofrils-blue
+
+" TEST DRIVE:
+" If you want to use the light version of Vadelma instead, just replace
+" dark with light.
+"
+" Sometimes it's useful to switch between 'light' and 'dark' backgrounds
+" on the fly, since it can improve the visibility of the editor depending
+" on the lightning conditions.  You can switch between light and dark
+" background whenever you want by simply typing the command
+"     :set background=dark|light
+"" colorscheme vadelma
+"" set background=light
+"" let g:lightline = { 'colorscheme': 'vadelma'}
+
+" TEST DRIVE -- looks good:
+"colorscheme bernhard
+
+" TEST DRIVE -- looks good:
+colorscheme shirotelin
+
+" ------------------------------------------------------------------
+" https://news.ycombinator.com/item?id=18898523
+" Infinite undo: When you go into a file, delete or add some text
+" and close your terminal down, the next time you enter vim you can
+" (re|un)do previous operations.
+
+if !isdirectory($HOME . "/.vim/undodir")
+  call mkdir($HOME . "/.vim/undodir", "p")
+endif
+
+set undofile
+set undodir=~/.vim/undodir
+
+" ------------------------------------------------------------------
+" I edit mail replies as normal files.
+
+syn match   Reply "^>  *.*"
+hi def link Reply Identifier
+
+" ------------------------------------------------------------------
+" Fix 'g' key pausing when I save and suspend.
+se nolpl
+let x = &rtp
+se rtp-=$VIMRUNTIME
+ru! plugin/**/*.vim
+let &rtp = x
+unl x
+
+" ------------------------------------------------------------------
+" If you want to mark the cursor's position:
+"" set cursorline
+"" set cursorcolumn
+"" highlight CursorLine guibg=lightblue ctermbg=lightgray
+
+" Save local marks (a-z) by default. The '100 tells Vim to save marks and
+" other information for up to 100 files.  f1 means save global marks (A-Z)
+" when it exits. If you don't want this, set it to f0 instead.
+set viminfo='100,f1
+
+" Status line with ASCII value of char under cursor (like "ga")
+set ls=2
+set statusline=%F%h%m%r%=chr:%b\ x%B\ \ %l,%c%V\ %P
+
+" -------------------------------------------------------------------
+" Example -- if editing an email message.
+au BufRead /tmp/mutt-* source ~/.vim/mutt.vim
+
+" -------------------------------------------------------------------
+" These don't work well with "solarized".
+" " Colors for statusline -- Original below:
+" " highlight StatusLine guifg=Black guibg=#6699cc \
+" "     gui=bold ctermfg=Black ctermbg=White cterm=bold
+
+" " set mode message ( --INSERT-- ) to green
+" highlight ModeMsg cterm=bold ctermfg=2 ctermbg=black
+" highlight StatusLine ctermfg=Black ctermbg=White
+
+" " set inactive statusline to black on grey
+" highlight StatusLineNC ctermfg=8 ctermbg=9
+
+" -------------------------------------------------------------------
+" Replacement function
+fun! Replace()
+    let s:word = input("Replace " . expand('<cword>') . " with:")
+    :exe 'bufdo! %s/' . expand('<cword>') . '/' . s:word . '/ge'
+    :unlet! s:word
+endfun
+map ,r :call Replace()<CR>
+
+" Basic key mappings
+map   <Esc>Ox k
+map   <Esc>Or j
+map   <Esc>Ov l
+map   <Esc>Ot h
+map   ;   >>
+map   =   <<
+map   g   <C-Z>
+map   v   jmbk:'a,.!fmt -1\|fmt<CR>'b
+map   V   }jmbk{ma}:'a,.!fmt -1\|fmt<CR>'b
+map   Q   }kmb{jma}k:'a,.g,^,s,,> ,<CR>'bj
+map   q   z.
+map   #   :ascii<CR>
+
+" Print a ruler
+map   E o<Esc>i....+....1....+....2....+....3....+....4....+....5....+....6....+....7....+<Esc>
+
+" ------------------------------------------------------------------
+" Date and time abbreviations
+"
+" Insert a new line and type 'Date: ,d' without quotes to get a
+" timestamp at the current position.
+inoremap ,d <C-R>=strftime("%a, %d %b %Y %T %z")<CR>
+
+" Can also use:
+"   ab _date <CR><ESC>:.!date +\%D<CR>kJA
+"   ab _time <CR><ESC>:.!date +\%X<CR>kJA
+if has("unix")
+    iab _day <c-r>=strftime("%a, %d %b %Y")<CR>
+    iab _date <c-r>=strftime("%a, %d %b %Y %X %z")<CR>
+    iab _time <c-r>=strftime("%H:%M:%S")<CR>
+endif
+
+" ------------------------------------------------------------------
+"  File manager: have list show up on left.
+
+" let g:explVertical=1
+" let g:explWinSize=20
+
+" ------------------------------------------------------------------
+" To set N-char indentation used when you hit the tab key in vim
+" (what Emacs calls c-basic-offset):
+set shiftwidth=4
+
+" To cause the TAB file-character to be displayed as N characters
+" in vim (what Emacs calls tab-width):
+set tabstop=4
+
+" To cause TAB characters to not be used in the file for compression,
+" and for only spaces to be used (what Emacs calls indent-tabs-mode):
+set expandtab
+
+" When on, a <Tab> in front of a line inserts blanks according to
+" 'shiftwidth'. 'tabstop' or 'softtabstop' is used in other places. <BS>
+" will delete a 'shiftwidth' worth of space at the start of the line.
+set smarttab
+
+" Updated this Thu, 11 Apr 2019 23:49:53 -0400 to match
+" https://stackoverflow.com/questions/12584465/
+"
+set autoindent      " always set autoindenting on.
+set softtabstop=4   " <BS> over an autoindent deletes 4 spaces.
+
+" A consequence of setting 'smartindent' is that the operator > will not
+" indent a line starting with '#', and the operator = will remove indents
+" from any lines.
+set nosmartindent
+
+" Round indent to multiple of 'shiftwidth'.  Applies to > and < commands.
+" CTRL-T and CTRL-D in Insert mode always round the indent to a multiple of
+" 'shiftwidth' (this is Vi compatible).  NOTE: This option is reset when
+" 'compatible' is set.
+" NOTE: This screws up indenting if it's anything other than 4 spaces.
+"" set shiftround
+
+" mapping for fixing paste mode: when inserting stuff, comma-p will
+" change to/from paste.
+set pastetoggle=,p
+
+" ------------------------------------------------------------------
+" Cycle between files.
+nnoremap <C-N> :next<CR>
+nnoremap <C-P> :prev<CR>
+
+" ------------------------------------------------------------------
+"  Special-purpose settings for certain projects or directories.
+
+if filereadable(".vimrc_project")
+    so .vimrc_project
+elseif filereadable("../.vimrc_project")
+    so ../.vimrc_project
+elseif filereadable("../../.vimrc_project")
+    so ../../.vimrc_project
+endif
+
+" ------------------------------------------------------------------
+" http://www.mail-archive.com/vim@vim.org/msg10982.html
+" This function checks if a line contains the string "Last Modified:".
+" If it does, it appends the current date at that position (or replaces
+" the previous date, if it exists).
+"
+" It updates an RCS Revision with the number of edits performed since
+" you last checked the file in, and if a short Mercurial id is found, it
+" appends a plus sign to it.  We only check the first and last 5 lines
+" instead of the whole document.
+"
+" variables starting with 'f' = "change from"
+" variables starting with 't' = "change to"
+
+autocmd BufWritePre * ks|call TimeStamp()|'s
+
+function! TimeStamp()
+ if &modified
+   let lines = line("$") < 5 ? line("$") : 5
+
+   let f1 = '\(Last [Mm]odified:\).*'
+   let t1 = '\1' . strftime(" %a, %d %b %Y %T %z")
+   execute printf('1,%ds/\C\m%s/%s/e', lines, f1, t1)
+   execute printf('$-%d+1,$s/\C\m%s/%s/e', lines, f1, t1)
+
+"  This is awkward: allow revisions to be 12-digit hex values from
+"  Mercurial.  Add "+1", check for "+1+" meaning the plus sign was
+"  already there, and increment the regular digit after the plus sign.
+"  This is because I can't figure out what the hell the other version
+"  stuff below this is doing.
+"  Example: "Revision: deadbeefdead" --> Revision: deadbeefdead+1"
+
+   let f2 = '\(Revision: \x\{12\}\)\(.*\)'
+   let t2 = '\1' . "+1" . '\2'
+   execute printf('1,%ds/\C\m%s/%s/e', lines, f2, t2)
+   execute printf('1,%ds/\C\m+1+/+/e', lines)
+   let f3 = 'Revision: \x\{12\}+\zs\d\+'
+   let t3 = '\=submatch(0) + 1'
+   execute printf('1,%ds/\C\m%s/%s/e', lines, f3, t3)
+   execute printf('$-%d+1,$s/\C\m%s/%s/e', lines, f3, t3)
+
+"  This handles version numbers in the form n.m --> replaced by n.m+1
+
+   let f4 = '\(Revision: \d\+\.\d\+\(\.\d\+\.\d\+\)*\)\(+\(\d\+\)\)\?'
+   let t4 = '\=submatch(1) . "+" . (submatch(4) + 1)'
+   execute printf('1,%ds/\C\m%s/%s/e', lines, f4, t4)
+   execute printf('$-%d+1,$s/\C\m%s/%s/e', lines, f4, t4)
+
+   let f5 = '\(,v \d\+\.\d\+\(\.\d\+\.\d\+\)*\)\(+\(\d\+\)\)\?'
+   let t5 = '\=submatch(1) . "+" . (submatch(4) + 1)'
+   execute printf('1,%ds/\C\m%s/%s/e', lines, f5, t5)
+   execute printf('$-%d+1,$s/\C\m%s/%s/e', lines, f5, t5)
+ endif
+endfunction
+
+" ------------------------------------------------------------------
+" Save and restore edit sessions in directory $HOME/.vim/view (created
+" for you if it doesn't already exist).  We test with expand because
+" running 'vim' with no arguments throws a 'no filename' error.
+" See ':h views-sessions' for more info.
+
+if has("autocmd")
+  if len(expand('%')) > 0
+    au BufWinLeave * mkview
+    au BufWinEnter * silent loadview
+  endif
+endif
+
+" ------------------------------------------------------------------
+" When I edit a raw mail message, use additional aliases.
+" https://stackoverflow.com/questions/4618151/
+" How to reference source a custom vimrc file
+"
+" https://bugfactory.io/2015/06/12/customizing-vim-with-environment-variables/
+" Customizing Vim with Environment Variables
+
+if !empty($MDMUTT)
+  let muttrc = $HOME."/.vimrc-mutt"
+  if filereadable(muttrc)
+    execute 'source '.muttrc
+  endif
+endif
+
+" ------------------------------------------------------------------
+" Dynamic templates.
+
+if has("autocmd")
+  augroup dynamic
+
+  function! NewFile()
+    silent! 0r!~/.vim/newvim ~/.vim/dynamic/%:e
+    silent! g,@FILENAME@,s,,\=expand("%:t:r"),
+  endfunction
+
+  autocmd BufNewFile * call NewFile()
+  augroup END
+endif
+
+" ------------------------------------------------------------------
+" Editing encrypted files.
+" https://www.reddit.com/r/commandline/comments/e8u7ng/
+
+" ------------------------------------------------------------------
+" COLORS:
+" Show the highlighting group of anything that interests you.
+map <F8> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+" Highlight all other occurrences of the word underneath the cursor.
+if has("autocmd")
+  function! HighWord()
+    exe printf('match Folded /\V\<%s\>/', escape(expand('<cword>'), '/\'))
+  endfunction
+  autocmd CursorMoved * call HighWord()
+endif
+
+" ------------------------------------------------------------------
+" NERD tree
+
+packloadall     " do this to get all the packages loaded.
+
+let g:NERDTreeDirArrowExpandable = '|'
+let g:NERDTreeDirArrowCollapsible = '+'
+
+map <C-n> :NERDTreeToggle<CR>
+
+if has("autocmd")
+  augroup ProjectDrawer
+    autocmd!
+    autocmd StdinReadPre * let s:std_in = 1
+    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+  augroup END
+endif
+
+" EOF --------------------------------------------------------------

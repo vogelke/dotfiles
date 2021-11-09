@@ -1,0 +1,23 @@
+/bin/cat <<- EndTemplate
+% Title: @FILENAME@
+
+**Date**: $(date '+%F %T')
+
+---
+
+**Body**
+
+xxx
+
+xxx
+
+xxx
+
+---
+
+**Project**: $(basename $PWD)
+
+**Tags:** +notes, +templates, +plaintext
+
+--- 
+EndTemplate

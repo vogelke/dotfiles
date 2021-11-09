@@ -1,0 +1,387 @@
+############################################################################
+# Eric's Big Blue-Steel Desktop
+#       by Eric S. Raymond <esr@thyrsus.com> http://www.tuxedo.org/~esr
+#
+# $Revision: 1.18+6 $ $Date: 2017-10-06 00:04:54-04 $
+# $Source: /home/vogelke/.fvwm/RCS/config,v $
+# $Host: furbag.my.domain $
+# $UUID: cbe67f45-e2a9-488c-b57c-304720b6630b $
+#
+# Original Id: .fvwm2rc,v 1.13 1998/12/21 05:11:05 esr
+# Production version of my old desktop: .fvwm2rc,v 1.6
+# Other comments at the bottom.
+
+############################################################################
+# This defines the most common window operations
+# Move a window somewhere -- can't drag an app in the desktop box yet.
+
+DestroyFunc MoveAndGotoPagePrev
+AddToFunc MoveAndGotoPagePrev
+    + I MoveToPage wrapx -1w 0
+    + I GotoPage wrapx -1w 0
+
+DestroyFunc MoveAndGotoPageNext
+AddToFunc MoveAndGotoPageNext
+    + I MoveToPage wrapx +1w 0
+    + I GotoPage wrapx +1w 0
+
+# This is the root menu
+AddToMenu RootMenu      "Root Menu"     Title
++                       "Xterm"         exec xterm &
++                       "Browser"       exec firefox &
++                       "PDF Viewer"    exec xpdf &
++                       ""              Nop
++                       "Prev"          MoveAndGotoPagePrev
++                       "Next"          MoveAndGotoPageNext
++                       "Desk &1"       MoveToPage 0 0
++                       "Desk &2"       MoveToPage 1 0
++                       "Desk &3"       MoveToPage 2 0
++                       "Desk &4"       MoveToPage 3 0
++                       ""              Nop
++                       "Restart Fvwm2" Restart
++                       "Exit Fvwm"     Quit
+
+AddToMenu Window-Ops    "Window Ops"    Title
++                       "Move"          Move-or-Raise2
++                       "Resize"        Resize-or-Raise2
++                       "Raise"         Raise
++                       "Lower"         Lower
++                       "(De)Iconify"   Iconify
++                       "(Un)Stick"     Stick
++                       "(Un)Maximize"  maximize_func
++                       ""              Nop
++                       "Delete"        Delete
++                       "Close"         Close
++                       "Destroy"       Destroy
++                       ""              Nop
++                       "Refresh Screen" Refresh
+
+# A trimmed down version of "Window Ops", good for binding to decorations
+AddToMenu Window-Ops2   "Move"          Move-or-Raise
++                       "Resize"        Resize-or-Raise
++                       "Raise/Lower"   RaiseLower
++                       "Iconify"       Iconify
++                       "(Un)Stick"     Stick
++                       ""              Nop
++                       "Delete"        Delete
++                       "Close"         Close
++                       "Destroy"       Destroy
++                       ""              Nop
++                       "ScrollBar"     Module FvwmScroll 2 2
++                       "Print"         PrintFunction
+
+############################################################################
+# COLORS and FONTS
+#
+# Set the fore and back border colors for the window that has focus
+HilightColor    linen Red3
+
+# Set fore/back border colors for all other windows 
+Style "*" Color linen/SteelBlue3
+
+# Set colors/font for pop-up menus
+MenuStyle * "fvwm", Foreground "black", Background "grey", "AnimationOff", \
+  Greyed "slategrey", Font "xft:Bitstream Vera Sans Mono:pixelsize=15:bold"
+
+# Set fonts to use on title bar and icon label
+WindowFont "xft:Bitstream Vera Sans Mono:pixelsize=20:bold"
+IconFont   "xft:Bitstream Vera Sans Mono:pixelsize=20:bold"
+
+############################################################################
+# MISC Setup
+#
+# Uncomment this to make windows auto-raise after [x] milliseconds 
+Module FvwmAuto 25
+
+# Auto Place Icons is a nice feature (Left Top Right Bottom)
+Style "*" IconBox 0 1030 750 1550
+
+# Keep the last focus while in root window
+Style "*" SloppyFocus
+
+# Click/release must occur in <n milliseconds to be a "click"
+ClickTime 250
+
+# I have fast graphics, so always do opaque moves
+OpaqueMoveSize 100
+
+# When moving off visible desktop
+EdgeResistance 750
+Style * EdgeMoveDelay 250
+Style * EdgeMoveResistance 10
+
+############################################################################
+# WINDOW Placement
+#
+# SmartPlacement makes new windows pop-up in blank regions of screen 
+Style "*"         SmartPlacement
+
+# If SmartPlacement fails, this places it randomly instead of making you do it
+Style "*"         RandomPlacement
+
+# Start Firefox on desktop 2; "1 0" means same as GotoPage 1 0.
+Style "*firefox"  SkipMapping, SmartPlacement, StartsOnPage 1 0
+
+# Start PDF reader on desktop 3; "2 0" means same as GotoPage 2 0.
+Style "*evince"     SkipMapping, SmartPlacement, StartsOnPage 2 0
+
+############################################################################
+# PAGER
+
+# Keep pager around
+Style "FvwmPager" StaysOnTop
+DeskTopSize 4x1
+
+*FvwmPagerGeometry            300x30-0-0
+*FvwmPagerRows                1
+*FvwmPagerColumns             1
+*FvwmPagerMiniIcons
+*FvwmPagerBack                #908090
+*FvwmPagerFore                Black
+*FvwmPagerFont                none
+*FvwmPagerHilight             #cab3ca
+*FvwmPagerSmallFont           "xft:Bitstream Vera Sans Mono:pixelsize=12:bold"
+*FvwmPagerBalloons            All
+*FvwmPagerBalloonBack         Yellow
+*FvwmPagerBalloonFore         Black
+*FvwmPagerBalloonFont         "xft:Bitstream Vera Sans Mono:pixelsize=12:bold"
+*FvwmPagerBalloonYOffset      +2
+*FvwmPagerBalloonBorderWidth  1
+*FvwmPagerBalloonBorderColor  Black
+
+#! Now start pager
+Module FvwmPager 0 0
+
+#############################################################################
+# BUTTON Functions
+# Make it titlebar-less, sticky, and give it an icon -- MUST use geometry.
+
+ImagePath /src/x11/bitmaps:/home/vogelke/.fvwm/fvwm_icons
+
+## Style "FvwmButtons" Icon toolbox.xpm, NoTitle, Sticky
+## 
+## DestroyModuleConfig FvwmButtons: *
+## *FvwmButtons: Font        5x7
+## *FvwmButtons: Back        rgb:90/80/90
+## *FvwmButtons: Fore        black
+## *FvwmButtons: Frame       1
+## # 9x11 pixels per button, 4x4 pixels for the frame
+## *FvwmButtons: Geometry    580x59+0-0
+## *FvwmButtons: Rows        5
+## *FvwmButtons: Columns     64
+## *FvwmButtons: BoxSize     fixed
+## *FvwmButtons: Padding     1 1
+## 
+## # Pop up a module menu directly above the button.
+## *FvwmButtons: (9x1+3+0, Padding 0, Title "Modules",   \
+##   Action `Menu Modulepopup rectangle \
+##   $widthx$height+$lleft+$top o+50 -100m`)
+## 
+## # One row of buttons from left to right:
+## *FvwmButtons: (3x2+0+1,  Icon mini.lock.xpm, Action 'Exec xlock')
+## *FvwmButtons: (3x2+3+1,  Icon mini.recapture.xpm, Action Recapture)
+## *FvwmButtons: (3x2+6+1,  Icon mini.resize.xpm, Action Resize)
+## *FvwmButtons: (3x2+9+1,  Icon mini.move.xpm, Action Move)
+## *FvwmButtons: (3x2+12+1, Icon mini.fvwmconsole.xpm, Action 'Module FvwmConsole')
+## 
+## *FvwmButtons: (3x2+15+1, Icon mini.exit.xpm, Action QuitSave)
+## *FvwmButtons: (3x2+18+1, Icon mini.restart.xpm, Action Restart)
+## *FvwmButtons: (3x2+21+1, Icon mini.kill.xpm, Action Destroy)
+## *FvwmButtons: (3x2+24+1, Icon mini.shell.xpm, Action 'Exec xterm')
+
+############################################################################
+# STYLE Flag Setup
+#
+# (decorations and window options) 
+# Note: Order is important!! If compatible styles are set, styles are ORed
+# together. If conflicting styles are set, the last one specified is used.
+
+# change the default width, set a global icon, and give borders to popups
+Style "*"      BorderWidth 7, HandleWidth 7, Icon x.xpm, DecorateTransient
+Style "Fvwm*"  NoTitle, Sticky, WindowListSkip, NoHandles, BorderWidth 0
+Style "xbiff"  NoTitle, Sticky, WindowListSkip
+Style "xload"  NoTitle, Sticky, WindowListSkip, ClickToFocus
+Style "*term"  Icon xterm-linux.xpm
+Style "xman"   Icon xman.xpm
+Style "xclock" NoTitle, NoHandles, WindowListSkip
+
+#############################################################################
+# START-UP Functions
+#
+AddToFunc "InitFunction"
++       I Module FvwmButtons
++       I Module FvwmBanner
++       I Next [!iconic CurrentScreen xterm] Focus
++       I CursorMove 30 40
+
+AddToFunc "RestartFunction"
++       I Module FvwmButtons
++       I Next [!iconic CurrentScreen xterm] Focus
++       I CursorMove 30 40
+
+############################################################################
+# COMPLEX FUNCTIONS
+#
+AddToFunc Move-or-Raise         "I" Raise
++                               "M" Move
++                               "D" Lower
+
+AddToFunc Move-or-Raise2        "M" Raise
++                               "M" Move
++                               "D" Lower
+
+# This maximize percentage gives a 64-line window and leaves the
+# icons and toolbar unobscured (100 gives 77 lines)
+AddToFunc Maximize-Func         "C" Maximize     0 85
++                               "D" Maximize     100 100
+
+AddToFunc Move-or-Iconify       "I" Raise
++                               "M" Move
++                               "D" Iconify
+
+AddToFunc Resize-or-Raise       "I" Raise
++                               "M" Resize
++                               "D" Lower
+
+AddToFunc Resize-or-Raise2      "M" Raise
++                               "M" Resize
++                               "D" Lower
+
+AddToFunc PrintFunction         "I" Raise
++                               "I" Exec xdpr -id $w
+
+AddToFunc Iconify-and-Raise     "I" Iconify
++                               "I" Raise
+
+############################################################################
+# MOUSE Setup
+#
+# First, the root window. Button 1 brings up the Main Menu. B2 is the
+# window operations list, and B3 is the winlist module
+#     Button    Context Modifi  Function
+Mouse 1         R       A       Menu RootMenu Nop
+Mouse 2         R       A       Menu Window-Ops Nop
+Mouse 3         R       A       WindowList
+
+# Now, title bar buttons
+# Left button is the Window-Ops2 menu, right is iconify, rightmost is maximize
+#     Button    Context Modifi  Function
+Mouse 0         1       A       Menu Window-Ops2 Close
+Mouse 0         2       A       Maximize-Func
+Mouse 0         4       A       Iconify
+
+# Button 1 in Frame or Sides is a resize-or-raise, in Icons is a move or 
+# de-iconify, and on Top does a move-or-raise
+#     Button    Context Modifi  Function
+Mouse 1         FS      A       Resize-or-Raise
+Mouse 1         I       A       Move-or-Iconify
+Mouse 1         T       A       Move-or-Raise
+
+# Button 2 in an Icon is de-iconify, in Corners/Sides/Titlebar gets Ops Menu
+#     Button    Context Modifi  Function
+Mouse 2         I       A       Iconify
+Mouse 2         FST     A       Menu Window-Ops2 Nop
+
+# Button 3 does a raise-lower on anything
+Mouse 3         TSIF    A       RaiseLower
+
+############################################################################
+# KEYBOARD Setup
+#
+# press shift arrow + control anywhere, and move the pointer by 1% of a page
+Key Left        A       SC      CursorMove -1  +0
+Key Right       A       SC      CursorMove +1  +0
+Key Up          A       SC      CursorMove +0  -1
+Key Down        A       SC      CursorMove +0  +1
+
+# press shift arrow + meta key, and move the pointer by 1/10 of a page
+Key Left        A       SM      CursorMove -10  +0
+Key Right       A       SM      CursorMove +10  +0
+Key Up          A       SM      CursorMove +0  -10
+Key Down        A       SM      CursorMove +0  +10
+
+# some simple default key bindings:
+# The warp was close, but it moved the mouse to the center of the screen.
+#   Key t          A       M       Next (*) WarpToWindow 50 50
+#
+# FlipFocus is close, but it includes netscape in the "ring".
+# Need restrictions, so Alt-T only moves between terminals.
+# "CurrentDesk" and "CurrentPage" failed.  "*term*" doesn't do what
+# you expect; the wildcard switches between everything.  Use the
+# full basename of the apps to switch between.
+Key t           A       M       Next (xterm) FlipFocus
+
+Key F1          A       N       GotoPage 0 0
+Key F2          A       N       GotoPage 1 0
+Key F3          A       N       GotoPage 2 0
+Key F4          A       N       GotoPage 3 0
+Key F5          A       N       Exec exec /usr/local/bin/xlock
+Key F11         A       N       Next (xterm) FlipFocus
+Key F12         A       N       Next (xterm) FlipFocus
+
+# Ctrl-Shift-x and Alt-x exit in root window
+Key x           R       SC      Quit
+Key x           R       A       Quit
+
+############################################################################
+#
+# An uncluttered desktop design for serious hacking, using tiled windows on a
+# 21" 1600x1200 monitor.  Requires stock RedHat 5.0 plus fvwm2 RPMs.  Due to
+# bug in the fvwm2-2.0.46-8 RPM, you must do the following as root
+#       ln -s  /usr/share/icons /usr/X11R6/include/pixmaps
+# otherwise the icon references won't work.
+#
+# This configuration sets up a one-row toolbar in the lower left hand corner
+# (xterm, emacs, netscape, swallowed xclock, swallowed xbiff, swallowed xload, 
+# swallowed xeyes).  You may want to uncomment the fvwm-reset button while
+# tuning it. There is an icon box area above the  toolbar sufficent for two
+# rows of standard xterm icons.  
+#
+# This configuration is designed to be used with an Emacs 20 wired for 15-pixel
+# type at 100dpi (I used to use a 16-pixel courier font, but I went to 15
+# to get more vertical lines).  If you set your xterm to use a 15-pixel font,
+# you'll be able to fit an 80-column, 77-row xterm to the left of the Emacs.
+# Set 
+#
+#       xterm*Font:-*-fixed-*-r-*-*-15-*-100-100-*-*-*-*
+#       emacs.Font:-*-fixed-*-r-*-*-15-*-100-100-*-*-*-*
+#
+# The emacs will take up the almost the entire right side of the screen (the
+# toolbar and icon box are sized not to overlap with it).  You should get 78
+# lines of Emacs buffer (plus status line and minibuffer of course).  
+#
+# These font sizes have been carefully chosen to make optimal use of screen
+# space; they're the largest ones that will fit 160 columns of text on a
+# 1600-pixel-wide display without overlap.  The 16-pixel font goes to Emacs,
+# on the assumption that the Emacs window will usually contain large
+# amounts of complex text and therefore needs the edge in size and readability.
+#
+# No pager (with this big a screen, who needs one?).  No window list (that's
+# what the mouse and border decorations are for). SloppyFocus and a 25msec
+# AutoRaise so focus changes if you linger in a window other than root.
+# Simple menus -- the root menu carries nearly everything.
+#
+# The telnets to locke, sunsite etc. in the root menu are site-specific. 
+# I have these hooked to expect scripts that do the login/password thing.
+#
+# I use this with `xearth -pos "orbit 3 70" -label -nomarkers -night 40 &'
+# set up as a background in my .xinitrc, and nothing else in there besides 
+# the fvwm2 startup. I also recommend replacing the ugly default xbiff
+# bitmaps with the following resource lines:
+#
+#       xbiff*flip:false
+#       xbiff*fullPixmap:mailfull
+#       xbiff*emptyPixmap:mailempty
+#       xbiff*fullPixmapMask:mailfullmsk
+#       xbiff*emptyPixmapMask:mailemptymsk
+#       xbiff*shapeWindow:true
+#
+# You may also find you need to set
+#
+#       Netscape.Navigator.geometry: =750x1030+0+0
+#
+# as some versions of Netscape don't do -geometry, despite their docs.
+#
+##############################################################################
+# MENU Setup
+#

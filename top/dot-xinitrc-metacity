@@ -1,0 +1,50 @@
+#!/bin/ksh
+# X setup
+export PATH=/bin:/usr/bin:/usr/local/bin
+
+test -f $HOME/.Xresources && xrdb -load $HOME/.Xresources &
+xsetroot -solid cyan &
+
+# Don't mess up the keyboard.
+##if xmodmap -pke | grep '37 = Caps_Lock' > /dev/null; then
+##    :    # Don't need to fix anything.
+##else
+##    test -f $HOME/.xmodmaprc && xmodmap $HOME/.xmodmaprc &
+##fi
+
+# My X-session sometimes gets hosed if the screensaver is on too
+# long, no idea why.  Fix is to kill the session (Ctrl-Alt-Backspace)
+# and then restart it, but then the keyboard is hosed.
+
+for f in .xmodmaprc .xmodmaprc.swapcaps; do
+    test -f $HOME/$f && xmodmap $HOME/$f
+done
+
+# Left-handed mouse.
+xmodmap -e "pointer = 3 2 1"
+
+# EITHER RUN THIS ------------------------------------------------------
+# This sets up a basic GNOME session without any terminals
+#choice='basic'
+
+if test "$choice" = 'basic'; then
+    exec gnome-session
+
+# OR RUN THIS ----------------------------------------------------------
+# If we want terminals:
+else
+    case "$VTSIZE" in
+        "") VTSIZE='80x49' ;;
+        *)  ;;
+    esac
+
+    lside='--geometry=${VTSIZE}+0+48'
+    rside='--geometry=${VTSIZE}-0+48'
+
+    gnome-session &
+    gnome-terminal --window-with-profile=Local $lside &
+    gnome-terminal --window-with-profile=Local $rside &
+    exec /usr/local/bin/metacity 
+    #exec /usr/local/bin/icewm 
+    #exec truss -f -o /tmp/wm$$ /usr/local/bin/icewm
+fi

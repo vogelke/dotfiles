@@ -1,0 +1,48 @@
+# -*- muttrc -*-
+#
+# $Revision: 1.2 $ $Date: 2020-07-06 23:18:34-04 $
+# $Source: /home/vogelke/.mutt/RCS/mailboxes,v $
+# $Host: furbag.my.domain $
+# $UUID: 1dc8bbfe-23c9-4388-abe3-7227180915f4 $
+#
+# List of folders that are considered to be "mailboxes" (folders that
+# receive incoming mail).
+
+mailboxes ! 
+mailboxes =hagbard.admin
+mailboxes =veggie
+mailboxes =TikTok
+mailboxes =weg
+mailboxes =clipper-faq
+mailboxes =gtdudes
+mailboxes =nss
+mailboxes =uk-lispers
+mailboxes =emacs-pretest
+mailboxes =debian-emacsen
+mailboxes =debian-news
+mailboxes =debian-announce
+mailboxes =cclan-list
+mailboxes =clocc-list
+mailboxes =freshmeat
+mailboxes =peterboro-lug
+mailboxes =slashdot
+mailboxes =redhat-announce
+mailboxes =redhat-watch
+mailboxes =sawmill-announce
+mailboxes =librep
+mailboxes =mutt
+mailboxes =spamprobe-users
+mailboxes =ecls-list
+mailboxes =garble-users
+mailboxes =garble-devel
+mailboxes =stormcock 
+mailboxes =rxvt-announce 
+mailboxes =faxes 
+mailboxes =lbc 
+mailboxes =lbc-announce
+mailboxes =sackheads
+mailboxes =dict-beta
+mailboxes =dict-announce
+mailboxes =Junk
+mailboxes =Viruses
+

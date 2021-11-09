@@ -1,0 +1,38 @@
+#
+# $Revision: 1.3+1 $ $Date: 2021-11-03 05:58:20-04 $
+# $Source: /home/vogelke/RCS/.hardcopy,v $
+# $Host: furbag $
+# $UUID: b77c8f26-a8f0-3d45-bf61-b2fa8daa0d70 $
+#
+#<.hardcopy: run screen to zap carriage-returns (perl testing, etc)
+#
+# BUG: wrapping is messed up -- tried "wrap off", "width 999", and
+# "termcapinfo screen ti@:te@" which all failed.
+
+# get a hardcopy of the current screen plus the scrollback buffer
+bind h hardcopy -h
+bind ^h hardcopy -h
+hardcopydir
+defscrollback 50000
+
+# no annoying audible bell, please
+vbell on
+
+# detach on hangup
+autodetach on
+
+# don't display the copyright page
+startup_message off
+
+# use a simple shell and a dumb terminal -- using
+# xterm or screen doesn't help with wrapping problem
+shell /bin/sh
+screen -t saveon 1
+term dumb
+
+# remove some stupid / dangerous key bindings
+bind k
+bind ^k
+bind .
+bind ^\
+bind \\

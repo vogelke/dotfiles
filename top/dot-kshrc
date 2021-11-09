@@ -1,0 +1,36 @@
+# $Revision: 1.4 $ $Date: 2021-11-02 02:51:34-04 $
+# $Source: /home/vogelke/RCS/.kshrc,v $
+# $Host: furbag.my.domain $
+# $UUID: ef08c8fa-7dc9-35d8-833d-c79945a3da1b $
+#
+# Set things up when running script/saveon.
+
+export PS1='
+me% '
+
+predirs="$HOME/bin /usr/local/bin /usr/local/sbin"
+postdirs="/usr/lib/golang/bin $HOME/go/bin"
+cur='/bin /usr/bin /sbin'
+npath=
+
+for d in $predirs $cur $postdirs ; do
+    if test -d "$d"
+    then
+        case "$npath" in
+            "") npath="$d" ;;
+            *)  npath="$npath:$d" ;;
+        esac
+    fi
+done
+
+PATH=$npath
+export PATH
+
+# If running screen, print a reminder about saving hardcopy.
+
+if test -n "$STY"; then
+    # we are inside GNU screen
+    screenpid=${STY%%.*}
+    screenname=${STY#*.}
+    echo 'Use Ca-Ch to save hardcopy before exit!'
+fi

@@ -1,0 +1,36 @@
+# -*- muttrc -*-
+#
+# $Revision: 1.3 $ $Date: 2020-07-06 23:18:21-04 $
+# $Source: /home/vogelke/.mutt/RCS/headers,v $
+# $Host: furbag.my.domain $
+# $UUID: 554a8b9e-f549-4eae-bfd4-08b8bd343143 $
+#
+# Configure header displays.
+
+# Ignore all headers
+ignore *
+
+# Then un-ignore the ones I want to see
+unignore From:
+unignore To:
+unignore Reply-To:
+unignore Mail-Followup-To:
+unignore Subject:
+unignore Date:
+unignore Organization:
+unignore Newsgroups:
+unignore CC:
+unignore BCC:
+unignore Message-ID:
+unignore X-Mailer:
+unignore User-Agent:
+unignore X-Junked-Because:
+unignore X-SpamProbe:
+unignore X-Virus:
+
+# Add my personal headers
+my_hdr Bcc: vogelke-header
+
+# Now order the visible header lines
+hdr_order Subject: To: CC: BCC: Reply-To: Mail-Followup-To: Date: Organization: User-Agent: X-Mailer:
+

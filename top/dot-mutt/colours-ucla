@@ -1,0 +1,27 @@
+# basic colors - works poorly.  Change the order?
+#
+# $Revision: 1.2 $ $Date: 2013-08-13 16:31:07-04 $
+# $Source: /home/vogelke/.mutt/RCS/colours-ucla,v $
+# $Host: furbag.my.domain $
+# $UUID: 33cabb10-0457-11e3-a730-00242183ec74 $
+#
+color normal     default      default
+color hdrdefault brightcyan   default
+color signature  green        default
+color attachment brightyellow default
+color indicator  brightblack  brightcyan
+color quoted     green        default
+color quoted1    white        default
+color tilde      blue         default
+
+# email address and URLs
+color body   brightcyan  default "[-a-z_0-9.%$]+@[-a-z_0-9.]+\\.[-a-z][-a-z]+"
+color body   brightwhite default "(http|ftp|news)://[^ \">\t\r\n]*"
+color body   brightwhite default "mailto:[-a-z_0-9.]+@[-a-z_0-9.]+"
+
+# Date: and Subject: fields in headers to bold yellow or magenta.
+color header brightmagenta   default ^(Date):
+color header brightyellow    default ^Subject:
+
+# This will make smileys, :) , appear bold.
+color body   brightred       default " [;:]-*[)>(<|]"    # :-) etc...

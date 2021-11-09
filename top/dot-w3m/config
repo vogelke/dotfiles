@@ -1,0 +1,8 @@
+display_charset US_ASCII
+alt_entity 1
+graphic_char 0
+color 0
+confirm_qq 0
+http_proxy http://your.proxy.com:8080/
+use_wide 0
+follow_locale 1

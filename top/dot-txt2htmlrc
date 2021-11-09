@@ -1,0 +1,17 @@
+# set dictionary
+--default_link_dict /home/vogelke/.txt2html.dict
+
+# bullets - don't specify this
+## --bullets_ordered .
+## --bullets *
+
+# bold and italics
+--bold_delimiter *
+--italic_delimiter _
+
+# headers
+-EH -H '^= ' -H '^== ' -H '^=== ' -H '^==== '
+
+# one line is enough for preformatted output.
+--preformat_trigger_lines 1
+--preformat_whitespace_min 4

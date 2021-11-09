@@ -1,0 +1,70 @@
+# -*- muttrc -*-
+#
+# $Revision: 1.5 $ $Date: 2020-07-06 23:17:51-04 $
+# $Source: /home/vogelke/.mutt/RCS/bindings,v $
+# $Host: furbag.my.domain $
+# $UUID: aa88f18a-ef81-4dfa-b21b-3d690814464a $
+#
+# Keyboard bindings for mutt.
+#	maps:
+#		alias		alias menu
+#		attach		attachment menu
+#		browser		directory browser
+#		compose		compose menu
+#		index		message index
+#		pgp		pgp menu
+#		postpone	postponed message recall menu
+#		generic		generic keymap for all of the above
+#		editor		line editor
+#		pager		text viewer
+
+# Generic key bindings.
+bind generic  "<"         first-entry
+bind generic  ">"         last-entry
+bind generic  <home>      first-entry
+bind generic  <end>       last-entry
+bind generic  <left>      previous-entry
+bind generic  <right>     next-entry
+bind generic  "{"         top-page
+bind generic  "}"         bottom-page
+
+# Specific key bindings.
+bind index    "{"         previous-thread
+bind index    "}"         next-thread
+bind index    "x"         exit
+bind index    "\Cxo"      change-folder
+bind index    "\Cxb"      change-folder
+bind index    "\Cx\Cf"    change-folder
+
+bind editor   "\C?"       backspace
+
+bind alias    " "         tag-entry
+bind alias    "\r"        select-entry
+
+bind attach   "v"         select-entry
+
+bind compose  "v"         view-attach
+
+bind pager    "\e<"       top
+bind pager    "\e>"       bottom
+bind pager    "<"         top
+bind pager    ">"         bottom
+bind pager    <home>      top
+bind pager    <end>       bottom
+bind pager    "G"         bottom          # just like vi and less
+bind pager    "{"         previous-thread
+bind pager    "}"         next-thread
+bind pager    <up>        previous-line
+bind pager    <backspace> previous-line
+bind pager    "\C?"       previous-line
+bind pager    <down>      next-line
+bind pager    <left>      previous-undeleted
+bind pager    <right>     next-undeleted
+bind pager    "t"         display-toggle-weed
+bind pager    "x"         exit
+bind pager    "\Cxo"      change-folder
+bind pager    "\Cxb"      change-folder
+bind pager    "\Cx\Cf"    change-folder
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# EOF

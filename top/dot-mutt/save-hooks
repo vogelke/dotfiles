@@ -1,0 +1,12 @@
+# -*- muttrc -*-
+#
+# $Revision: 1.2 $ $Date: 2020-07-06 23:19:24-04 $
+# $Source: /home/vogelke/.mutt/RCS/save-hooks,v $
+# $Host: furbag.my.domain $
+# $UUID: 34a199c6-6583-4f44-8ea1-f7ce8af5d641 $
+#
+# Configure where things get saved to.
+
+save-hook batchftp@demon\.net               =batchftp
+save-hook .*                                =mbox
+

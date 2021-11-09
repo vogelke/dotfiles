@@ -1,0 +1,49 @@
+# -*- muttrc -*-
+#
+# $Revision: 1.2 $ $Date: 2020-07-06 23:18:14-04 $
+# $Source: /home/vogelke/.mutt/RCS/folder-hooks,v $
+# $Host: furbag.my.domain $
+# $UUID: 7b677486-6582-46bb-92b1-531e31bded96 $
+#
+# Fine tune mutt depending on which folder I'm viewing.
+
+folder-hook .                  source ~/.mutt/defaults
+folder-hook "!$"               source ~/.mutt/defaults.inbox
+folder-hook =FlagShip$         source ~/.mutt/defaults.maillist
+folder-hook =TikTok$           source ~/.mutt/defaults.TikTok
+folder-hook =archive           source ~/.mutt/defaults.history
+folder-hook =clipper-faq$      source ~/.mutt/defaults.clipper-faq
+folder-hook =emacs-pretest$    source ~/.mutt/defaults.maillist
+folder-hook =faxes$            source ~/.mutt/defaults.faxes
+folder-hook =freshmeat$        source ~/.mutt/defaults.maillist
+folder-hook =garble-           source ~/.mutt/defaults.maillist
+folder-hook =gtdudes$          source ~/.mutt/defaults.gtdudes
+folder-hook =clocc-            source ~/.mutt/defaults.maillist
+folder-hook =cclan-list$       source ~/.mutt/defaults.maillist
+folder-hook =history$          source ~/.mutt/defaults.history
+folder-hook =lbc$              source ~/.mutt/defaults.maillist
+folder-hook =librep$           source ~/.mutt/defaults.sawmill
+folder-hook =mutt$             source ~/.mutt/defaults.muttlist
+folder-hook =peterboro-lug$    source ~/.mutt/defaults.maillist
+folder-hook =redhat-           source ~/.mutt/defaults.maillist
+folder-hook =rxvt-announce$    source ~/.mutt/defaults.maillist
+folder-hook =sackheads$        source ~/.mutt/defaults.maillist
+folder-hook =slrn-posts$       source ~/.mutt/defaults.maillist
+folder-hook =stormcock$        source ~/.mutt/defaults.maillist
+folder-hook =veggie$           source ~/.mutt/defaults.history
+folder-hook =weg$              source ~/.mutt/defaults.weg
+folder-hook =dosemu$           source ~/.mutt/defaults.maillist
+folder-hook =debian-           source ~/.mutt/defaults.maillist
+folder-hook =nss$              source ~/.mutt/defaults.maillist
+folder-hook =spamprobe-users$  source ~/.mutt/defaults.maillist
+folder-hook =ecls-list$        source ~/.mutt/defaults.maillist
+folder-hook =uk-lispers$       source ~/.mutt/defaults.maillist
+folder-hook =dict-beta$        source ~/.mutt/defaults.maillist
+folder-hook =Junk$             source ~/.mutt/defaults.maillist
+
+# =mbox and =outbox are symlinks to =history.
+folder-hook =mbox$   push "<limit>!~f\\\"davep@(hagbard.demon.co.uk|davep.org)\\\"<enter><last-entry>"
+folder-hook =mbox$   source ~/.mutt/defaults.history
+folder-hook =outbox$ push "<limit>~f\\\"davep@(hagbard.demon.co.uk|davep.org)\\\"<enter><last-entry>"
+folder-hook =outbox$ source ~/.mutt/defaults.history
+

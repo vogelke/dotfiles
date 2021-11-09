@@ -1,0 +1,55 @@
+# $Revision: 1.3+6 $ $Date: 2019-06-16 01:47:09-04 $
+# $Source: /home/vogelke/RCS/.hgrc,v $
+# $Host: furbag.my.domain $
+# $UUID: 1536bf36-6558-4bb0-9da9-354bc387ec39 $
+#
+# Mercurial setup.  Yes, it's under RCS.  Sue me.
+
+[ui]
+username = Your name <you+hg@yourhost.com>
+style = $HOME/.hg/style
+ignore = ~/.hgignore
+
+[email]
+from = Your Name <you+hg@yourhost.com>
+
+[extensions]
+convert=
+keyword=
+gpg=
+
+[gpg]
+# if cmd is not provided it defaults to gpg
+## cmd=/path/to/gpg-command-to-use
+# key is optional and can be provided on the command line
+key=C123B01EC8AE08E9
+
+[keyword]
+* =
+
+[alias]
+latest = log --limit 5
+
+[keywordmaps]
+Author = {author|person}
+Date = {date|rfc822date}
+Header = {root}/{file} {node|short} {date|rfc822date} {author|user}
+Id = {file|basename} {node|short} {date|rfc822date} {author|user}
+RCSFile = {file|basename}
+RCSfile = {file|basename}
+Revision = {node|short}
+Source = {root}/{file}
+
+[pager]
+ignore = diff, files, log, status, summary, tags, update, version
+
+[color]
+log.activebookmark = magenta bold
+log.activechangeset = blue bold
+log.bookmark = magenta
+log.branch = cyan
+log.changeset = blue
+log.phase_draft = red bold
+log.phase_secret = blue bold
+log.tag = green
+

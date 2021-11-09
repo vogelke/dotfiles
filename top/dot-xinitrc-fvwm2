@@ -1,0 +1,56 @@
+#!/bin/ksh
+#
+# $Revision: 1.3+2 $ $Date: 2017-10-22 21:47:15-04 $
+# $Source: /home/vogelke/RCS/.xinitrc-fvwm2-kv,v $
+# $Host: furbag.my.domain $
+# $UUID: 751fc71f-d49f-4eaf-9f8d-db971ec6e4e6 $
+#
+# Used to configure FVWM2 session started with xinit/startx.
+
+export PATH=/usr/local/bin:/bin:/usr/bin
+
+#---------------------------------------------------------
+# Basics
+test -f $HOME/.Xdefaults && xrdb -merge $HOME/.Xdefaults &
+
+#---------------------------------------------------------
+# Keyswaps, keyboard repeat rate, and mouse speed
+defmap="$HOME/.xmodmap"
+caps="$HOME/.xmodmap.swapcaps"
+
+test -f $defmap && /usr/bin/xmodmap $defmap && /usr/bin/xmodmap $defmap
+test -f $caps && /usr/bin/xmodmap $caps && /usr/bin/xmodmap $caps
+
+/usr/bin/xset r rate 200 70 &
+/usr/bin/xset m 3 5 &
+
+#---------------------------------------------------------
+# For more information about options, see "xt" program
+XTERM=/usr/local/bin/xterm
+termopts="-j -b 10 -sb -si -sk -cr blue -sl 4000 -bd black -bg #ffffff"
+
+#font="Bitstream Vera Mono"
+#font='xft:Bitstream Vera Sans Mono:pixelsize=21:medium'    # a bit faint
+font='xft:Bitstream Vera Sans Mono:pixelsize=21:bold'
+
+# Mon, 05 Jun 2017 23:45:42 -0400 under Metacity:
+#   I can only get lines to go to 43, then I have to resize by hand.
+#   Excellent display.
+#
+# Mon, 02 Oct 2017 21:48:41 -0400 under FVWM:
+#   Good display, need a little bigger font for window titles.
+export COLUMNS=80
+export LINES=44
+left="-geometry ${COLUMNS}x${LINES}+0+0"
+right="-geometry ${COLUMNS}x${LINES}-0+0"
+
+$XTERM $left  $termopts -fa "$font" -title "$HOST" &
+$XTERM $right $termopts -fa "$font" -title "Remote" &
+
+#---------------------------------------------------------
+# background, screensaver, and window manager
+gnome-screensaver 2> /dev/null &
+xsetroot -solid cyan &
+
+#fvwm > /tmp/fvwm-session.$$ 2>&1    # Debug
+fvwm

@@ -1,0 +1,83 @@
+%
+% $Id: .txt2tagsrc,v 1.5 2010-12-03 23:06:22-05 vogelke Exp $
+%
+% txt2tags config file
+% Part of the txt2tags project (http://txt2tags.sf.net).
+%
+% Copy this file to $HOME/.txt2tagsrc (or %homepath%/_t2trc
+% on windows) and edit it to fit your needs. All configs are
+% COMMENTED, just remove the leading % for the ones you want
+% to use.
+%
+% The config syntax is:
+%
+%            %!keyword  (target)  :  value
+%
+% Keywords: target, options, preproc, postproc, guicolors
+% Targets: the valid txt2tags targets (i.e.: html, man, tex)
+%
+% Details:
+% - If the '(target)' part is omitted, the config is valid for
+%   all targets
+% - The %!keyword must be at the line start, no leading spaces
+% - All the options defined here can be overwritten by command
+%   line options and document config
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Set a default target if none specified
+%   Useful if you always use the same target for all documents
+%%!target: html
+
+% Always use CSS-friendly tags in HTML and XHTML
+%   This uses H1, H2 and H3 for document top title and
+%   defines the following DIV areas: header, toc, body
+%   This can be turned off later with --no-css-sugar
+%!options(html): --css-sugar
+%!options(xhtml): --css-sugar
+
+% Always mask e-mails from robots in HTML and MOIN documents
+%   Example: john@company.com turns to <john (a) company com>
+%   This can be turned off later with --no-mask-email
+%!options(html): --mask-email
+%!options(moin): --mask-email
+
+% Always make TOC for html documents
+%!options(html): --toc
+
+% Automatically number the sections; use --no-enum-title to disable.
+%!options(html): --enum-title
+
+% Style
+%!options(html): --css-inside
+%!options(html): --style=/doc/html/css/txt2tags.css
+
+% Change the graphical interface colors
+%   Valid values for colors: colorname, #RGB, #RRGGBB
+%   The order is: bg1, fg1, bg2, fg2
+%%!guicolors: blue white brown yellow
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% FILTERS
+%
+% PreProc and PostProc filters are powerful tools to customize
+% txt2tags behaviour and perform nice tricks. But be careful,
+% they do use Regular Expressions and can be dangerous if bad
+% written. Really test them before include here.
+
+% Create bold text in preformatted sections
+%!postproc(html): '\*\*(.*?)\*\*'  '<b>\1</b>'
+
+% Insert breaks in the document using curly braces
+%!postproc(html):   {br}   <br>
+
+% Make command lines bold
+%!postproc(html): '(me% .*)'  '<font color="blue"><b>\1</b></font>'
+%!postproc(html): '(user% .*)'  '<font color="blue"><b>\1</b></font>'
+%!postproc(html): '(root# .*)'  '<font color="blue"><b>\1</b></font>'
+
+% Add stylesheet line
+%%!postproc(html): '(^.META NAME="generator".*)' '<LINK REL="stylesheet" TYPE="text/css" HREF="/style/txt2tags.css">'
+
+% vim: ft=txt2tags

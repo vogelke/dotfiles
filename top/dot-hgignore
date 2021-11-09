@@ -1,0 +1,10 @@
+# $Revision: 1.2 $ $Date: 2019-06-16 01:46:01-04 $
+# $Source: /home/vogelke/RCS/.hgignore,v $
+# $Host: furbag.my.domain $
+# $UUID: aa661f45-6269-41ff-b522-66ea782466a3 $
+#
+# What Mercurial should ignore.  Default is everything -- I can add
+# exceptions for other projects.  This way, I add only the files I
+# want tracked, and everything else is ignored.
+
+.*

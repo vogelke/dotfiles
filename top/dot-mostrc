@@ -1,0 +1,112 @@
+%
+% $Revision: 1.3 $ $Date: 2013-12-02 20:53:42-05 $
+% $Source: /home/vogelke/RCS/.mostrc,v $
+% $Host: furbag.my.domain $
+% $UUID: e0460832-5bb3-11e3-8ebb-00242183ec74 $
+
+%% Color settings
+% color normal lightgray black
+% color status yellow blue
+% color underline brightgreen black
+% color overstrike brightred black
+
+%% Keybindings
+%setkey digit_arg          dig
+%setkey digit_arg          esc dig
+%setkey digit_arg          gold dig
+%setkey column_left        < Not Set >
+%setkey column_right       < Not Set >
+
+%% Emulate "less"
+%% END Emulate "less"
+unsetkey                   "^K"
+setkey    up               "^K"
+
+unsetkey                   ":"
+setkey    next_file        ":n"
+setkey    find_file        ":e"
+setkey    next_file        ":p"
+setkey    toggle_options   ":o"
+setkey    toggle_case      ":c"
+setkey    delete_file      ":d"
+setkey    goto_line        ":G"
+setkey    goto_line        ":g"
+setkey    exit             ":q"
+
+setkey    down             "e"
+setkey    down             "E"
+setkey    down             "j"
+setkey    down             "^N"
+setkey    up               "y"
+setkey    up               "^Y"
+setkey    up               "k"
+setkey    up               "^P"
+setkey    page_down        "f"
+setkey    page_down        "^F"
+setkey    page_up          "b"
+setkey    page_up          "^B"
+setkey    other_window     "w"
+setkey    search_backward  "?"
+setkey    bob              "p"
+setkey    goto_mark        "'"
+setkey    find_file        "E"
+setkey    edit             "v"
+setkey    page_down        " "
+setkey    suspend          "z"
+setkey    goto_percent     "%"
+setkey    goto_mark        ","
+setkey    search_forward   "/"
+
+setkey    page_left        "<"
+setkey    page_right       ">"
+setkey    search_backward  "?"
+setkey    page_down        "D"
+setkey    search_forward   "F"
+setkey    eob              "G"
+setkey    help             "H"
+setkey    down             "J"
+setkey    up               "K"
+setkey    toggle_lock      "L"
+setkey    next_file        "N"
+setkey    other_window     "O"
+setkey    exit             "Q"
+setkey    redraw           "R"
+setkey    search_forward   "S"
+setkey    bob              "T"
+setkey    page_up          "U"
+setkey    edit             "V"
+setkey    toggle_width     "W"
+setkey    exit             "X"
+setkey    page_right       "\t"
+setkey    up               "^"
+setkey    page_up          "^?"
+setkey    page_down        "^D"
+setkey    search_forward   "^F"
+setkey    help             "^H"
+setkey    redraw           "^L"
+setkey    down             "^M"
+setkey    down             "^N"
+setkey    up               "^P"
+setkey    redraw           "^R"
+setkey    show_time        "^T"
+setkey    page_up          "^U"
+setkey    page_down        "^V"
+setkey    delete_window    "0"
+setkey    one_window       "1"
+setkey    two_windows      "2"
+setkey    suspend          "^Z"
+setkey    page_down        "d"
+setkey    search_forward   "f"
+setkey    goto_line        "g"
+setkey    down             "j"
+setkey    up               "k"
+setkey    set_mark         "m"
+setkey    find_next        "n"
+setkey    other_window     "o"
+setkey    exit             "q"
+setkey    redraw           "r"
+setkey    search_forward   "s"
+setkey    bob              "t"
+setkey    edit             "v"
+setkey    toggle_width     "w"
+setkey    exit             "x"

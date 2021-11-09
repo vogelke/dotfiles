@@ -1,0 +1,5 @@
+00:01:02 83753 0: /home/vogelke/notebook/2021/1106: (dir)
+00:01:17 83753 1: /home/vogelke/notebook/2021/1106: (syslog)
+00:01:49 83753 0: /home/vogelke/notebook/2021/1106: (p /var/log/zfs-scrub)
+00:02:00 83753 0: /home/vogelke/notebook/2021/1106: (p /var/log/zfs-snapshot)
+00:02:01 83753 0: /home/vogelke/notebook/2021/1106: (wc /var/log/zfs-snapshot)

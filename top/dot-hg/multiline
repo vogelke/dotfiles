@@ -1,0 +1,2 @@
+changeset = "Changed in {node|short}:\n{files}"
+file = "  {file}\n"

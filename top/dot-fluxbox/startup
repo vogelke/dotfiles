@@ -1,0 +1,31 @@
+#!/bin/sh
+#
+# $Revision: 1.1+1 $ $Date: 2020/03/18 04:32:35 $
+# $Source: /home/vogelke/.fluxbox/MKRCS,v $
+# $Host: furbag.my.domain $
+# $UUID: 07a98d05-856d-4b9c-9170-43985afcf590 $
+#
+# fluxbox startup-script:
+# Lines starting with a '#' are ignored.
+
+# Change your keymap:
+xmodmap "/home/vogelke/.Xmodmap"
+
+# Applications you want to run with fluxbox.
+# MAKE SURE THAT APPS THAT KEEP RUNNING HAVE AN ''&'' AT THE END.
+#
+# unclutter -idle 2 &
+# wmnd &
+# wmsmixer -w &
+# idesk &
+
+# XScreensaver (which controls the screensaver and screen locking) is not
+# started by default, so you might want to add it to the startup script
+# with xscreensaver & .
+
+# And last but not least we start fluxbox.
+# Because it is the last app you have to run it with ''exec'' before it.
+
+# exec fluxbox
+# or if you want to keep a log:
+exec fluxbox -log "/home/vogelke/.fluxbox/log"

@@ -1,0 +1,61 @@
+# User's personal Tenex C-shell setup
+#
+# $Revision: 2.4+1 $ $Date: 2020-10-10 01:44:44-04 $
+# $Source: /doc/sitelog/hairball/basic-files/vogelke/tcsh/RCS/dot-tcshrc,v $
+# $Host: hairball.my.domain $
+# $UUID: 7b1e1b8c-91a2-3106-b0ac-9c9fe82fd792 $
+
+# If running with an empty environment, set some basic stuff.
+if (! $?HOME) then
+    setenv PATH /usr/local/bin:/bin:/usr/bin
+    setenv HOME `grep "^${USER}:" /etc/passwd | cut -f6 -d:`
+endif
+
+# Remaining aliases, prompt, etc.
+if ( -e $HOME/.cshrc ) then
+    source $HOME/.cshrc
+endif
+
+set current="$HOME"
+if ( -e $HOME/.current.csh ) then
+    source $HOME/.current.csh
+endif
+
+if ( -e $HOME/.aliases ) then
+    source $HOME/.aliases
+endif
+
+if ( -e $HOME/.oracle.csh ) then
+    source $HOME/.oracle.csh
+endif
+
+if ( -e $HOME/.envrc.csh ) then
+    source $HOME/.envrc.csh
+endif
+
+if ( -e $HOME/.path ) then
+    eval setenv `head -1 ~/.path`
+endif
+
+unalias cd chdir setpr
+set prompt="\n(%d %D %w %P) <%?> [%c4]\n$LOGNAME at %m.%l ($SHLVL-%!)% "
+setenv SHELL /usr/local/bin/tcsh
+
+# X setup
+if ($?WINDOWID) then
+  set ips=`eval echo "1.2.3.{4,5,6,7}"`
+  xhost + $ips
+endif
+
+# Interactive shell.
+if ($?prompt) then
+    # An interactive shell -- set some stuff up
+    set filec
+    set history = 1000
+    set savehist = 1000
+    if ( $?tcsh ) then
+        bindkey "^W" backward-delete-word
+        bindkey -k up history-search-backward
+        bindkey -k down history-search-forward
+    endif
+endif

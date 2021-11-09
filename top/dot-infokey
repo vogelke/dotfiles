@@ -1,0 +1,14 @@
+# https://lwn.net/Articles/625072/
+# > Yes you can page through it with space - which causes the current page
+# > to vanish and be replaced by the next page.
+
+# I find the single biggest usability improvement to GNU Info is to turn this
+# behaviour off.  If the documentation is going to be split up into separate
+# chapters (which I don't find particularly annoying, to be honest), then
+# it's better to not have the viewer jump between chapters and completely
+# refresh the screen when you're not expecting it to.
+
+#var
+scroll-behaviour=Page Only
+
+# Then run infokey to compile that to ~/.info.

@@ -1,0 +1,41 @@
+// Config file for XML tidy
+//
+// $Revision: 1.1+1 $ $Date: 2018-12-28 16:43:10-05 $
+// $Source: /home/vogelke/RCS/.tidyxmlrc,v $
+// $Host: furbag.my.domain $
+// $UUID: aa7c0ade-9c47-3e0f-9253-b5b1d623d5e8 $
+//
+// Used by the XML::Tidy Perl Module.
+//
+add-xml-decl: yes
+add-xml-space: yes
+
+// encoding: ascii-chars can be used to modify behavior of the clean
+// option when set to yes. If set to yes when using clean, &emdash;,
+// &rdquo;, and other named character entities are downgraded to their
+// closest ASCII equivalents.
+char-encoding: ascii
+ascii-chars: yes
+clean: yes
+//
+fix-backslash: yes
+indent-attributes: yes
+indent-spaces: 2
+indent: auto
+input-xml: yes
+logical-emphasis: yes
+markup: yes
+numeric-entities: no
+output-html: no
+output-xml: yes
+preserve-entities: yes
+quote-ampersand: yes
+quote-marks: no
+quote-nbsp: yes
+show-warnings: yes
+uppercase-attributes: no
+uppercase-tags: no
+vertical-space: yes
+wrap-attributes: yes
+wrap: 78
+// EOF

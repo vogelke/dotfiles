@@ -1,0 +1,97 @@
+/*
+ * Edit this file and copy it as userChrome.css into your
+ * profile-directory/chrome/
+ *
+ * $Revision: 1.8+1 $ $Date: 2018-05-21 21:12:37-04 $
+ * $Source: /doc/sitelog/zhtv-82326/firefox/chrome/RCS/userChrome.css,v $
+ * $Host: furbag.my.domain $
+ * $UUID: 02e537a0-4a63-4006-b829-84ec15e61ca6 $
+ *
+ * This file can be used to customize the look of Mozilla's user interface
+ * You should consider using !important on rules which you want to
+ * override default settings.
+ * For more examples see http://www.mozilla.org/unix/customizing.html
+ */
+
+/*
+ * Do not remove the @namespace line -- it's required for correct functioning
+ */
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"); /* set default namespace to XUL */
+
+/* Set font size/family for dialogs and other miscellaneous text */
+window {
+  font-size        : 20px                   !important;
+  font-family      : "Bitstream Vera Sans"  !important;
+  background-color : white                  !important;
+  background       : white                  !important;
+}
+
+/* Give the Location (URL) Bar a fixed-width font */
+#urlbar {
+  -moz-appearance  : none                   !important;
+  font-size        : 20px                   !important;
+  font-family      : "Bitstream Vera Sans"  !important;
+  background       : white                  !important;
+}
+
+/*
+ * Make menus big, pretty and readable (like the old SGI look)           :
+ * menubar isn't used after 12/19 builds, but is needed for NS6;
+ * the rest are for post-12/19
+ */
+menubar, menubutton, menulist, menu, menuitem {
+  font-family      : helvetica              !important;
+  font-weight      : bold                   !important;
+  font-size        : 18px                   !important;
+}
+
+/* Single line text fields */
+input {
+  font-family      : clean                  !important;
+  font-size        : 20px                   !important;
+  background       : white                  !important;
+}
+
+/* Multi-line textareas */
+textarea {
+  font-family      : clean                  !important;
+  font-size        : 20px                   !important;
+  background       : white                  !important;
+}
+
+/*
+ * The URL dropdown and autocomplete windows are grey.  To make
+ * them match better with the URL field and look more like 4.x           :
+ */
+
+#ubhist-popup {
+  font-size        : 20px                   !important;
+  font-family      : "Bitstream Vera Sans"  !important;
+  background       : white                  !important;
+  border           : 1px solid black        !important;
+  padding          : 0px                    !important;
+}
+
+/* Gives more weight to the active tab */
+.tabbrowser-tab[selected="true"] .tabs-bottom,
+[class="close-button tabs-closebutton"] {
+  font-weight      : bold                   !important;
+  background-color : rgb(220,220,220)       !important;
+  padding-left     : 2%                     !important;
+  padding-right    : 2%                     !important;
+}
+
+/* Change color of active tab */
+tab {
+  -moz-appearance  : none                   !important;
+}
+tab[selected="true"] {
+  background-color : #C1FFC1                !important;
+  color            : black                  !important;
+}
+
+/* Change color of normal tabs */
+tab:not([selected="true"]) {
+  background-color : #E0FFFF                !important;
+  color            : gray                   !important;
+}

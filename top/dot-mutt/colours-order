@@ -1,0 +1,67 @@
+# Mutt colors.
+# http://www103.pair.com/parv/comp/unix/cf/mail/mutt-color.cf
+#
+# $Revision: 1.2 $ $Date: 2013-08-13 16:30:53-04 $
+# $Source: /home/vogelke/.mutt/RCS/colours-order,v $
+# $Host: furbag.my.domain $
+# $UUID: 2254af58-0457-11e3-8867-00242183ec74 $
+#
+# Colors are order sensitive; most easily observable in "index" context.
+
+#color indicator  white  red
+color indicator  black  magenta
+#color indicator  inverse inverse
+#color indicator  black  green
+
+#  mono - color substitute
+mono markers  bold
+mono indicator  reverse
+mono index  bold  "~N"
+
+color status     brightyellow blue
+color search     black        brightgreen
+
+color bold       brightgreen  default
+color underline  brightyellow default
+color normal     white        default
+
+color message    white        default
+color quoted     yellow       default
+color attachment yellow       default
+color hdrdefault cyan         black
+color header     brightwhite  black  "^(From |Sender:|Return-Path:)"
+color header     brightgreen  black  "^X-Bogosity:"
+color header     red          black  "^X-(phone|url|www|email|addr|contact)"
+color header     red          black  "^(phone|url|www|email|addr|contact)"
+color header     green        black  "^received:"
+color header     white        black  "^(date|from|message-id):"
+color header     yellow       black  "^(subject|newsgroups):"
+color header     yellow       black  "^(to|cc):"
+color header     yellow       black  "^(references|in-reply-to):"
+
+#  index colors
+
+color index cyan   default "~A"       # all messages
+color index yellow default "~l"       # lists' mail
+
+color index white  default "~p"       # messages sent to me
+color index red    black   "~P"       # messages sent by me
+
+color index cyan   black   "~N  | ~U"      # new/unread messages
+color index yellow black   "(~N | ~U)~l"   # new lists' mail
+
+#  Paint over unrecognized subscription lists.
+color index  green  black  "~h '^From[ ]+.+@([a-zA-Z]+\.)?[Cc]areer[Bb]uilder\.com'"
+
+#  highlight freebsd cvs messages
+#color index  brightgreen  black  "~h '^X-FreeBSD-CVS-Branch:.+RELENG_[6-8](_[0-9])?'"
+
+color index  brightwhite  black  "~N ~p"  #  new messages sent to me
+#color index  green black  "~s '(cvs commit:)'"
+
+#  Highlight particular subjects
+
+color index brightyellow black  "~s  '(Dice.+inquiry)'"
+color index brightyellow black  "~s  '(ath|em)[0-9]*'"
+color index magenta      black  "~D"
+color index black        yellow "~T"         # tagged messages
