@@ -5,9 +5,9 @@ appropriate -- most of them have at least a few comments.
 
 ### Ack
 
-```
-+--dot-ackrc
-```
+<pre>
+<a href="top/dot-ackrc">+--dot-ackrc</a>
+</pre>
 
 ### Building from source
 
