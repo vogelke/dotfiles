@@ -119,8 +119,6 @@ g () {
 |   |   +--<a href="top/dot-bashlog/2019/0125">0125</a>
 +--<a href="top/dot-log">dot-log</a>
 |   +--<a href="top/dot-log/2021">2021</a>
-|   |   +--<a href="top/dot-log/2021/0101">0101</a>
-|   |   +--<a href="top/dot-log/2021/0102">0102</a>
 |   |   +--<a href="top/dot-log/2021/1106">1106</a>
 |   |   +--<a href="top/dot-log/2021/1107">1107</a>
 |   +--<a href="top/dot-log/today">today</a>        linked to current YYYY/MMDD
@@ -129,434 +127,438 @@ g () {
 ----
 ### Crypto: signify
 
-```
-+--dot-signify
-|   +--sign.pub
-|   +--sign.sec
-```
+<pre>
++--<a href="top/dot-signify">dot-signify</a>
+|   +--<a href="top/dot-signify/sign.pub">sign.pub</a>
+|   +--<a href="top/dot-signify/sign.sec">sign.sec</a>
+</pre>
 
 ----
 ### Environment variables
 
-```
-+--dot-env
-|   +--BLOCKSIZE
-|   +--DOCROOT
-|   +--DOMAIN
-|   +--EDITOR
-|   +--PAGER
-|   +--PATH
-|   +--SHELL
-|   +--TERM
-|   +--TERMINFO
-+--dot-envrc
-+--dot-envrc.csh
-+--dot-envrc.sh
-+--dot-javapath
-+--dot-manpath
-+--dot-path
-+--dot-current
-+--dot-dircolors
-+--dot-dircolors.sh
-```
+<pre>
++--<a href="top/dot-env">dot-env</a>
+|   +--<a href="top/dot-env/BLOCKSIZE">BLOCKSIZE</a>
+|   +--<a href="top/dot-env/DOCROOT">DOCROOT</a>
+|   +--<a href="top/dot-env/DOMAIN">DOMAIN</a>
+|   +--<a href="top/dot-env/EDITOR">EDITOR</a>
+|   +--<a href="top/dot-env/PAGER">PAGER</a>
+|   +--<a href="top/dot-env/PATH">PATH</a>
+|   +--<a href="top/dot-env/SHELL">SHELL</a>
+|   +--<a href="top/dot-env/TERM">TERM</a>
+|   +--<a href="top/dot-env/TERMINFO">TERMINFO</a>
++--<a href="top/dot-envrc">dot-envrc</a>
++--<a href="top/dot-envrc.csh">dot-envrc.csh</a>
++--<a href="top/dot-envrc.sh">dot-envrc.sh</a>
++--<a href="top/dot-javapath">dot-javapath</a>
++--<a href="top/dot-manpath">dot-manpath</a>
++--<a href="top/dot-path">dot-path</a>
++--<a href="top/dot-current">dot-current</a>
++--<a href="top/dot-dircolors">dot-dircolors</a>
++--<a href="top/dot-dircolors.sh">dot-dircolors.sh</a>
+</pre>
 
 ----
 ### GNU info
 
-```
-+--dot-infokey
-```
+<pre>
++--<a href="top/dot-infokey">dot-infokey</a>
+</pre>
 
 ----
 ### Humor
 
-```
-+--dot-quotes
-```
+<pre>
++--<a href="top/dot-quotes">dot-quotes</a>
+</pre>
 
 ----
 ### Mail: Mutt
 
-```
-+--dot-muttrc
-+--dot-muttrc.maildir
-+--dot-mutt
-|   +--auto_views
-|   +--bindings
-|   +--colours
-|   +--colours-modified-dark
-|   +--colours-order
-|   +--colours-production
-|   +--colours-randy
-|   +--colours-reverse-bw
-|   +--colours-stackoverflow
-|   +--colours-test
-|   +--colours-ucla
-|   +--colours-xterm-prod
-|   +--fcc-hooks
-|   +--folder-hooks
-|   +--headers
-|   +--macros
-|   +--mailboxes
-|   +--message-hooks
-|   +--muttrc-original
-|   +--non-standard
-|   +--save-hooks
-|   +--SETUP
-|   +--signature
-|   +--solarized
-|   |   +--3b23c55-dark-16
-|   |   +--3b23c55-dark-256
-|   |   +--3b23c55-light-16
-|   |   +--3b23c55-light-256
-|   |   +--3b23c55-template
-|   |   +--mutt-compile-colors.sh
-|   |   +--README.md
-```
+<pre>
++--<a href="top/dot-muttrc">dot-muttrc</a>
++--<a href="top/dot-muttrc.maildir">dot-muttrc.maildir</a>
++--<a href="top/dot-mutt">dot-mutt</a>
+|  +--<a href="top/dot-mutt/SETUP">SETUP</a>
+|  +--<a href="top/dot-mutt/auto_views">auto_views</a>
+|  +--<a href="top/dot-mutt/bindings">bindings</a>
+|  +--<a href="top/dot-mutt/colours">colours</a>
+|  +--<a href="top/dot-mutt/colours-modified-dark">colours-modified-dark</a>
+|  +--<a href="top/dot-mutt/colours-order">colours-order</a>
+|  +--<a href="top/dot-mutt/colours-production">colours-production</a>
+|  +--<a href="top/dot-mutt/colours-randy">colours-randy</a>
+|  +--<a href="top/dot-mutt/colours-reverse-bw">colours-reverse-bw</a>
+|  +--<a href="top/dot-mutt/colours-stackoverflow">colours-stackoverflow</a>
+|  +--<a href="top/dot-mutt/colours-test">colours-test</a>
+|  +--<a href="top/dot-mutt/colours-ucla">colours-ucla</a>
+|  +--<a href="top/dot-mutt/colours-xterm-prod">colours-xterm-prod</a>
+|  +--<a href="top/dot-mutt/fcc-hooks">fcc-hooks</a>
+|  +--<a href="top/dot-mutt/folder-hooks">folder-hooks</a>
+|  +--<a href="top/dot-mutt/headers">headers</a>
+|  +--<a href="top/dot-mutt/macros">macros</a>
+|  +--<a href="top/dot-mutt/mailboxes">mailboxes</a>
+|  +--<a href="top/dot-mutt/message-hooks">message-hooks</a>
+|  +--<a href="top/dot-mutt/muttrc-original">muttrc-original</a>
+|  +--<a href="top/dot-mutt/non-standard">non-standard</a>
+|  +--<a href="top/dot-mutt/save-hooks">save-hooks</a>
+|  +--<a href="top/dot-mutt/signature">signature</a>
+|  +--<a href="top/dot-mutt/solarized">solarized</a>
+|  |  +--<a href="top/dot-mutt/solarized/README.md">README.md</a>
+|  |  +--<a href="top/dot-mutt/solarized/3b23c55-dark-16">3b23c55-dark-16</a>
+|  |  +--<a href="top/dot-mutt/solarized/3b23c55-dark-256">3b23c55-dark-256</a>
+|  |  +--<a href="top/dot-mutt/solarized/3b23c55-light-16">3b23c55-light-16</a>
+|  |  +--<a href="top/dot-mutt/solarized/3b23c55-light-256">3b23c55-light-256</a>
+|  |  +--<a href="top/dot-mutt/solarized/3b23c55-template">3b23c55-template</a>
+|  |  +--<a href="top/dot-mutt/solarized/mutt-compile-colors.sh">mutt-compile-colors.sh</a>
+</pre>
 
 ----
 ### Mail: procmail
 
-```
-+--dot-procmailrc
-```
+<pre>
++--<a href="top/dot-procmailrc">dot-procmailrc</a>
+</pre>
 
 ----
 ### Mail: qmail
 
-```
-+--dot-qmail
-+--dot-qmail-bcc
-+--dot-qmail-blog
-+--dot-qmail-default
-+--dot-qmail-header
-+--dot-qmail-maildir
-+--dot-qmail-xnote
-```
+<pre>
++--<a href="top/dot-qmail">dot-qmail</a>
++--<a href="top/dot-qmail-bcc">dot-qmail-bcc</a>
++--<a href="top/dot-qmail-blog">dot-qmail-blog</a>
++--<a href="top/dot-qmail-default">dot-qmail-default</a>
++--<a href="top/dot-qmail-header">dot-qmail-header</a>
++--<a href="top/dot-qmail-maildir">dot-qmail-maildir</a>
++--<a href="top/dot-qmail-xnote">dot-qmail-xnote</a>
+</pre>
 
 ----
 ### Mail: Tagged-message delivery agent
 
-```
-+--dot-tmda
-|   +--config
-|   +--crypt_key
-```
+<pre>
++--<a href="top/dot-tmda">dot-tmda</a>
+|   +--<a href="top/dot-tmda/config">config</a>
+|   +--<a href="top/dot-tmda/crypt_key">crypt_key</a>
+</pre>
 
 ----
 ### Pagers: less and most
 
-```
-+--dot-less
-+--dot-lessenv
-+--dot-lesskey
-+--dot-mostrc
-```
+<pre>
++--<a href="top/dot-less">dot-less</a>
++--<a href="top/dot-lessenv">dot-lessenv</a>
++--<a href="top/dot-lesskey">dot-lesskey</a>
++--<a href="top/dot-mostrc">dot-mostrc</a>
+</pre>
 
 ----
 ### Perl
 
-```
-+--dot-perlcriticrc
-+--dot-perltidyrc
-```
+<pre>
++--<a href="top/dot-perlcriticrc">dot-perlcriticrc</a>
++--<a href="top/dot-perltidyrc">dot-perltidyrc</a>
+</pre>
 
 ----
 ### PDF viewer
 
-```
-+--dot-xpdfrc
-```
+<pre>
++--<a href="top/dot-xpdfrc">dot-xpdfrc</a>
+</pre>
 
 ----
 ### Recording your terminal session
 
-```
-+--dot-hardcopy
-```
+<pre>
++--<a href="top/dot-hardcopy">dot-hardcopy</a>
+</pre>
 
 ----
 ### Screen and Tmux
 
-```
-+--dot-screenrc
-+--dot-tmux.conf
-```
+<pre>
++--<a href="top/dot-screenrc">dot-screenrc</a>
++--<a href="top/dot-tmux.conf">dot-tmux.conf</a>
+</pre>
 
 ----
 ### Shell: Basic setup
 
-```
-+--dot-profile
-+--dot-shrc
-```
+<pre>
++--<a href="top/dot-profile">dot-profile</a>
++--<a href="top/dot-shrc">dot-shrc</a>
+</pre>
 
 ----
 ### Shell: Bash
 
-```
-+--dot-bashalias
-+--dot-bashrc
-+--dot-bash_dircolors
-+--dot-bash_login
-+--dot-bash_logout
-+--dot-bash_profile
-```
+<pre>
++--<a href="top/dot-bashalias">dot-bashalias</a>
++--<a href="top/dot-bashrc">dot-bashrc</a>
++--<a href="top/dot-bash_dircolors">dot-bash_dircolors</a>
++--<a href="top/dot-bash_login">dot-bash_login</a>
++--<a href="top/dot-bash_logout">dot-bash_logout</a>
++--<a href="top/dot-bash_profile">dot-bash_profile</a>
+</pre>
 
 ----
 ### Shell: Korn shell
 
-```
-+--dot-kshrc
-```
+<pre>
++--<a href="top/dot-kshrc">dot-kshrc</a>
+</pre>
 
 ----
 ### Shell: TCSH
 
-```
-+--dot-cshrc
-+--dot-tcshrc
-+--dot-login
-+--dot-logout
-```
+<pre>
++--<a href="top/dot-cshrc">dot-cshrc</a>
++--<a href="top/dot-tcshrc">dot-tcshrc</a>
++--<a href="top/dot-login">dot-login</a>
++--<a href="top/dot-logout">dot-logout</a>
+</pre>
 
 ----
 ### Shell: Zsh
 
-```
-+--dot-zcompdump
-+--dot-zlogin
-+--dot-zshrc
-+--dot-zsh
-|   +--aliases.zsh
-|   +--bindkeys.zsh
-|   +--cache
-|   |   +--compdump
-|   |   +--perl_modules
-|   |   +--python_modules
-|   |   +--RPMs
-|   +--colors.zsh
-|   +--completion.zsh
-|   +--exports.zsh
-|   +--functions.zsh
-|   +--hg-completion
-|   +--history.zsh
-|   +--hooks.zsh
-|   +--init.zsh
-|   +--prompt.zsh
-|   +--setopt.zsh
-```
+<pre>
++--<a href="top/dot-zshrc">dot-zshrc</a>
++--<a href="top/dot-zlogin">dot-zlogin</a>
++--<a href="top/dot-zcompdump">dot-zcompdump</a>
+
++--<a href="top/dot-zsh">dot-zsh</a>
+|  +--<a href="top/dot-zsh/aliases.zsh">aliases.zsh</a>
+|  +--<a href="top/dot-zsh/bindkeys.zsh">bindkeys.zsh</a>
+|  +--<a href="top/dot-zsh/cache">cache</a>
+|  |  +--<a href="top/dot-zsh/cache/RPMs">RPMs</a>
+|  |  +--<a href="top/dot-zsh/cache/compdump">compdump</a>
+|  |  +--<a href="top/dot-zsh/cache/perl_modules">perl_modules</a>
+|  |  +--<a href="top/dot-zsh/cache/python_modules">python_modules</a>
+|  +--<a href="top/dot-zsh/colors.zsh">colors.zsh</a>
+|  +--<a href="top/dot-zsh/completion.zsh">completion.zsh</a>
+|  +--<a href="top/dot-zsh/exports.zsh">exports.zsh</a>
+|  +--<a href="top/dot-zsh/functions.zsh">functions.zsh</a>
+|  +--<a href="top/dot-zsh/hg-completion">hg-completion</a>
+|  +--<a href="top/dot-zsh/history.zsh">history.zsh</a>
+|  +--<a href="top/dot-zsh/hooks.zsh">hooks.zsh</a>
+|  +--<a href="top/dot-zsh/init.zsh">init.zsh</a>
+|  +--<a href="top/dot-zsh/prompt.zsh">prompt.zsh</a>
+|  +--<a href="top/dot-zsh/setopt.zsh">setopt.zsh</a>
+</pre>
 
 ----
 ### SSH
 
-```
-+--dot-ssh
-|   +--newkey
-```
+<pre>
++--<a href="top/dot-ssh">dot-ssh</a>
+|   +--<a href="top/dot-ssh/newkey">newkey</a>
+</pre>
 
 ----
 ### Template Toolkit
 
-```
-+--dot-tpagerc
-+--dot-ttreerc
-+--dot-config
-|   +--ttree
-|   |   +--sunpage
-```
+<pre>
++--<a href="top/dot-tpagerc">dot-tpagerc</a>
++--<a href="top/dot-ttreerc">dot-ttreerc</a>
++--<a href="top/dot-config">dot-config</a>
+|   +--<a href="top/dot-config/ttree">ttree</a>
+|   |   +--<a href="top/dot-config/ttree/sunpage">sunpage</a>
+</pre>
 
 ----
 ### Terminal setup
 
-```
-+--dot-termrc.gnome-term
-+--dot-termrc.xterm
-```
+<pre>
++--<a href="top/dot-termrc.gnome-term">dot-termrc.gnome-term</a>
++--<a href="top/dot-termrc.xterm">dot-termrc.xterm</a>
+</pre>
 
 ----
 ### VCS: Git
 
-```
-+--dot-gitattributes
-+--dot-gitconfig
-+--dot-gitignore
-```
+<pre>
++--<a href="top/dot-gitattributes">dot-gitattributes</a>
++--<a href="top/dot-gitconfig">dot-gitconfig</a>
++--<a href="top/dot-gitignore">dot-gitignore</a>
+</pre>
 
 ----
 ### VCS: Mercurial
 
-```
-+--dot-hg
-|   +--multiline
-|   +--style
-+--dot-hgignore
-+--dot-hgrc
-```
+<pre>
++--<a href="top/dot-hg">dot-hg</a>
+|   +--<a href="top/dot-hg/multiline">multiline</a>
+|   +--<a href="top/dot-hg/style">style</a>
++--<a href="top/dot-hgignore">dot-hgignore</a>
++--<a href="top/dot-hgrc">dot-hgrc</a>
+</pre>
 
 ----
 ### VIM
 
-```
-+--dot-vim
-|   +--colors
-|   |   +--bernhard.vim
-|   |   +--molokai.vim
-|   |   +--muratori.vim
-|   |   +--murphy.vim
-|   |   +--nofrils-acme.vim
-|   |   +--nofrils-blue.vim
-|   |   +--nofrils-dark.vim
-|   |   +--nofrils-green.vim
-|   |   +--nofrils-light.vim
-|   |   +--nofrils-sepia.vim
-|   |   +--shirotelin.vim
-|   |   +--vadelma.vim
-|   |   +--wikipedia.vim
-|   +--colorsample.vim
-|   +--dynamic
-|   |   +--css
-|   |   +--htm
-|   |   +--md
-|   |   +--pl
-|   |   +--sh
-|   |   +--txt
-|   +--filetype.vim
-|   +--ftplugin
-|   |   +--c.vim
-|   |   +--perl.vim
-|   |   +--txt.vim
-|   +--newvim
-|   +--plugin
-|   |   +--justify.vim
-|   |   +--obviousmode.vim
-|   |   +--setcolors.vim
-|   |   +--templates.vim
-|   +--syntax
-|   |   +--crontab.vim
-|   |   +--perl.vim
-|   |   +--sh.vim
-|   |   +--syncolor.vim
-|   |   +--syntax.vim
-|   |   +--txt2tags.vim
-|   +--undodir
-|   +--view
-|   +--xterm256-colors.vim
-+--dot-vimrc
-+--dot-vimrc-green
-+--dot-vimrc-mutt
-+--dot-vimrc-prod
-+--dot-vimrc-share
-+--dot-vimrc-simple
-```
+<pre>
++--<a href="top/dot-vimrc">dot-vimrc</a>
++--<a href="top/dot-vimrc-green">dot-vimrc-green</a>
++--<a href="top/dot-vimrc-mutt">dot-vimrc-mutt</a>
++--<a href="top/dot-vimrc-prod">dot-vimrc-prod</a>
++--<a href="top/dot-vimrc-share">dot-vimrc-share</a>
++--<a href="top/dot-vimrc-simple">dot-vimrc-simple</a>
+
++--<a href="top/dot-vim">dot-vim</a>
+|  +--<a href="top/dot-vim/colors">colors</a>
+|  |  +--<a href="top/dot-vim/colors/bernhard.vim">bernhard.vim</a>
+|  |  +--<a href="top/dot-vim/colors/molokai.vim">molokai.vim</a>
+|  |  +--<a href="top/dot-vim/colors/muratori.vim">muratori.vim</a>
+|  |  +--<a href="top/dot-vim/colors/murphy.vim">murphy.vim</a>
+|  |  +--<a href="top/dot-vim/colors/nofrils-acme.vim">nofrils-acme.vim</a>
+|  |  +--<a href="top/dot-vim/colors/nofrils-blue.vim">nofrils-blue.vim</a>
+|  |  +--<a href="top/dot-vim/colors/nofrils-dark.vim">nofrils-dark.vim</a>
+|  |  +--<a href="top/dot-vim/colors/nofrils-green.vim">nofrils-green.vim</a>
+|  |  +--<a href="top/dot-vim/colors/nofrils-light.vim">nofrils-light.vim</a>
+|  |  +--<a href="top/dot-vim/colors/nofrils-sepia.vim">nofrils-sepia.vim</a>
+|  |  +--<a href="top/dot-vim/colors/shirotelin.vim">shirotelin.vim</a>
+|  |  +--<a href="top/dot-vim/colors/vadelma.vim">vadelma.vim</a>
+|  |  +--<a href="top/dot-vim/colors/wikipedia.vim">wikipedia.vim</a>
+|  +--<a href="top/dot-vim/colorsample.vim">colorsample.vim</a>
+|  +--<a href="top/dot-vim/dynamic">dynamic</a>
+|  |  +--<a href="top/dot-vim/dynamic/css">css</a>
+|  |  +--<a href="top/dot-vim/dynamic/htm">htm</a>
+|  |  +--<a href="top/dot-vim/dynamic/md">md</a>
+|  |  +--<a href="top/dot-vim/dynamic/pl">pl</a>
+|  |  +--<a href="top/dot-vim/dynamic/sh">sh</a>
+|  |  +--<a href="top/dot-vim/dynamic/txt">txt</a>
+|  +--<a href="top/dot-vim/filetype.vim">filetype.vim</a>
+|  +--<a href="top/dot-vim/ftplugin">ftplugin</a>
+|  |  +--<a href="top/dot-vim/ftplugin/c.vim">c.vim</a>
+|  |  +--<a href="top/dot-vim/ftplugin/perl.vim">perl.vim</a>
+|  |  +--<a href="top/dot-vim/ftplugin/txt.vim">txt.vim</a>
+|  +--<a href="top/dot-vim/plugin">plugin</a>
+|  |  +--<a href="top/dot-vim/plugin/justify.vim">justify.vim</a>
+|  |  +--<a href="top/dot-vim/plugin/obviousmode.vim">obviousmode.vim</a>
+|  |  +--<a href="top/dot-vim/plugin/setcolors.vim">setcolors.vim</a>
+|  |  +--<a href="top/dot-vim/plugin/templates.vim">templates.vim</a>
+|  +--<a href="top/dot-vim/syntax">syntax</a>
+|  |  +--<a href="top/dot-vim/syntax/crontab.vim">crontab.vim</a>
+|  |  +--<a href="top/dot-vim/syntax/perl.vim">perl.vim</a>
+|  |  +--<a href="top/dot-vim/syntax/sh.vim">sh.vim</a>
+|  |  +--<a href="top/dot-vim/syntax/syncolor.vim">syncolor.vim</a>
+|  |  +--<a href="top/dot-vim/syntax/syntax.vim">syntax.vim</a>
+|  |  +--<a href="top/dot-vim/syntax/txt2tags.vim">txt2tags.vim</a>
+|  +--<a href="top/dot-vim/undodir">undodir</a>
+|  +--<a href="top/dot-vim/view">view</a>
+|  +--<a href="top/dot-vim/xterm256-colors.vim">xterm256-colors.vim</a>
+</pre>
 
 ----
 ### Web: Creating pages
 
-```
-+--dot-txt2html.dict
-+--dot-txt2htmlrc
-+--dot-txt2tagsrc
-```
+<pre>
++--<a href="top/dot-txt2html.dict">dot-txt2html.dict</a>
++--<a href="top/dot-txt2htmlrc">dot-txt2htmlrc</a>
++--<a href="top/dot-txt2tagsrc">dot-txt2tagsrc</a>
+</pre>
 
 ----
 ### Web: Curl
 
-```
-+--dot-curlrc
-```
+<pre>
++--<a href="top/dot-curlrc">dot-curlrc</a>
+</pre>
 
 ----
 ### Web: Firefox
 
-```
-+--dot-mozilla
-|   +--userChrome.css
-```
+<pre>
++--<a href="top/dot-mozilla">dot-mozilla</a>
+|   +--<a href="top/dot-mozilla/userChrome.css">userChrome.css</a>
+</pre>
 
 ----
 ### Web: Lynx
 
-```
-+--dot-lynx.lss
-+--dot-lynxcfg
-```
+<pre>
++--<a href="top/dot-lynx.lss">dot-lynx.lss</a>
++--<a href="top/dot-lynxcfg">dot-lynxcfg</a>
+</pre>
 
 ----
 ### Web: Tidying up pages
 
-```
-+--dot-tidyrc
-+--dot-tidyxmlrc
-```
+<pre>
++--<a href="top/dot-tidyrc">dot-tidyrc</a>
++--<a href="top/dot-tidyxmlrc">dot-tidyxmlrc</a>
+</pre>
 
 ----
 ### Web: Wget
 
-```
-+--dot-wgetrc
-```
+<pre>
++--<a href="top/dot-wgetrc">dot-wgetrc</a>
+</pre>
 
 ----
 ### Web: W3M
 
-```
-+--dot-w3m
-|   +--config
-```
+<pre>
++--<a href="top/dot-w3m">dot-w3m</a>
+|   +--<a href="top/dot-w3m/config">config</a>
+</pre>
 
 ----
 ### X-Windows: setup
 
-```
-+--dot-Xdefaults
-+--dot-Xdefaults.test
-+--dot-Xdefaults.urxvt
-+--dot-Xdefaults.xalarm
-+--dot-xinitrc
-+--dot-xinitrc-fluxbox
-+--dot-xinitrc-fvwm2
-+--dot-xinitrc-kde
-+--dot-xinitrc-metacity
-+--dot-xmodmap
-+--dot-xmodmap.swapcaps
-```
+<pre>
++--<a href="top/dot-Xdefaults">dot-Xdefaults</a>
++--<a href="top/dot-Xdefaults.test">dot-Xdefaults.test</a>
++--<a href="top/dot-Xdefaults.urxvt">dot-Xdefaults.urxvt</a>
++--<a href="top/dot-Xdefaults.xalarm">dot-Xdefaults.xalarm</a>
++--<a href="top/dot-xinitrc">dot-xinitrc</a>
++--<a href="top/dot-xinitrc-fluxbox">dot-xinitrc-fluxbox</a>
++--<a href="top/dot-xinitrc-fvwm2">dot-xinitrc-fvwm2</a>
++--<a href="top/dot-xinitrc-kde">dot-xinitrc-kde</a>
++--<a href="top/dot-xinitrc-metacity">dot-xinitrc-metacity</a>
++--<a href="top/dot-xmodmap">dot-xmodmap</a>
++--<a href="top/dot-xmodmap.swapcaps">dot-xmodmap.swapcaps</a>
+</pre>
 
 ----
 ### X-Windows: Fluxbox
 
-```
-+--dot-fluxbox
-|   +--apps
-|   +--init
-|   +--keys
-|   +--lastwallpaper
-|   +--log
-|   +--menu
-|   +--overlay
-|   +--startup
-|   +--styles
-|   |   +--LemonSpace
-|   |   +--Meta
-|   +--windowmenu
-```
+<pre>
+<a href="top/dot-xinitrc-fluxbox">dot-xinitrc-fluxbox</a>
+
++--<a href="top/dot-fluxbox">dot-fluxbox</a>
+|  +--<a href="top/dot-fluxbox/apps">apps</a>
+|  +--<a href="top/dot-fluxbox/init">init</a>
+|  +--<a href="top/dot-fluxbox/keys">keys</a>
+|  +--<a href="top/dot-fluxbox/lastwallpaper">lastwallpaper</a>
+|  +--<a href="top/dot-fluxbox/log">log</a>
+|  +--<a href="top/dot-fluxbox/menu">menu</a>
+|  +--<a href="top/dot-fluxbox/overlay">overlay</a>
+|  +--<a href="top/dot-fluxbox/startup">startup</a>
+|  +--<a href="top/dot-fluxbox/styles">styles</a>
+|  |  +--<a href="top/dot-fluxbox/styles/LemonSpace">LemonSpace</a>
+|  |  +--<a href="top/dot-fluxbox/styles/Meta">Meta</a>
+|  +--<a href="top/dot-fluxbox/windowmenu">windowmenu</a>
+</pre>
 
 ----
 ### X-Windows: FVWM
 
-```
-+--dot-fvwm
-|   +--config
-|   +--fvwm_icons
-|   |   +--arrdown2.xpm
-|   |   +--arrows2.xpm
-|   |   +--arrup2.xpm
-|   |   ...
-|   |   +--xterm.xpm
-|   |   +--xv.xpm
-|   |   +--xv2.xpm
-|   |   +--xview.xpm
-|   +--SETUP
-```
+<pre>
+<a href="top/dot-xinitrc-fvwm2">dot-xinitrc-fvwm2</a>
+
++--<a href="top/dot-fvwm">dot-fvwm</a>
+|   +--<a href="top/dot-fvwm/config">config</a>
+|   +--<a href="top/dot-fvwm/fvwm_icons">fvwm_icons</a>
+|   |   +--<a href="top/dot-fvwm/fvwm_icons/arrdown2.xpm">arrdown2.xpm</a>
+|   |   +--<a href="top/dot-fvwm/fvwm_icons/arrows2.xpm">arrows2.xpm</a>
+|   |   +--<a href="top/dot-fvwm/fvwm_icons/arrup2.xpm">arrup2.xpm</a>
+|   |   +--<a href="top/dot-fvwm/fvwm_icons/xterm.xpm">xterm.xpm</a>
+|   |   +--<a href="top/dot-fvwm/fvwm_icons/xv.xpm">xv.xpm</a>
+|   |   +--<a href="top/dot-fvwm/fvwm_icons/xv2.xpm">xv2.xpm</a>
+|   |   +--<a href="top/dot-fvwm/fvwm_icons/xview.xpm">xview.xpm</a>
+|   +--<a href="top/dot-fvwm/SETUP">SETUP</a>
+</pre>
 
 That's all, folks.
