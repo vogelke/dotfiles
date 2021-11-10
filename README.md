@@ -1,3 +1,47 @@
+## Table of contents
+
+<!--ts-->
+   * [Quick start](#quick-start)
+   * [Ack](#ack)
+   * [Building from source](#building-from-source)
+   * [Changing directories quickly](#changing-directories-quickly)
+   * [Command history](#command-history)
+   * [Crypto: signify](#crypto-signify)
+   * [Environment variables](#environment-variables)
+   * [GNU info](#gnu-info)
+   * [Humor](#humor)
+   * [Mail: Mutt](#mail-mutt)
+   * [Mail: procmail](#mail-procmail)
+   * [Mail: qmail](#mail-qmail)
+   * [Mail: Tagged-message delivery agent](#mail-tagged-message-delivery-agent)
+   * [Pagers: less and most](#pagers-less-and-most)
+   * [Perl](#perl)
+   * [PDF viewer](#pdf-viewer)
+   * [Recording your terminal session](#recording-your-terminal-session)
+   * [Screen and Tmux](#screen-and-tmux)
+   * [Shell: Basic setup](#shell-basic-setup)
+   * [Shell: Bash](#shell-bash)
+   * [Shell: Korn shell](#shell-korn-shell)
+   * [Shell: TCSH](#shell-tcsh)
+   * [Shell: Zsh](#shell-zsh)
+   * [SSH](#ssh)
+   * [Template Toolkit](#template-toolkit)
+   * [Terminal setup](#terminal-setup)
+   * [VCS: Git](#vcs-git)
+   * [VCS: Mercurial](#vcs-mercurial)
+   * [VIM](#vim)
+   * [Web: Creating pages](#web-creating-pages)
+   * [Web: Curl](#web-curl)
+   * [Web: Firefox](#web-firefox)
+   * [Web: Lynx](#web-lynx)
+   * [Web: Tidying up pages](#web-tidying-up-pages)
+   * [Web: Wget](#web-wget)
+   * [Web: W3M](#web-w3m)
+   * [X-Windows: setup](#x-windows-setup)
+   * [X-Windows: Fluxbox](#x-windows-fluxbox)
+   * [X-Windows: FVWM](#x-windows-fvwm)
+<!--te-->
+
 ### Quick start
 
 So, here are my dotfiles.  I've included some brief descriptions where
