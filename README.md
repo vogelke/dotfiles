@@ -3,41 +3,130 @@
 So, here are my dotfiles.  I've included some brief descriptions where
 appropriate -- most of them have at least a few comments.
 
+----
 ### Ack
 
-```
-+--dot-ackrc
-```
+Ack is about the neatest thing since sliced bread for grubbing around
+in code.  It's fast, portable, ignores VCS directories, and gives good
+search results.  Have a look [here](https://beyondgrep.com/why-ack/) for more.
 
+My setup uses basic colors for matching, has decent defaults for directories
+(Bazaar, Mercurial) and files to ignore (backups, VI/VIM swap, etc),
+and shows how to use defined filetypes.
+
+<pre>
+<a href="top/dot-ackrc">+--dot-ackrc</a>
+</pre>
+
+----
 ### Building from source
 
-```
-+--dot-rpmmacros
-```
+The RPM-macros file holds my settings for building from a source RPM.
+A much more thorough one can be found
+[here](http://cholla.mmto.org/computers/linux/rpm/dotrpmmacros.html).
 
+<pre>
+<a href="top/dot-rpmmacros">+--dot-rpmmacros</a>
+</pre>
+
+----
 ### Changing directories quickly
 
+I like to minimize keystrokes and typing in general, so when I saw a Stack
+Overflow posting about moving between directories with one keystroke,
+I jumped all over it.  Unfortunately that posting has disappeared, but
+I have functions that will do the trick under Bash and ZSH.
+
+You'll need a program called *grabchars* for this to work.  Grabchars lets
+you handle single-character feedback in a portable fashion via command
+line or shell-script.  For example, running
+
 ```
-+--dot-cdlist
+grabchars -c 0123456789 -n2 -t10
 ```
 
+interactively reads two numbers with a ten-second timeout, no need to press
+return after the numbers.  It's available on Linux boxes, but if you're
+running a BSD box and you need to build from source, $DEITY help you.
+It's written using sgtty, but the BSDs use termios and moving between them
+is a complete goatrope.
+
+<pre>
+<a href="top/dot-cdlist">+--dot-cdlist</a>
+</pre>
+
+My *.cdlist* file holds 33 directories I use frequently, prefixed with a
+number or letter.  I have a shell function **g** which displays that list,
+uses grabchars to get your choice, and takes you immediately to that
+directory.  Here's the Bash version:
+
+```
+g () {
+    cat $HOME/.cdlist
+    local prompt="dir: "
+    local ans=$(grabchars -d0 -L -c '[0-9a-zA-Z]' -q"$prompt")
+    set X $(grep "^$ans" $HOME/.cdlist)
+    case "$#" in
+        (3) builtin cd $3 && pwd ;;
+        (*) echo no such entry ;;
+    esac
+}
+```
+
+Here's the ZSH version, which will look for another *.cdlist* file in
+the target directory and run recursively if found:
+
+```
+unset -f g 2> /dev/null
+g () {
+    local dirs=".cdlist"
+    local prompt="dir: "
+    local olddir=$(pwd)
+    cd
+    test -f $dirs || { cd $olddir && unset olddir && return }
+    clear
+    cat $dirs
+
+    local ans=$(grabchars -d- -c '[0-9a-zA-Z]' -q"$prompt")
+    case "$ans" in
+       q|-) cd $olddir; return ;;
+       *) ;;
+    esac
+
+    set X $(grep "^${ans} " $dirs)
+
+    case "$#" in
+       3) chdir $3 || return ;;
+       *) echo "$ans: no such entry"; return ;;
+    esac
+
+    if test -f $dirs
+    then
+        g
+    else
+        echo; echo; pwd; echo;
+        ls --color=always -blptF --time-style='+%d-%b-%Y %T' | head
+    fi
+}
+```
+
+----
 ### Command history
 
-```
-+--dot-bashlog
-|   +--2019
-|   |   +--0125
-|
-+--dot-log
-|   +--1211
-|   +--2021
-|   |   +--0101
-|   |   +--0102
-|   |   +--1106
-|   |   +--1107
-|   +--today
-```
+<pre>
++--<a href="top/dot-bashlog">dot-bashlog</a>
+|   +--<a href="top/dot-bashlog/2019">2019</a>
+|   |   +--<a href="top/dot-bashlog/2019/0125">0125</a>
++--<a href="top/dot-log">dot-log</a>
+|   +--<a href="top/dot-log/2021">2021</a>
+|   |   +--<a href="top/dot-log/2021/0101">0101</a>
+|   |   +--<a href="top/dot-log/2021/0102">0102</a>
+|   |   +--<a href="top/dot-log/2021/1106">1106</a>
+|   |   +--<a href="top/dot-log/2021/1107">1107</a>
+|   +--<a href="top/dot-log/today">today</a>        linked to current YYYY/MMDD
+</pre>
 
+----
 ### Crypto: signify
 
 ```
@@ -46,6 +135,7 @@ appropriate -- most of them have at least a few comments.
 |   +--sign.sec
 ```
 
+----
 ### Environment variables
 
 ```
@@ -70,18 +160,21 @@ appropriate -- most of them have at least a few comments.
 +--dot-dircolors.sh
 ```
 
+----
 ### GNU info
 
 ```
 +--dot-infokey
 ```
 
+----
 ### Humor
 
 ```
 +--dot-quotes
 ```
 
+----
 ### Mail: Mutt
 
 ```
@@ -121,12 +214,14 @@ appropriate -- most of them have at least a few comments.
 |   |   +--README.md
 ```
 
+----
 ### Mail: procmail
 
 ```
 +--dot-procmailrc
 ```
 
+----
 ### Mail: qmail
 
 ```
@@ -139,6 +234,7 @@ appropriate -- most of them have at least a few comments.
 +--dot-qmail-xnote
 ```
 
+----
 ### Mail: Tagged-message delivery agent
 
 ```
@@ -147,6 +243,7 @@ appropriate -- most of them have at least a few comments.
 |   +--crypt_key
 ```
 
+----
 ### Pagers: less and most
 
 ```
@@ -156,6 +253,7 @@ appropriate -- most of them have at least a few comments.
 +--dot-mostrc
 ```
 
+----
 ### Perl
 
 ```
@@ -163,18 +261,21 @@ appropriate -- most of them have at least a few comments.
 +--dot-perltidyrc
 ```
 
+----
 ### PDF viewer
 
 ```
 +--dot-xpdfrc
 ```
 
+----
 ### Recording your terminal session
 
 ```
 +--dot-hardcopy
 ```
 
+----
 ### Screen and Tmux
 
 ```
@@ -182,6 +283,7 @@ appropriate -- most of them have at least a few comments.
 +--dot-tmux.conf
 ```
 
+----
 ### Shell: Basic setup
 
 ```
@@ -189,6 +291,7 @@ appropriate -- most of them have at least a few comments.
 +--dot-shrc
 ```
 
+----
 ### Shell: Bash
 
 ```
@@ -200,12 +303,14 @@ appropriate -- most of them have at least a few comments.
 +--dot-bash_profile
 ```
 
+----
 ### Shell: Korn shell
 
 ```
 +--dot-kshrc
 ```
 
+----
 ### Shell: TCSH
 
 ```
@@ -215,6 +320,7 @@ appropriate -- most of them have at least a few comments.
 +--dot-logout
 ```
 
+----
 ### Shell: Zsh
 
 ```
@@ -241,6 +347,7 @@ appropriate -- most of them have at least a few comments.
 |   +--setopt.zsh
 ```
 
+----
 ### SSH
 
 ```
@@ -248,6 +355,7 @@ appropriate -- most of them have at least a few comments.
 |   +--newkey
 ```
 
+----
 ### Template Toolkit
 
 ```
@@ -258,6 +366,7 @@ appropriate -- most of them have at least a few comments.
 |   |   +--sunpage
 ```
 
+----
 ### Terminal setup
 
 ```
@@ -265,6 +374,7 @@ appropriate -- most of them have at least a few comments.
 +--dot-termrc.xterm
 ```
 
+----
 ### VCS: Git
 
 ```
@@ -273,6 +383,7 @@ appropriate -- most of them have at least a few comments.
 +--dot-gitignore
 ```
 
+----
 ### VCS: Mercurial
 
 ```
@@ -283,6 +394,7 @@ appropriate -- most of them have at least a few comments.
 +--dot-hgrc
 ```
 
+----
 ### VIM
 
 ```
@@ -338,6 +450,7 @@ appropriate -- most of them have at least a few comments.
 +--dot-vimrc-simple
 ```
 
+----
 ### Web: Creating pages
 
 ```
@@ -346,12 +459,14 @@ appropriate -- most of them have at least a few comments.
 +--dot-txt2tagsrc
 ```
 
+----
 ### Web: Curl
 
 ```
 +--dot-curlrc
 ```
 
+----
 ### Web: Firefox
 
 ```
@@ -359,6 +474,7 @@ appropriate -- most of them have at least a few comments.
 |   +--userChrome.css
 ```
 
+----
 ### Web: Lynx
 
 ```
@@ -366,6 +482,7 @@ appropriate -- most of them have at least a few comments.
 +--dot-lynxcfg
 ```
 
+----
 ### Web: Tidying up pages
 
 ```
@@ -373,12 +490,14 @@ appropriate -- most of them have at least a few comments.
 +--dot-tidyxmlrc
 ```
 
+----
 ### Web: Wget
 
 ```
 +--dot-wgetrc
 ```
 
+----
 ### Web: W3M
 
 ```
@@ -386,6 +505,7 @@ appropriate -- most of them have at least a few comments.
 |   +--config
 ```
 
+----
 ### X-Windows: setup
 
 ```
@@ -402,6 +522,7 @@ appropriate -- most of them have at least a few comments.
 +--dot-xmodmap.swapcaps
 ```
 
+----
 ### X-Windows: Fluxbox
 
 ```
@@ -420,6 +541,7 @@ appropriate -- most of them have at least a few comments.
 |   +--windowmenu
 ```
 
+----
 ### X-Windows: FVWM
 
 ```
@@ -436,3 +558,5 @@ appropriate -- most of them have at least a few comments.
 |   |   +--xview.xpm
 |   +--SETUP
 ```
+
+That's all, folks.
