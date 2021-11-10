@@ -113,10 +113,54 @@ g () {
 ----
 ### Command history
 
+I like keeping my command-line history in a way that doesn't depend on
+a particular shell.  I also want to keep history indefinitely *without*
+ending up with a single 80-Mb file, especially since ZSH used to have a
+bad habit of randomly adding control characters to history entries and
+corrupting the file.
+
+Here's a ZSH function to log commands, return codes and the current
+directory.  It uses a hook function called **precmd**, which is executed
+before each prompt:
+
+```
+# Don't try to put local on the x= line.  If you do,
+# any command arguments (i.e., "ls -la") will throw an error:
+#   precmd:local:2: not an identifier: -la
+unset -f precmd 2> /dev/null
+function precmd {
+    typeset -i stat=$?
+    local _x
+    _x=$(fc -ln -1)
+    local _d="$(/bin/pwd)"
+    $HOME/libexec/cmdlog $$ $stat: $_d: \($_x\)
+}
+```
+
+It uses a script called **cmdlog** to append the shell PID, last return
+code, directory, and command string to the file $HOME/.log/today, which
+is hard-linked to $HOME/.log/YYYY/MMDD.  There's not much to it:
+
+```
+#!/bin/sh
+#< cmdlog: store commands in current logfile.
+exec /bin/echo $(/bin/date "+%T") ${1+"$@"} >> $HOME/.log/today
+exit 1
+```
+
+You can use something like `/usr/bin/logger -p local5.info ${1+"$@"}`
+instead if you'd rather.  It's originally based on:
+
+```
+http://blogs.sun.com/chrisg/entry/logging_commands_in_korn_shell
+Logging commands in korn shell
+Chris Gerhard
+Thu, 2 Mar 2006 09:47:29 -0500
+```
+
+I use a similar setup for bash, which you'll find in the bash rc files.
+
 <pre>
-+--<a href="top/dot-bashlog">dot-bashlog</a>
-|   +--<a href="top/dot-bashlog/2019">2019</a>
-|   |   +--<a href="top/dot-bashlog/2019/0125">0125</a>
 +--<a href="top/dot-log">dot-log</a>
 |   +--<a href="top/dot-log/2021">2021</a>
 |   |   +--<a href="top/dot-log/2021/1106">1106</a>
@@ -124,14 +168,45 @@ g () {
 |   +--<a href="top/dot-log/today">today</a>        linked to current YYYY/MMDD
 </pre>
 
+In ZSH, I occasionally dump a paragraph of text or something equally
+useless into the command line without intending to, so this function helps
+me clean that up:
+
+```
+unset -f histedit 2> /dev/null
+histedit () {
+    _x="$HOME/.zsh/.histedit"
+    fc -ln 1 > $_x && vi $_x && fc -R $_x && rm $_x
+}
+```
+
 ----
 ### Crypto: signify
+
+This is an OpenBSD program available on FreeBSD through the ports system,
+and on Linux via [Github](https://github.com/aperezdc/signify).  The Linux
+version is supposed to be portable, but I haven't used it.
 
 <pre>
 +--<a href="top/dot-signify">dot-signify</a>
 |   +--<a href="top/dot-signify/sign.pub">sign.pub</a>
 |   +--<a href="top/dot-signify/sign.sec">sign.sec</a>
 </pre>
+
+**signify** creates and verifies cryptographic signatures, which are used to
+verify the integrity of a message.  You can verify entire directory trees,
+zip archives, or individual files.  From the manpage:
+
+```
+Create a new key pair:
+   $ signify -G -p newkey.pub -s newkey.sec
+
+Sign a file, specifying a signature name:
+   $ signify -S -s key.sec -m message.txt -x msg.sig
+
+Verify a signature, using the default signature name:
+   $ signify -V -p key.pub -m generalsorders.txt
+```
 
 ----
 ### Environment variables
@@ -507,22 +582,54 @@ g () {
 ----
 ### X-Windows: setup
 
+I don't boot into X; I'd much rather start a regular console session and
+then run *xinit* when I'm ready.
+
+I've tried several terminal emulators, but when it comes to memory size,
+responsiveness, and functionality, I always end up going back to **xterm**.
+My .Xdefaults file has lots of stuff taken from the xterm maintainer's site.
+
 <pre>
 +--<a href="top/dot-Xdefaults">dot-Xdefaults</a>
-+--<a href="top/dot-Xdefaults.test">dot-Xdefaults.test</a>
 +--<a href="top/dot-Xdefaults.urxvt">dot-Xdefaults.urxvt</a>
 +--<a href="top/dot-Xdefaults.xalarm">dot-Xdefaults.xalarm</a>
-+--<a href="top/dot-xinitrc">dot-xinitrc</a>
+
++--<a href="top/dot-xinitrc">dot-xinitrc</a>         --linked to xinitrc-fluxbox
 +--<a href="top/dot-xinitrc-fluxbox">dot-xinitrc-fluxbox</a>
 +--<a href="top/dot-xinitrc-fvwm2">dot-xinitrc-fvwm2</a>
 +--<a href="top/dot-xinitrc-kde">dot-xinitrc-kde</a>
 +--<a href="top/dot-xinitrc-metacity">dot-xinitrc-metacity</a>
+
 +--<a href="top/dot-xmodmap">dot-xmodmap</a>
 +--<a href="top/dot-xmodmap.swapcaps">dot-xmodmap.swapcaps</a>
 </pre>
 
+If you have the Xft libraries installed, you can exercise fine control over
+fonts.  Here's how I start one of two Xterm sessions at login:
+
+```
+/usr/local/bin/xterm -geometry 80x40-0+0 -j -b 10 -sb -si \
+    -sk -ls -cr blue -sl 4000 -bd black -bg #ffffff -u8   \
+    -fa xft:Cascadia:pixelsize=20:bold -title Remote
+```
+
 ----
 ### X-Windows: Fluxbox
+
+This is the easiest window-manager I've ever used.  I was able to build
+from source in about 20 minutes, and it took maybe another 30 to get it
+set up exactly the way I wanted:
+
+* Desktop 1 with two XTerm sessions
+* Desktop 2 with Firefox taking up the whole screen
+* Two more desktops in reserve for things like PDF viewing, etc.
+* F1-F4 move immediately to Desktop 1-4, respectively
+* F5 locks the screen
+* F10 takes a screenshot
+* F11 toggles fullscreen on or off in XTerms
+* F12 flips between XTerms; focus-follows-mouse works
+* PageUp/Down scrolls XTerms and Firefox sensibly
+* Arrow keys work sensibly in VIM and my shell
 
 <pre>
 <a href="top/dot-xinitrc-fluxbox">dot-xinitrc-fluxbox</a>
@@ -544,6 +651,8 @@ g () {
 
 ----
 ### X-Windows: FVWM
+
+If you're REALLY old-school, knock yourself out.
 
 <pre>
 <a href="top/dot-xinitrc-fvwm2">dot-xinitrc-fvwm2</a>
