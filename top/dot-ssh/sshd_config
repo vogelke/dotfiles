@@ -1,0 +1,29 @@
+  1 # $OpenBSD: sshd_config,v 1.100 2016/08/15 12:32:04 naddy Exp $
+...
+ 32 # Logging
+ 33 # Note: AUTHPRIV does not exist on Solaris.
+ 34 SyslogFacility AUTH
+ 35 LogLevel VERBOSE
+...
+109 # do a lookup?
+110 UseDNS yes
+111 
+112 # override default of no user environment
+113 PermitUserEnvironment yes
+114 
+115 # override default of no subsystems
+116 Subsystem sftp /usr/local/libexec/sftp-server
+... 
+125 # STIG Group=V-22459 Rule=SV-26752r2 Severity=Medium SecID=CCI-000366
+126 Ciphers chacha20-poly1305@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com
+127 
+128 #
+129 # WARNING: hmac-sha1 is not included in the original recommendation,
+130 #          but it's needed if you use WinSCP or PSCP to copy files.
+131 MACs umac-64-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha1-etm@openssh.com,umac-64@openssh.com,umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-sha1
+132 
+133 # STIG rule: SV-26787r1
+134 Compression delayed
+135 
+136 # STIG rule: SV-40280r1
+137 Banner /usr/local/etc/sshd_banner

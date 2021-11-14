@@ -1,0 +1,10 @@
+ 1 # $OpenBSD: ssh_config,v 1.30 2016/02/20 23:06:23 sobrado Exp $
+...
+24 
+25 Host *
+...
+53   LogLevel Verbose
+54 
+55 # STIG Group=V-22462 Rule=SV-26755r1 Severity=Medium SecID=CCI-000366
+56   Ciphers chacha20-poly1305@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com
+57   MACs umac-64-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha1-etm@openssh.com,umac-64@openssh.com,umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-sha1

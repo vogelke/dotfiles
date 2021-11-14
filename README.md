@@ -157,11 +157,10 @@ g () {
 ----
 ### Command history
 
-I like keeping my command-line history in a way that doesn't depend on
-a particular shell.  I also want to keep history indefinitely *without*
-ending up with a single 80-Mb file, especially since ZSH used to have a
-bad habit of randomly adding control characters to history entries and
-corrupting the file.
+I like keeping my command-line history in a way that doesn't depend on a
+particular shell.  I also want to keep history indefinitely *without* ending
+up with a single 80-Mb file, especially since ZSH used to have a bad habit
+of corrupting the history by randomly adding control characters to entries.
 
 Here's a ZSH function to log commands, return codes and the current
 directory.  It uses a hook function called **precmd**, which is executed
@@ -181,9 +180,9 @@ function precmd {
 }
 ```
 
-It uses a script called **cmdlog** to append the shell PID, last return
-code, directory, and command string to the file $HOME/.log/today, which
-is hard-linked to $HOME/.log/YYYY/MMDD.  There's not much to it:
+The function uses a script called **cmdlog** to append the shell PID, last
+return code, directory, and command string to the file $HOME/.log/today,
+which is hard-linked to $HOME/.log/YYYY/MMDD.  There's not much to it:
 
 ```
 #!/bin/sh
@@ -237,7 +236,7 @@ version is supposed to be portable, but I haven't used it.
 |   +--<a href="top/dot-signify/sign.sec">sign.sec</a>
 </pre>
 
-**signify** creates and verifies cryptographic signatures, which are used to
+**signify** creates and checks cryptographic signatures, which are used to
 verify the integrity of a message.  You can verify entire directory trees,
 zip archives, or individual files.  From the manpage:
 
@@ -468,9 +467,18 @@ Verify a signature, using the default signature name:
 ----
 ### SSH
 
+I've included the parts of my server and client configuration files that you
+can use to make a host STIG-compliant (MAC-2 Sensitive).  tl;dr -- you need
+more for Top-Seekie-No-Peekie stuff, but it's fine for most other things.
+
+The **newkey** script will create new keys for connecting to a given host.
+I like having a unique keypair for every host I use.
+
 <pre>
 +--<a href="top/dot-ssh">dot-ssh</a>
 |   +--<a href="top/dot-ssh/newkey">newkey</a>
+|   +--<a href="top/dot-ssh/ssh_config">ssh_config</a>
+|   +--<a href="top/dot-ssh/sshd_config">sshd_config</a>
 </pre>
 
 ----
