@@ -279,12 +279,17 @@ Verify a signature, using the default signature name:
 ----
 ### GNU info
 
+Makes "info" a bit more usable by *not* having the viewer automatically
+jump between chapters.
+
 <pre>
 +--<a href="top/dot-infokey">dot-infokey</a>
 </pre>
 
 ----
 ### Humor
+
+Stupid quotes I've been collecting since the early '90s.
 
 <pre>
 +--<a href="top/dot-quotes">dot-quotes</a>
@@ -293,6 +298,9 @@ Verify a signature, using the default signature name:
 ----
 ### Mail: Mutt
 
+If you get a ton of mail and you want a quick, efficient client to handle
+it, you can't do much better than Mutt.
+
 <pre>
 +--<a href="top/dot-muttrc">dot-muttrc</a>
 +--<a href="top/dot-muttrc.maildir">dot-muttrc.maildir</a>
@@ -300,16 +308,6 @@ Verify a signature, using the default signature name:
 |  +--<a href="top/dot-mutt/SETUP">SETUP</a>
 |  +--<a href="top/dot-mutt/auto_views">auto_views</a>
 |  +--<a href="top/dot-mutt/bindings">bindings</a>
-|  +--<a href="top/dot-mutt/colours">colours</a>
-|  +--<a href="top/dot-mutt/colours-modified-dark">colours-modified-dark</a>
-|  +--<a href="top/dot-mutt/colours-order">colours-order</a>
-|  +--<a href="top/dot-mutt/colours-production">colours-production</a>
-|  +--<a href="top/dot-mutt/colours-randy">colours-randy</a>
-|  +--<a href="top/dot-mutt/colours-reverse-bw">colours-reverse-bw</a>
-|  +--<a href="top/dot-mutt/colours-stackoverflow">colours-stackoverflow</a>
-|  +--<a href="top/dot-mutt/colours-test">colours-test</a>
-|  +--<a href="top/dot-mutt/colours-ucla">colours-ucla</a>
-|  +--<a href="top/dot-mutt/colours-xterm-prod">colours-xterm-prod</a>
 |  +--<a href="top/dot-mutt/fcc-hooks">fcc-hooks</a>
 |  +--<a href="top/dot-mutt/folder-hooks">folder-hooks</a>
 |  +--<a href="top/dot-mutt/headers">headers</a>
@@ -320,6 +318,64 @@ Verify a signature, using the default signature name:
 |  +--<a href="top/dot-mutt/non-standard">non-standard</a>
 |  +--<a href="top/dot-mutt/save-hooks">save-hooks</a>
 |  +--<a href="top/dot-mutt/signature">signature</a>
+</pre>
+
+One of the things I like best is the ability to use external programs in
+your settings.  In my .muttrc file:
+
+<pre>
+# Generate a signature with a quote.
+set signature="makesig|"        # file which contains my signature
+
+# Convert date to local timezone.
+set display_filter="~/libexec/display-local-date"
+</pre>
+
+**makesig** prints a generic signature and then adds a random quote.
+Here's **display-local-date**:
+
+<pre>
+#!/bin/sh
+#<display-local-date: display date in my timezone.
+
+export PATH=/usr/local/bin:/bin:/usr/bin
+tmp=/tmp/dsp.$$.$RANDOM    # mktemp is overkill here.
+
+cat - > $tmp                     # save the message,
+DATE=$(formail -xDate: < $tmp)   # extract and convert the date,
+DATE=$(date -R -d "$DATE")
+echo "Date: $DATE"               # and output the modified message
+formail -fI Date < $tmp
+rm -f $tmp
+exit 0
+</pre>
+
+These are a few color-schemes I've tried.  I settled on "xterm-prod"
+because my eyesight sucks and this one was the least distracting.
+
+<pre>
+|  +--<a href="top/dot-mutt/colours">colours</a>
+|  +--<a href="top/dot-mutt/colours-modified-dark">colours-modified-dark</a>
+|  +--<a href="top/dot-mutt/colours-order">colours-order</a>
+|  +--<a href="top/dot-mutt/colours-production">colours-production</a>
+|  +--<a href="top/dot-mutt/colours-randy">colours-randy</a>
+|  +--<a href="top/dot-mutt/colours-reverse-bw">colours-reverse-bw</a>
+|  +--<a href="top/dot-mutt/colours-stackoverflow">colours-stackoverflow</a>
+|  +--<a href="top/dot-mutt/colours-test">colours-test</a>
+|  +--<a href="top/dot-mutt/colours-ucla">colours-ucla</a>
+|  +--<a href="top/dot-mutt/colours-xterm-prod">colours-xterm-prod</a>
+</pre>
+
+**Solarized** is a 16-color palette (8 monotones, 8 accent colors) designed
+for use with terminal and GUI applications.  It has a few nice properties:
+
+- Reduces brightness contrast but, unlike many low contrast colorschemes,
+retains contrasting hues for syntax highlighting readability.
+
+- Switching from dark to light mode retains the same perceived contrast
+in brightness between each value.  Each mode is equally readable.
+
+</pre>
 |  +--<a href="top/dot-mutt/solarized">solarized</a>
 |  |  +--<a href="top/dot-mutt/solarized/README.md">README.md</a>
 |  |  +--<a href="top/dot-mutt/solarized/3b23c55-dark-16">3b23c55-dark-16</a>

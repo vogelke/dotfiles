@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Revision: 1.4 $ $Date: 2021-11-13 19:03:21-05 $
+# $Revision: 1.5 $ $Date: 2021-11-13 20:10:22-05 $
 # $Source: /home/vogelke/.ssh/RCS/newkey,v $
 # $Host: furbag.my.domain $
 # $UUID: e3787f7f-c88b-3d93-ab09-34d5df231d25 $
@@ -21,7 +21,7 @@ set X $(ls ${host}_* 2> /dev/null | wc -l)
 shift
 case "$1" in
     0) ;;
-    *) echo "please delete ${host} files:"; ls ${host}*; exit 1 ;;
+    *) echo "please delete ${host}_ files:"; ls ${host}_*; exit 1 ;;
 esac
 
 # Real work starts here.
@@ -42,11 +42,11 @@ ssh-keygen -o -t ed25519 -C "you@yourhost.com" -N '' -f ${host}_ed25519
 
 echo
 echo Files:
-ls -lF ${host}*
+ls -lF ${host}_*
 
 echo
 echo Full public keys:
-cat ${host}*.pub
+cat ${host}_*.pub
 
 echo
 echo Public keys for LOG:
