@@ -375,7 +375,7 @@ retains contrasting hues for syntax highlighting readability.
 - Switching from dark to light mode retains the same perceived contrast
 in brightness between each value.  Each mode is equally readable.
 
-</pre>
+<pre>
 |  +--<a href="top/dot-mutt/solarized">solarized</a>
 |  |  +--<a href="top/dot-mutt/solarized/README.md">README.md</a>
 |  |  +--<a href="top/dot-mutt/solarized/3b23c55-dark-16">3b23c55-dark-16</a>
