@@ -254,6 +254,17 @@ Verify a signature, using the default signature name:
 ----
 ### Environment variables
 
+You're missing out if you've never used any of Dan Bernstein's software.
+If nothing else, you'll get a whole new respect for how helpful the
+filesystem can be if you don't go out of your way to fight with it.
+
+One of his programs (*envdir*) reads a directory holding one file per
+environment variable to set.  The filename is the variable name, and the
+contents are how the variable is set.  I've found this useful on several
+occasions where I had to start several programs with LOTS of environment
+variables but only one or two differences -- make several directories,
+hard-link the matching variables and edit the rest.
+
 <pre>
 +--<a href="top/dot-env">dot-env</a>
 |   +--<a href="top/dot-env/BLOCKSIZE">BLOCKSIZE</a>
@@ -265,13 +276,44 @@ Verify a signature, using the default signature name:
 |   +--<a href="top/dot-env/SHELL">SHELL</a>
 |   +--<a href="top/dot-env/TERM">TERM</a>
 |   +--<a href="top/dot-env/TERMINFO">TERMINFO</a>
+</pre>
+
+This is my attempt to make a generic environment variable setup that's usable
+across different operating systems.  "dot-envrc" holds simple settings in
+a shell-agnostic format, and a program called "buildenv" writes C-shell
+and Bourne-shell versions you can source from whatever you run.
+
+<pre>
 +--<a href="top/dot-envrc">dot-envrc</a>
 +--<a href="top/dot-envrc.csh">dot-envrc.csh</a>
 +--<a href="top/dot-envrc.sh">dot-envrc.sh</a>
+</pre>
+
+The files below do things the Bernstein way -- line 1 holds the environment
+variable I'm trying to set, line 2 is empty, and everything else holds
+optional descriptions or comments.
+
+<pre>
 +--<a href="top/dot-javapath">dot-javapath</a>
 +--<a href="top/dot-manpath">dot-manpath</a>
 +--<a href="top/dot-path">dot-path</a>
-+--<a href="top/dot-current">dot-current</a>
+</pre>
+
+This setup is very flexible:
+
+<pre>
+setenv () { export $1="$2"; }
+
+test -f ~/.path     && eval setenv $(head -1 ~/.path)
+test -f ~/.javapath && eval setenv $(head -1 ~/.javapath)
+test -f ~/.manpath  && eval setenv $(head -1 ~/.manpath)
+test -f ~/.envrc.sh && source ~/.envrc.sh
+</pre>
+
+Configuration file for dircolors, a utility to help you set the
+LS_COLORS environment variable used by GNU ls with the --color option.
+
+<pre>
 +--<a href="top/dot-dircolors">dot-dircolors</a>
 +--<a href="top/dot-dircolors.sh">dot-dircolors.sh</a>
 </pre>
@@ -389,12 +431,25 @@ in brightness between each value.  Each mode is equally readable.
 ----
 ### Mail: procmail
 
+The Swiss-Army-chainsaw for email.  I like being able to
+
+- save a copy of just the header for incoming messages,
+- allow posting to my blog via email by writing 4 lines of code, and
+- check for (and discard) duplicate messages using the message-id.
+
 <pre>
 +--<a href="top/dot-procmailrc">dot-procmailrc</a>
 </pre>
 
 ----
 ### Mail: qmail
+
+More Bernstein software.  It's crazy flexible -- creating one file like
+**.qmail-bcc** allows me to include "vogelke-bcc" in an outgoing message
+and have a copy blind-courtesied to me.  It's way better than relying on
+your MUA because the mail actually goes through the same delivery process
+as any other outgoing mail, so you can see what headers were generated in
+a failed message.
 
 <pre>
 +--<a href="top/dot-qmail">dot-qmail</a>
@@ -409,6 +464,12 @@ in brightness between each value.  Each mode is equally readable.
 ----
 ### Mail: Tagged-message delivery agent
 
+TMDA is a vastly underrated way to create unlimited disposable email
+addresses that can be associated with a given user or have a time-limit
+imposed.  You can give one of these to an untrusted party with (say) a
+1-day time limit, and anyone who tries to use that address after a day
+will simply never get through.
+
 <pre>
 +--<a href="top/dot-tmda">dot-tmda</a>
 |   +--<a href="top/dot-tmda/config">config</a>
@@ -417,6 +478,12 @@ in brightness between each value.  Each mode is equally readable.
 
 ----
 ### Pagers: less and most
+
+You can do all sorts of neat things with **less**, including keyboard
+shortcuts and extensive customization using the environment.
+
+**most** is another file browser which is nice for files containing very
+long lines.
 
 <pre>
 +--<a href="top/dot-less">dot-less</a>
